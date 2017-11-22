@@ -1,0 +1,34 @@
+security:
+    oauth2:
+        client:
+            clientId: ${apgw_client_id}
+            clientSecret: ${apgw_client_secret}
+            accessTokenUri: https://www.googleapis.com/oauth2/v3/token
+            userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
+            tokenName: oauth_token
+            authenticationScheme: query
+            clientAuthenticationScheme: form
+            scope: profile,email
+        resource:
+            userInfoUri: https://www.googleapis.com/userinfo/v2/me
+            preferTokenInfo: false
+
+spring:
+    datasource:
+        password: ${apgw_db_password}
+        url: ${apgw_db_url}
+        username: ${apgw_db_username}
+        tomcat:
+          test-while-idle: true
+          validation-query: SELECT 1
+    jpa:
+        hibernate:
+            ddl-auto: update
+            naming:
+              strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL5Dialect
+        show-sql: true
+server:
+    address: 0.0.0.0
