@@ -2,6 +2,7 @@ package com.example.apgw.controller;
 
 import com.example.apgw.model.Teacher;
 import com.example.apgw.repository.TeacherRepository;
+import com.example.apgw.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,12 +23,7 @@ public class TeacherController {
     @RequestMapping("/createTeacher")
     @ResponseBody
     public Teacher createTeacher(Principal principal) {
-        UserInfo userInfo = new UserInfo();
-        String email = userInfo.userEmail(principal);
-        String name = userInfo.userName(principal);
-
-        //create Teacher
-        Teacher teacher = new Teacher(email, name);
+        Teacher teacher = new TeacherService(principal).createTeacher();
         teacherRepository.save(teacher);
         return teacher;
     }
