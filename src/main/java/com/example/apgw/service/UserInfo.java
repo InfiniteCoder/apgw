@@ -39,7 +39,7 @@ public class UserInfo {
         if (userDetails != null) {
             return userDetails.get("picture").toString();
         } else {
-            return "name not found";
+            return "picture not found";
         }
     }
 

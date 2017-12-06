@@ -4,7 +4,9 @@ import com.example.apgw.model.Teacher;
 import com.example.apgw.repository.TeacherRepository;
 import com.example.apgw.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,11 +22,11 @@ public class TeacherController {
         this.teacherRepository = teacherRepository;
     }
 
-    @RequestMapping("/createTeacher")
+    @PostMapping("/createTeacher")
     @ResponseBody
-    public Teacher createTeacher(Principal principal) {
+    public ResponseEntity<Teacher> createTeacher(Principal principal) {
         Teacher teacher = new TeacherService(principal).createTeacher();
         teacherRepository.save(teacher);
-        return teacher;
+        return new ResponseEntity<>(teacher, HttpStatus.CREATED);
     }
 }
