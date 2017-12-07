@@ -1,11 +1,7 @@
 package com.example.apgw.service;
 
 import com.example.apgw.model.User;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 
 import java.security.Principal;
 
@@ -17,7 +13,7 @@ public class UserInfo {
     }
 
     public String userEmail() {
-        JSONObject userDetails = getUserDetails();
+        JSONObject userDetails = UserObject.getUserDetails(principal);
         if (userDetails != null) {
             return userDetails.get("email").toString();
         } else {
@@ -26,7 +22,7 @@ public class UserInfo {
     }
 
     public String userName() {
-        JSONObject userDetails = getUserDetails();
+        JSONObject userDetails = UserObject.getUserDetails(principal);
         if (userDetails != null) {
             return userDetails.get("name").toString();
         } else {
@@ -35,7 +31,7 @@ public class UserInfo {
     }
 
     public String userPicture() {
-        JSONObject userDetails = getUserDetails();
+        JSONObject userDetails = UserObject.getUserDetails(principal);
         if (userDetails != null) {
             return userDetails.get("picture").toString();
         } else {
@@ -48,19 +44,5 @@ public class UserInfo {
         String name = userName();
         String picture = userPicture();
         return new User(email, picture, name);
-    }
-
-    private JSONObject getUserDetails() {
-        ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        try {
-            String principalString = objectWriter.writeValueAsString(this.principal);
-            Object principalObject = JSONValue.parse(principalString);
-            JSONObject principalJson = (JSONObject) principalObject;
-            JSONObject userAuthentication = (JSONObject) principalJson.get("userAuthentication");
-            return (JSONObject) userAuthentication.get("details");
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }
