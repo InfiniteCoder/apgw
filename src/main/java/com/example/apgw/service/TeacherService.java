@@ -1,20 +1,17 @@
 package com.example.apgw.service;
-
 import com.example.apgw.model.Teacher;
 
-import java.security.Principal;
 
 public class TeacherService {
-    private Principal principal;
+    private UserPrincipal userPrincipal;
 
-    public TeacherService(Principal principal) {
-        this.principal = principal;
+    public TeacherService(UserPrincipal userPrincipal) {
+        this.userPrincipal = userPrincipal;
     }
 
     public Teacher createTeacher() {
-        UserInfo userInfo = new UserInfo(principal);
-        String email = userInfo.userEmail();
-        String name = userInfo.userName();
+        String email = userPrincipal.getEmail();
+        String name = userPrincipal.getName();
         return new Teacher(email, name);
     }
 }

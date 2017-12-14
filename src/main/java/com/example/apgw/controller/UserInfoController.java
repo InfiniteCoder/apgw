@@ -5,7 +5,7 @@ import com.example.apgw.model.Teacher;
 import com.example.apgw.model.User;
 import com.example.apgw.repository.StudentRepository;
 import com.example.apgw.repository.TeacherRepository;
-import com.example.apgw.service.UserInfo;
+import com.example.apgw.service.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,18 +13,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
-
 @RestController
 public class UserInfoController {
 
     private final StudentRepository studentRepository;
-
-    @GetMapping(value = "/user")
-    public ResponseEntity<User> getUser(Principal principal) {
-        return new ResponseEntity<>(new UserInfo(principal).getUser(), HttpStatus.OK);
-    }
-
     private final TeacherRepository teacherRepository;
 
     @Autowired
@@ -33,14 +25,23 @@ public class UserInfoController {
         this.teacherRepository = teacherRepository;
     }
 
+    @GetMapping(value = "/user")
+    public ResponseEntity<User> getUser(UserPrincipal userPrincipal) {
+        String email = userPrincipal.getEmail();
+        String name = userPrincipal.getName();
+        String picture = userPrincipal.getPicture();
+        User user = new User(email, picture, name);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/all/isUserAuth")
     public boolean isAuth(Authentication authentication) {
         return authentication != null && authentication.isAuthenticated();
     }
 
     @GetMapping(value = "/userType")
-    public ResponseEntity<String> getUserType(Principal principal) {
-        String email = new UserInfo(principal).userEmail();
+    public ResponseEntity<String> getUserType(UserPrincipal userPrincipal) {
+        String email = userPrincipal.getEmail();
         //check if a student
         Student student = studentRepository.findOne(email);
         if (student != null) {

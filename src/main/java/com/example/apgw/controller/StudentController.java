@@ -3,6 +3,7 @@ package com.example.apgw.controller;
 import com.example.apgw.model.Student;
 import com.example.apgw.repository.StudentRepository;
 import com.example.apgw.service.StudentService;
+import com.example.apgw.service.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +28,10 @@ public class StudentController {
     //create Student
     @PostMapping("/createStudent")
     @ResponseBody
-    public ResponseEntity<Student> createStudent(Principal principal, @RequestParam(name = "rollNo", defaultValue = "0") int rollNo) {
-        Student student = new StudentService(principal).createStudent(rollNo);
+    public ResponseEntity<Student> createStudent(Principal principal,
+                                                 @RequestParam(name = "rollNo", defaultValue = "0") int rollNo) {
+        UserPrincipal userPrincipal = new UserPrincipal(principal);
+        Student student = new StudentService(userPrincipal).createStudent(rollNo);
         studentRepository.save(student);
         return new ResponseEntity<>(student, HttpStatus.CREATED);
     }
