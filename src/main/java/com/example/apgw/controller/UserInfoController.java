@@ -13,6 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
+
 @RestController
 public class UserInfoController {
 
@@ -40,7 +42,8 @@ public class UserInfoController {
     }
 
     @GetMapping(value = "/userType")
-    public ResponseEntity<String> getUserType(UserPrincipal userPrincipal) {
+    public ResponseEntity<String> getUserType(Principal principal) {
+        UserPrincipal userPrincipal = new UserPrincipal(principal);
         String email = userPrincipal.getEmail();
         //check if a student
         Student student = studentRepository.findOne(email);

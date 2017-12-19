@@ -19,7 +19,7 @@ public class Student {
     @ManyToMany(mappedBy = "students")
     private List<Subject> subjects;
 
-    private Student() {
+    public Student() {
     }
 
     public Student(String email, String name, int rollNo) {
