@@ -2,8 +2,12 @@ package com.example.apgw.controller;
 
 import com.example.apgw.model.Student;
 import com.example.apgw.repository.StudentRepository;
+import com.example.apgw.service.StudentService;
+import com.example.apgw.service.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,18 +26,13 @@ public class StudentController {
     }
 
     //create Student
-    @RequestMapping("/createStudent")
+    @PostMapping("/createStudent")
     @ResponseBody
-    public Student createStudent(Principal principal, @RequestParam(name = "rollNo", defaultValue = "0") int rollNo) {
-        //get details from principal
-        UserInfo userInfo = new UserInfo();
-        String email = userInfo.userEmail(principal);
-        String name = userInfo.userName(principal);
-
-        //create Student
-        Student student = new Student(email, name, rollNo);
+    public ResponseEntity<Student> createStudent(Principal principal,
+                                                 @RequestParam(name = "rollNo", defaultValue = "0") int rollNo) {
+        UserPrincipal userPrincipal = new UserPrincipal(principal);
+        Student student = new StudentService(userPrincipal).createStudent(rollNo);
         studentRepository.save(student);
-
-        return student;
+        return new ResponseEntity<>(student, HttpStatus.CREATED);
     }
 }
