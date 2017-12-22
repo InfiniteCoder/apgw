@@ -15,10 +15,14 @@ import java.security.Principal;
 @RestController
 public class SubjectController {
 
+    private final SubjectRepository subjectRepository;
+    private final TeacherRepository teacherRepository;
+
     @Autowired
-    SubjectRepository subjectRepository;
-    @Autowired
-    TeacherRepository teacherRepository;
+    public SubjectController(SubjectRepository subjectRepository, TeacherRepository teacherRepository) {
+        this.subjectRepository = subjectRepository;
+        this.teacherRepository = teacherRepository;
+    }
 
     @PostMapping("/addSubject")
     public void addSubject(Principal principal,
