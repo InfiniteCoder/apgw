@@ -28,7 +28,8 @@ public class UserInfoController {
     }
 
     @GetMapping(value = "/user")
-    public ResponseEntity<User> getUser(UserPrincipal userPrincipal) {
+    public ResponseEntity<User> getUser(Principal principal) {
+        UserPrincipal userPrincipal = new UserPrincipal(principal);
         String email = userPrincipal.getEmail();
         String name = userPrincipal.getName();
         String picture = userPrincipal.getPicture();

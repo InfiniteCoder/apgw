@@ -1,5 +1,7 @@
 package com.example.apgw.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -14,6 +16,7 @@ public class Teacher {
     @NotNull
     private String name;
     @OneToMany(mappedBy = "teacher")
+    @JsonManagedReference
     private List<Subject> subjects;
 
     public Teacher(String email, String name) {
@@ -30,5 +33,9 @@ public class Teacher {
 
     public String getName() {
         return name;
+    }
+
+    public List<Subject> getSubjects() {
+        return subjects;
     }
 }
