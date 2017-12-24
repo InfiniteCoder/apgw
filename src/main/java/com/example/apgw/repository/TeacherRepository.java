@@ -7,5 +7,4 @@ import javax.transaction.Transactional;
 
 @Transactional
 public interface TeacherRepository extends CrudRepository<Teacher, String> {
-
 }

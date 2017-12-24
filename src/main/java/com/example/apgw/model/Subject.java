@@ -1,5 +1,7 @@
 package com.example.apgw.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -13,6 +15,7 @@ public class Subject {
     @NotNull
     private String name;
     @ManyToOne
+    @JsonBackReference
     private Teacher teacher;
     @ManyToMany
     private List<Student> students;
