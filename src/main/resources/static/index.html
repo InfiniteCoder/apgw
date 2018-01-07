@@ -22,7 +22,7 @@
 <div>
     <nav class="navbar navbar-default navigation-clean-button">
         <div class="container">
-            <div class="navbar-header"><a class="navbar-brand" href="#">APGW </a>
+            <div class="navbar-header"><a class="navbar-brand" href="/">APGW </a>
                 <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span
                         class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
                         class="icon-bar"></span><span class="icon-bar"></span></button>
@@ -31,10 +31,10 @@
                     class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav">
                     <li role="presentation"><a href="#">About </a></li>
-                    <li role="presentation"><a href="#">Source Code</a></li>
+                    <li role="presentation"><a href="https://github.com/InfiniteCoder/apgw">Source Code</a></li>
                 </ul>
                 <p class="navbar-text navbar-right actions"><a class="btn btn-default action-button" role="button"
-                                                               href="#">Login </a></p>
+                                                               href="/login" id="login_btn">Login </a></p>
             </div>
         </div>
     </nav>
@@ -50,13 +50,13 @@
             <div class="col-md-4 col-sm-6 item">
                 <div class="box"><i class="fa fa-github icon"></i>
                     <h3 class="name">Open Source</h3>
-                    <p class="description">APGW is llicensed under GNU GPL v3. Anyone can use and modify it,</p>
+                    <p class="description">APGW is llicensed under GNU GPL v3. Anyone can use and modify it.</p>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6 item">
                 <div class="box"><i class="glyphicon glyphicon-list-alt icon"></i>
                     <h3 class="name">Automated Grading</h3>
-                    <p class="description">Assignments are automatically graded., which means less hassle for teachers
+                    <p class="description">Assignments are automatically graded, which means less hassle for teachers
                         and students.</p>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                 class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a
                 href="#"><i class="icon ion-social-facebook"></i></a></div>
         <ul class="list-inline">
-            <li><a href="#">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="#">Services</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Terms</a></li>
@@ -84,7 +84,7 @@
         <p class="copyright">APGW © 2018</p>
     </footer>
 </div>
-<div class="modal fade" role="dialog" tabindex="-1">
+<div class="modal fade" role="dialog" tabindex="-1" id="userModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -93,17 +93,19 @@
                 <h4 class="modal-title"> Select an option</h4>
             </div>
             <div class="modal-body">
-                <div class="radio"><label><input type="radio">Teacher</label></div>
-                <div class="radio"><label><input type="radio">Student (Default)</label></div>
+                <div class="radio"><label><input type="radio" value="teacher">Teacher</label></div>
+                <div class="radio"><label><input type="radio" value="student">Student (Default)</label></div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" type="button">Submit</button>
+                <button class="btn btn-primary" type="button" data-dismiss="modal">Submit</button>
             </div>
         </div>
     </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+
 </body>
 
 </html>
