@@ -39,37 +39,49 @@
         </div>
     </nav>
 </div>
-<div class="features-boxed">
-    <div class="container">
-        <div class="intro">
-            <h2 class="text-center">Features </h2>
-            <p class="text-center">APGW is a web based platform for simplifying grading of coding assignments. It
-                provides students a platform to code and submit programs and get it evaluated. </p>
+<div>
+    <ul class="nav nav-tabs">
+        <li><a href="#tab-1" role="tab" data-toggle="tab">Subjects </a></li>
+        <li class="active"><a href="#tab-2" role="tab" data-toggle="tab" style="margin-left:1px;">Add Subjects</a></li>
+    </ul>
+    <div class="tab-content" style="margin-top:5px;">
+        <div class="tab-pane" role="tabpanel" id="tab-1" style="margin-top:5px;">
+            <ul class="list-group">
+                <li class="list-group-item"><span>List Group Item 1</span></li>
+                <li class="list-group-item"><span>List Group Item 2</span></li>
+                <li class="list-group-item"><span>List Group Item 3</span></li>
+            </ul>
         </div>
-        <div class="row features">
-            <div class="col-md-4 col-sm-6 item">
-                <div class="box"><i class="fa fa-github icon"></i>
-                    <h3 class="name">Open Source</h3>
-                    <p class="description">APGW is llicensed under GNU GPL v3. Anyone can use and modify it,</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 item">
-                <div class="box"><i class="glyphicon glyphicon-list-alt icon"></i>
-                    <h3 class="name">Automated Grading</h3>
-                    <p class="description">Assignments are automatically graded., which means less hassle for teachers
-                        and students.</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 item">
-                <div class="box"><i class="glyphicon glyphicon-phone icon"></i>
-                    <h3 class="name">Cross Platform</h3>
-                    <p class="description">APGW works on every device with a web browser.</p>
-                </div>
+        <div class="tab-pane active" role="tabpanel" id="tab-2" style="margin-top:5px;">
+            <div style="width:70%;margin-left:15%;margin-right:15%;">
+                <form style="width:60%;margin-right:20%;margin-left:20%;"><input class="form-control" type="text"
+                                                                                 placeholder="Subject Name">
+                    <button class="btn btn-default" type="button"
+                            style="width:60%;margin-top:5%;margin-right:20%;margin-left:20%;">Add Subject
+                    </button>
+                </form>
             </div>
         </div>
     </div>
 </div>
-<div class="footer-basic">
+<div class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Success </h4>
+            </div>
+            <div class="modal-body">
+                <p>Subject added </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer-basic" style="margin-top:20%;">
     <footer>
         <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i
                 class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a
@@ -83,24 +95,6 @@
         </ul>
         <p class="copyright">APGW © 2018</p>
     </footer>
-</div>
-<div class="modal fade" role="dialog" tabindex="-1">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">×</span></button>
-                <h4 class="modal-title"> Select an option</h4>
-            </div>
-            <div class="modal-body">
-                <div class="radio"><label><input type="radio">Teacher</label></div>
-                <div class="radio"><label><input type="radio">Student (Default)</label></div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" type="button">Submit</button>
-            </div>
-        </div>
-    </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
