@@ -41,11 +41,11 @@
 </div>
 <div>
     <ul class="nav nav-tabs">
-        <li><a href="#tab-1" role="tab" data-toggle="tab">Subjects </a></li>
+        <li><a href="#tab-1" role="tab" data-toggle="tab" id="tab_sub">Subjects </a></li>
         <li class="active"><a href="#tab-2" role="tab" data-toggle="tab" style="margin-left:1px;">Add Subjects</a></li>
     </ul>
     <div class="tab-content" style="margin-top:5px;">
-        <div class="tab-pane" role="tabpanel" id="tab-1" style="margin-top:5px;">
+        <div class="tab-pane" role="tabpanel" style="margin-top:5px;" id="tab-1">
             <ul class="list-group" id="sub_list">
                 <!-- <li class="list-group-item"><span>List Group Item 1</span></li>-->
             </ul>
@@ -53,16 +53,17 @@
         <div class="tab-pane active" role="tabpanel" id="tab-2" style="margin-top:5px;">
             <div style="width:70%;margin-left:15%;margin-right:15%;">
                 <form style="width:60%;margin-right:20%;margin-left:20%;"><input class="form-control" type="text"
-                                                                                 placeholder="Subject Name">
+                                                                                 placeholder="Subject Name"
+                                                                                 id="subnametxt">
                     <button class="btn btn-default" type="button"
-                            style="width:60%;margin-top:5%;margin-right:20%;margin-left:20%;">Add Subject
+                            style="width:60%;margin-top:5%;margin-right:20%;margin-left:20%;" id="addsubbtn">Add Subject
                     </button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<div class="modal fade" role="dialog" tabindex="-1">
+<div class="modal fade" role="dialog" tabindex="-1" id="successModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
