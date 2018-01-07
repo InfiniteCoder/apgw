@@ -21,13 +21,16 @@ public class Subject {
     private List<Student> students;
     @OneToMany(mappedBy = "subject")
     private List<Assignment> assignments;
-
     public Subject(String name, Teacher teacher) {
         this.name = name;
         this.teacher = teacher;
     }
 
     private Subject() {
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 
     public Long getId() {
@@ -42,5 +45,7 @@ public class Subject {
         return teacher;
     }
 
-    //needs a method to convert CSV to studentList
+    //add student list
+
+
 }

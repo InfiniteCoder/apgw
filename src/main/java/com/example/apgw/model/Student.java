@@ -1,5 +1,7 @@
 package com.example.apgw.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -15,7 +17,7 @@ public class Student {
     private String name;
     @NotNull
     private int rollNo;
-
+    @JsonManagedReference
     @ManyToMany(mappedBy = "students")
     private List<Subject> subjects;
 
@@ -26,6 +28,10 @@ public class Student {
         this.email = email;
         this.name = name;
         this.rollNo = rollNo;
+    }
+
+    public List<Subject> getSubjects() {
+        return subjects;
     }
 
     public String getEmail() {
@@ -39,4 +45,6 @@ public class Student {
     public int getRollNo() {
         return rollNo;
     }
+
+
 }
