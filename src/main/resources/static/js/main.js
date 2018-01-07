@@ -5,10 +5,12 @@ function checkUserType() {
         //get the type
         var type = userTypeRequest.responseText;
         if (type === "student") {
-            window.location = "student/homepage.html";
+
+            window.location = "Student.html";
         }
         else if (type === "teacher") {
-            window.location = "teacher/homepage.html";
+
+            window.location = "Teacher.html";
         }
         else {
             //show a popup to select student or teacher
@@ -25,6 +27,8 @@ function checkAuth() {
     request.open("GET", "all/isUserAuth");
     request.onload = function () {
         var data = request.responseText;
+        console.log("main check auth");
+
         if (data === "true") {
             checkUserType();
         }
@@ -33,9 +37,26 @@ function checkAuth() {
     request.send();
 }
 
+function hideLogin() {
+    //check if user is authenticated
+    var cmn_request = new XMLHttpRequest();
+    cmn_request.open("GET", "all/isUserAuth");
+    cmn_request.onload = function () {
+        var data = cmn_request.responseText;
+        if (data === "true") {
+            document.getElementById('login_btn').style.visibility = 'hidden';
+            console.log("Hidden success");
+
+        }
+    };
+    cmn_request.send();
+}
+
 //on load, check if authenticated
 window.onload = function () {
+
     checkAuth();
+    hideLogin();
 
     //get type for new user, called when modal is shown
     $("#userModal").on("hide.bs.modal", function () {
@@ -43,13 +64,13 @@ window.onload = function () {
         if (type === "teacher") {
             //call /createTeacher API
             $.post("/createTeacher", function () {
-                window.location = "teacher/homepage.html";
+                window.location = "Teacher.html";
             });
         }
         else {
             //call /createStudent API
             $.post("/createStudent", function () {
-                window.location = "student/homepage.html";
+                window.location = "Student.html";
             });
         }
     });
