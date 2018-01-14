@@ -1,6 +1,7 @@
 package com.example.apgw.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ public class Subject {
     @GeneratedValue
     private Long id;
     @NotNull
+    @NotBlank
     private String name;
     @ManyToOne
     @JsonBackReference
