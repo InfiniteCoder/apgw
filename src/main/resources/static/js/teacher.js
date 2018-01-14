@@ -27,12 +27,17 @@ function showSubjects() {
         var sublist = "";
         for (var i = 0; i < data.length; i++) {
             sublist += "<li class=\"list-group-item\"><span>" + data[i].name + "</span></li>";
-            console.log(data[i]);
         }
-        $("#sub_list").empty();
-        $("#sub_list").append(sublist);
+        var listElement = $("#sub_list");
+        listElement.empty();
+        listElement.append(sublist);
     });
-    console.log("Show Subjects");
+}
+
+function teachersub(e) {
+    var subName = e.target.textContent;
+    console.log(subName);
+    window.location = "/TeacherSubject.html/" + "?name=" + subName;
 }
 
 window.onload = function () {
@@ -48,6 +53,8 @@ window.onload = function () {
         showSubjects();
     });
 
+    var subList = document.getElementById("sub_list");
+    subList.addEventListener("click", teachersub);
 
 
 };
