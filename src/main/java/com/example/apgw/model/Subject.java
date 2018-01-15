@@ -19,8 +19,8 @@ public class Subject {
     @ManyToOne
     @JsonBackReference
     private Teacher teacher;
-    @ManyToMany
-    private List<Student> students;
+    @OneToMany(mappedBy = "student")
+    private List<StudentSubject> students;
     @OneToMany(mappedBy = "subject")
     private List<Assignment> assignments;
     public Subject(String name, Teacher teacher) {
@@ -31,8 +31,8 @@ public class Subject {
     private Subject() {
     }
 
-    public void setStudents(List<Student> students) {
-        this.students = students;
+    public List<StudentSubject> getStudents() {
+        return students;
     }
 
     public Long getId() {
@@ -49,5 +49,11 @@ public class Subject {
 
     //add student list
 
+    public void setStudents(List<StudentSubject> students) {
+        this.students = students;
+    }
 
+    public List<Assignment> getAssignments() {
+        return assignments;
+    }
 }

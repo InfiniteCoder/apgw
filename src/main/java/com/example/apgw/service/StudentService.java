@@ -9,9 +9,9 @@ public class StudentService {
         this.userPrincipal = userPrincipal;
     }
 
-    public Student createStudent(int rollNo) {
+    public Student createStudent() {
         String email = userPrincipal.getEmail();
         String name = userPrincipal.getName();
-        return new Student(email, name, rollNo);
+        return new Student(email, name);
     }
 }
