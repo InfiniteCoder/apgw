@@ -37,7 +37,7 @@ function showSubjects() {
 function teachersub(e) {
     var subName = e.target.textContent;
     console.log(subName);
-    window.location = "/TeacherSubject.html/" + "?name=" + subName;
+    window.location = "/Teacher/Subject.html" + "?name=" + subName;
 }
 
 window.onload = function () {

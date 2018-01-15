@@ -5,6 +5,7 @@ import com.example.apgw.model.Teacher;
 import com.example.apgw.repository.SubjectRepository;
 import com.example.apgw.repository.TeacherRepository;
 import com.example.apgw.service.UserPrincipal;
+import com.opencsv.CSVReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.io.Reader;
 import java.security.Principal;
 
 @RestController
@@ -50,19 +51,21 @@ public class SubjectController {
     }
 
     @PostMapping("/addStudents")
-    public ResponseEntity<String> addStudent(Principal principal, @RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> addStudent(Principal principal,
+                                             @RequestParam("subject") String subject,
+                                             @RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             return new ResponseEntity<>("Empty file", HttpStatus.NO_CONTENT);
         }
         try {
-            byte[] bytes = file.getBytes();
-            String data = new String(bytes, StandardCharsets.UTF_8);
-            System.out.println(data);
+            CSVReader reader = new CSVReader((Reader) file);
+            String[] line;
+            while ((line = reader.readNext()) != null) {
+                System.out.println("Student Id" + line[0] + ", Email" + line[1]);
+            }
             return new ResponseEntity<>("Uploaded", HttpStatus.CREATED);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>("Error while parsing", HttpStatus.NOT_MODIFIED);
+        } catch (IOException ex) {
+            return new ResponseEntity<>("Error while Parsing", HttpStatus.NOT_MODIFIED);
         }
     }
 }
