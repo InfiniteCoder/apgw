@@ -1,15 +1,15 @@
 function hideLogin() {
     //check if user is authenticated
-    var cmn_request = new XMLHttpRequest();
-    cmn_request.open("GET", "all/isUserAuth");
-    cmn_request.onload = function () {
-        var data = cmn_request.responseText;
+    var cmnRequest = new XMLHttpRequest();
+    cmnRequest.open("GET", "all/isUserAuth");
+    cmnRequest.onload = function () {
+        var data = cmnRequest.responseText;
         if (data === "true") {
-            document.getElementById('loginBtn').style.visibility = 'hidden';
+            document.getElementById('loginBtn').style.visibility = "hidden";
 
         }
     };
-    cmn_request.send();
+    cmnRequest.send();
 }
 
 function showSubjects() {

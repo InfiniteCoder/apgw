@@ -31,8 +31,8 @@ function studentUpload() {
         processData: false,  // tell jQuery not to process the data
         contentType: false,  // tell jQuery not to set contentType
         success: function (data) {
-            console.log("success!");
-            console.log(data);
+            // console.log("success!");
+            // console.log(data);
             alert(data);
         },
         error: function (jqXHR) {
