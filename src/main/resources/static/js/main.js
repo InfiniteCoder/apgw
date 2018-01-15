@@ -27,7 +27,7 @@ function checkAuth() {
     request.open("GET", "all/isUserAuth");
     request.onload = function () {
         var data = request.responseText;
-        console.log("main check auth");
+        // console.log("main check auth");
 
         if (data === "true") {
             checkUserType();
@@ -39,17 +39,17 @@ function checkAuth() {
 
 function hideLogin() {
     //check if user is authenticated
-    var cmn_request = new XMLHttpRequest();
-    cmn_request.open("GET", "all/isUserAuth");
-    cmn_request.onload = function () {
-        var data = cmn_request.responseText;
+    var cmnRequest = new XMLHttpRequest();
+    cmnRequest.open("GET", "all/isUserAuth");
+    cmnRequest.onload = function () {
+        var data = cmnRequest.responseText;
         if (data === "true") {
             document.getElementById('login_btn').style.visibility = 'hidden';
             console.log("Hidden success");
 
         }
     };
-    cmn_request.send();
+    cmnRequest.send();
 }
 
 //on load, check if authenticated
