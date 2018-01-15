@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
-<body style="color:rgb(248,239,239);padding-bottom:0;">
+<body>
 <div>
     <nav class="navbar navbar-default navigation-clean-button">
         <div class="container">
@@ -34,48 +34,45 @@
                     <li role="presentation"><a href="https://github.com/InfiniteCoder/apgw">Source Code</a></li>
                 </ul>
                 <p class="navbar-text navbar-right actions"><a class="btn btn-default action-button"
-                                                               href="#">Login </a></p>
+                                                               href="#" id="loginBtn">Login </a></p>
             </div>
         </div>
     </nav>
 </div>
-<div>
+<div style="margin-top:5px;">
     <ul class="nav nav-tabs">
-        <li><a href="#tab-1" role="tab" data-toggle="tab">Assignments </a></li>
-        <li><a href="#tab-2" role="tab" data-toggle="tab">Students </a></li>
-        <li class="active"><a href="#tab-3" role="tab" data-toggle="tab">Add Assignment</a></li>
-        <li><a href="#tab-4" role="tab" data-toggle="tab">Add Students</a></li>
+        <li><a href="#tab-1" role="tab" data-toggle="tab" id="subjectList">Subject List</a></li>
+        <li class="active"><a href="#tab-2" role="tab" data-toggle="tab">Pending Assignments</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="tab-1">
-            <ul class="list-group">
-                <li class="list-group-item"><span>List Group Item 1</span></li>
-                <li class="list-group-item"><span>List Group Item 2</span></li>
-                <li class="list-group-item"><span>List Group Item 3</span></li>
+            <ul class="list-group" id="subList">
+                <!--<li class="list-group-item"><span>List Group Item 1</span></li>-->
+
             </ul>
         </div>
-        <div class="tab-pane" role="tabpanel" id="tab-2">
-            <ul class="list-group">
-                <li class="list-group-item"><span>List Group Item 1</span></li>
-                <li class="list-group-item"><span>List Group Item 2</span></li>
-                <li class="list-group-item"><span>List Group Item 3</span></li>
-            </ul>
-        </div>
-        <div class="tab-pane active" role="tabpanel" id="tab-3">
-            <p>Content for tab 3.</p>
-            <form></form>
-        </div>
-        <div class="tab-pane" role="tabpanel" id="tab-4" style="margin-top:5px;">
-            <form style="margin-top:5px;"><input type="file"
-                                                 style="font-size:20px;margin-top:5px;width:40%;margin-left:30%;color:rgb(242,235,235);">
-                <button class="btn btn-default" type="button"
-                        style="font-size:20px;margin-top:10px;width:25%;margin-left:38%;">Upload
-                </button>
-            </form>
+        <div class="tab-pane active" role="tabpanel" id="tab-2">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Subject Name</th>
+                        <th><strong>Assignment Title</strong></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Cell 1</td>
+                        <td>cell 2</td>
+                    </tr>
+                    <tr></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
-<div style="height:300px;"></div>
+<div style="height:275px;"></div>
 <div class="footer-basic">
     <footer>
         <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i
@@ -93,6 +90,7 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/student.js"></script>
 </body>
 
 </html>
