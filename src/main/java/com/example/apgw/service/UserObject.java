@@ -14,8 +14,10 @@ import java.security.Principal;
 public class UserObject {
 
     /**
-     * @param principal Principal object containing user info
-     * @return JSONObject object with user details
+     * Creates a JSONObject containing user's authentication details from Principal.
+     *
+     * @param principal Principal object containing data of user
+     * @return JSONObject containing part of principal's data (userAuthentication -> details)
      */
     public static JSONObject getUserDetails(Principal principal) {
         ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();

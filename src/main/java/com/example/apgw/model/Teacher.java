@@ -1,6 +1,7 @@
 package com.example.apgw.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
+@Data
 public class Teacher {
 
     @Id
@@ -19,23 +21,17 @@ public class Teacher {
     @JsonManagedReference
     private List<Subject> subjects;
 
+    /**
+     * Constructor for Teacher
+     *
+     * @param email email id of teacher
+     * @param name  name of teacher. Full name preferred
+     */
     public Teacher(String email, String name) {
         this.email = email;
         this.name = name;
     }
 
     private Teacher() {
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public List<Subject> getSubjects() {
-        return subjects;
     }
 }

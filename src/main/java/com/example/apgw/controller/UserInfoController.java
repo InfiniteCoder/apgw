@@ -22,11 +22,19 @@ public class UserInfoController {
     private final TeacherRepository teacherRepository;
 
     @Autowired
-    public UserInfoController(StudentRepository studentRepository, TeacherRepository teacherRepository) {
+    public UserInfoController(StudentRepository studentRepository,
+                              TeacherRepository teacherRepository) {
         this.studentRepository = studentRepository;
         this.teacherRepository = teacherRepository;
     }
 
+    /**
+     * Get email, name and picture of logged in user.
+     * Picture is an url pointing to Google servers.
+     *
+     * @param principal Provided by Spring
+     * @return email, name and picture of user.
+     */
     @GetMapping(value = "/user")
     public ResponseEntity<User> getUser(Principal principal) {
         UserPrincipal userPrincipal = new UserPrincipal(principal);
@@ -37,11 +45,23 @@ public class UserInfoController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    /**
+     * Check if user is Authenticated(logged in).
+     *
+     * @param authentication Provided by Spring
+     * @return true or false, suggesting if user is authenticated
+     */
     @GetMapping(value = "/all/isUserAuth")
     public boolean isAuth(Authentication authentication) {
         return authentication != null && authentication.isAuthenticated();
     }
 
+    /**
+     * Get Type of user. Type is either teacher, student or new.
+     *
+     * @param principal Provided by Spring
+     * @return Type of user as String.
+     */
     @GetMapping(value = "/userType")
     public ResponseEntity<String> getUserType(Principal principal) {
         UserPrincipal userPrincipal = new UserPrincipal(principal);

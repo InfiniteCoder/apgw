@@ -1,42 +1,44 @@
 package com.example.apgw.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 
 @Entity
+@Data
 public class Student {
     @Id
     private String email;
     @NotNull
     private String name;
-    @NotNull
-    private int rollNo;
+    @OneToMany(mappedBy = "student")
 
-    @ManyToMany(mappedBy = "students")
-    private List<Subject> subjects;
+    @JsonManagedReference
+    private List<StudentSubject> subjects;
+
+    public Student(String email) {
+        this.email = email;
+    }
 
     public Student() {
     }
 
-    public Student(String email, String name, int rollNo) {
+    /**
+     * Create new student based on email and name.
+     * Should be taken from Gmail API.
+     *
+     * @param email Email id of student.
+     * @param name  Name of student.
+     */
+    public Student(String email, String name) {
         this.email = email;
         this.name = name;
-        this.rollNo = rollNo;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getRollNo() {
-        return rollNo;
-    }
 }

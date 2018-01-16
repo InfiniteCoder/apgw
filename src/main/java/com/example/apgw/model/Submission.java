@@ -1,11 +1,14 @@
 package com.example.apgw.model;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
+@Data
 public class Submission {
     @Id
     @GeneratedValue
@@ -18,6 +21,14 @@ public class Submission {
     private String uploadPath;
     private int marks;
 
+    /**
+     * Constructor of submission.
+     * Submission stores a specific submission from a student
+     *
+     * @param assignment Assignment to which submission belongs
+     * @param student    Student who submitted the code
+     * @param uploadPath File pointing to submitted code
+     */
     public Submission(Assignment assignment, Student student, String uploadPath) {
         this.assignment = assignment;
         this.student = student;
@@ -25,29 +36,5 @@ public class Submission {
     }
 
     private Submission() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Assignment getAssignment() {
-        return assignment;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public String getUploadPath() {
-        return uploadPath;
-    }
-
-    public int getMarks() {
-        return marks;
-    }
-
-    public void setMarks(int marks) {
-        this.marks = marks;
     }
 }
