@@ -13,6 +13,11 @@ public class UserPrincipal implements Principal {
     private String name;
     private String picture;
 
+    /**
+     * Converts Principal to UserPrincipal object
+     *
+     * @param principal Principal object.
+     */
     public UserPrincipal(Principal principal) {
         JSONObject jsonObject = UserObject.getUserDetails(principal);
         if (jsonObject != null) {

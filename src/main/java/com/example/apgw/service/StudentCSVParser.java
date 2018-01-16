@@ -19,7 +19,8 @@ public class StudentCSVParser {
      * @return ArrayList of StudentSubject containing data from CSV file, and the subjectid.
      * @throws IOException If the CSV file is malformed.
      */
-    public static ArrayList<StudentSubject> parse(MultipartFile file, Long subjectId) throws IOException {
+    public static ArrayList<StudentSubject> parse(MultipartFile file,
+                                                  Long subjectId) throws IOException {
         ArrayList<StudentSubject> list = new ArrayList<>();
         CSVReader reader;
         try {

@@ -38,7 +38,6 @@ function checkAuth() {
 }
 
 
-
 //on load, check if authenticated
 window.onload = function () {
 

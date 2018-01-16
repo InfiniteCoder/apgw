@@ -27,7 +27,7 @@ public class TeacherController {
     }
 
     /**
-     * Create new teacher
+     * Create new teacher.
      *
      * @param principal Provided by Spring
      * @return Object of newly created teacher
@@ -43,7 +43,8 @@ public class TeacherController {
     }
 
     /**
-     * Get the subjects of logged in teacher
+     * Get the subjects of logged in teacher.
+     *
      * @param principal Provided by Spring
      * @return List of subjects
      * @see Subject

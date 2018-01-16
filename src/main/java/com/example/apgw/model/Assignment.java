@@ -19,6 +19,14 @@ public class Assignment {
     @OneToMany(mappedBy = "assignment")
     private List<Submission> submissions;
 
+    /**
+     * Create new Assignment
+     *
+     * @param subject      Subject to which the Assignment belongs
+     * @param inputPath    Path to file which contains expected input text
+     * @param outputPath   Path to file which contains expected output text
+     * @param questionPath Path to file which contains question text
+     */
     public Assignment(Subject subject, String inputPath, String outputPath, String questionPath) {
         this.subject = subject;
         this.inputPath = inputPath;

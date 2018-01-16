@@ -14,7 +14,7 @@ import java.security.Principal;
 public class UserObject {
 
     /**
-     * Creates a JSONObject containing user's authentication details from Principal
+     * Creates a JSONObject containing user's authentication details from Principal.
      *
      * @param principal Principal object containing data of user
      * @return JSONObject containing part of principal's data (userAuthentication -> details)

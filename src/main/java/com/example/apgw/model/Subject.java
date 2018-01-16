@@ -26,6 +26,12 @@ public class Subject {
     @OneToMany(mappedBy = "subject")
     private List<Assignment> assignments;
 
+    /**
+     * Constructor for subject.
+     *
+     * @param name    Name of subject
+     * @param teacher Object of teacher to whom the subject belongs
+     */
     public Subject(String name, Teacher teacher) {
         this.name = name;
         this.teacher = teacher;

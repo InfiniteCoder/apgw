@@ -27,7 +27,7 @@ public class StudentController {
     }
 
     /**
-     * endpoint to create new student
+     * endpoint to create new student.
      *
      * @param principal Provided by Spring
      * @return Created Student
@@ -43,7 +43,7 @@ public class StudentController {
     }
 
     /**
-     * endpoint to get list of subjects of students
+     * endpoint to get list of subjects of students.
      *
      * @param principal Provided by Spring
      * @return List of StudentSubject class

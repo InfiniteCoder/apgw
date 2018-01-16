@@ -29,6 +29,13 @@ public class Student {
     public Student() {
     }
 
+    /**
+     * Create new student based on email and name.
+     * Should be taken from Gmail API.
+     *
+     * @param email Email id of student.
+     * @param name  Name of student.
+     */
     public Student(String email, String name) {
         this.email = email;
         this.name = name;

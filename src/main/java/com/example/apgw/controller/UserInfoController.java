@@ -22,13 +22,14 @@ public class UserInfoController {
     private final TeacherRepository teacherRepository;
 
     @Autowired
-    public UserInfoController(StudentRepository studentRepository, TeacherRepository teacherRepository) {
+    public UserInfoController(StudentRepository studentRepository,
+                              TeacherRepository teacherRepository) {
         this.studentRepository = studentRepository;
         this.teacherRepository = teacherRepository;
     }
 
     /**
-     * Get email, name and picture of logged in user
+     * Get email, name and picture of logged in user.
      * Picture is an url pointing to Google servers.
      *
      * @param principal Provided by Spring
@@ -45,7 +46,8 @@ public class UserInfoController {
     }
 
     /**
-     * Check if user is Authenticated(logged in)
+     * Check if user is Authenticated(logged in).
+     *
      * @param authentication Provided by Spring
      * @return true or false, suggesting if user is authenticated
      */
@@ -55,7 +57,8 @@ public class UserInfoController {
     }
 
     /**
-     * Get Type of user. Type is either teacher, student or new
+     * Get Type of user. Type is either teacher, student or new.
+     *
      * @param principal Provided by Spring
      * @return Type of user as String.
      */
