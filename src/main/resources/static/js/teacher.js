@@ -2,7 +2,7 @@ function addSubject() {
     //console.log("In Add");
     var name = document.getElementById("subnametxt").value;
     $.post("/addSubject", {name: name}, function () {
-        $('#successModal').modal('show');
+        $("#successModal").modal("show");
         document.getElementById("subnametxt").value = "";
     });
 

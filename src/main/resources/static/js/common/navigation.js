@@ -5,7 +5,7 @@ function hideLogin() {
     cmnRequest.onload = function () {
         var data = cmnRequest.responseText;
         if (data === "true") {
-            document.getElementById('login_btn').style.visibility = "hidden";
+            document.getElementById("login_btn").style.visibility = "hidden";
             //console.log("Hidden success");
 
         }

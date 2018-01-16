@@ -1,12 +1,12 @@
 //function to get url parameter
 var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
+        sURLVariables = sPageURL.split("&"),
         sParameterName,
         i;
 
     for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
+        sParameterName = sURLVariables[i].split("=");
 
         if (sParameterName[0] === sParam) {
             return sParameterName[1] === undefined ? true : sParameterName[1];
@@ -20,13 +20,13 @@ function studentUpload() {
 
     //create formdata object
     var formData = new FormData();
-    formData.append('subject', getUrlParameter("name"));
-    formData.append('file', file);
+    formData.append("subject", getUrlParameter("name"));
+    formData.append("file", file);
 
     //make post call
     $.ajax({
-        url: '/addStudents',
-        type: 'POST',
+        url: "/addStudents",
+        type: "POST",
         data: formData,
         processData: false,  // tell jQuery not to process the data
         contentType: false,  // tell jQuery not to set contentType
