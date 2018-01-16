@@ -1,17 +1,3 @@
-function hideLogin() {
-    //check if user is authenticated
-    var cmnRequest = new XMLHttpRequest();
-    cmnRequest.open("GET", "all/isUserAuth");
-    cmnRequest.onload = function () {
-        var data = cmnRequest.responseText;
-        if (data === "true") {
-            document.getElementById('loginBtn').style.visibility = "hidden";
-
-        }
-    };
-    cmnRequest.send();
-}
-
 function showSubjects() {
     $.getJSON("/student/subjects", function (data) {
         var sublist = "";

@@ -42,6 +42,7 @@ function studentUpload() {
 }
 
 window.onload = function () {
+    hideLogin();
     var studentUploadBtn = document.getElementById("studentUploadBtn");
     studentUploadBtn.addEventListener("click", studentUpload);
 };
