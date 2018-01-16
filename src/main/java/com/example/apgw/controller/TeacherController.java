@@ -26,6 +26,13 @@ public class TeacherController {
         this.teacherRepository = teacherRepository;
     }
 
+    /**
+     * Create new teacher
+     *
+     * @param principal Provided by Spring
+     * @return Object of newly created teacher
+     * @see Teacher
+     */
     @PostMapping("/createTeacher")
     @ResponseBody
     public ResponseEntity<Teacher> createTeacher(Principal principal) {
@@ -35,6 +42,12 @@ public class TeacherController {
         return new ResponseEntity<>(teacher, HttpStatus.CREATED);
     }
 
+    /**
+     * Get the subjects of logged in teacher
+     * @param principal Provided by Spring
+     * @return List of subjects
+     * @see Subject
+     */
     @GetMapping("/teacher/subjects")
     @ResponseBody
     public List<Subject> getSubjects(Principal principal) {

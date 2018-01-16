@@ -8,8 +8,8 @@ import java.io.Serializable;
 
 @Entity
 @IdClass(StudentSubjectId.class)
-public @Data
-class StudentSubject implements Serializable {
+@Data
+public class StudentSubject implements Serializable {
 
     //Primary keys
     @Id

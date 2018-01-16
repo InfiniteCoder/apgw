@@ -28,16 +28,4 @@ public class Teacher {
 
     private Teacher() {
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public List<Subject> getSubjects() {
-        return subjects;
-    }
 }

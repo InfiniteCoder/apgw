@@ -1,6 +1,7 @@
 package com.example.apgw.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
+@Data
 public class Subject {
 
     @Id
@@ -23,37 +25,12 @@ public class Subject {
     private List<StudentSubject> students;
     @OneToMany(mappedBy = "subject")
     private List<Assignment> assignments;
+
     public Subject(String name, Teacher teacher) {
         this.name = name;
         this.teacher = teacher;
     }
 
     private Subject() {
-    }
-
-    public List<StudentSubject> getStudents() {
-        return students;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    //add student list
-
-    public void setStudents(List<StudentSubject> students) {
-        this.students = students;
-    }
-
-    public List<Assignment> getAssignments() {
-        return assignments;
     }
 }

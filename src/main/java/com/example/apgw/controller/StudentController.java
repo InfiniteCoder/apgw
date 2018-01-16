@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
 import java.util.List;
 
-
 @RestController
 public class StudentController {
 
@@ -27,7 +26,13 @@ public class StudentController {
         this.studentRepository = studentRepository;
     }
 
-    //create Student
+    /**
+     * endpoint to create new student
+     *
+     * @param principal Provided by Spring
+     * @return Created Student
+     * @see Student
+     */
     @PostMapping("/createStudent")
     @ResponseBody
     public ResponseEntity<Student> createStudent(Principal principal) {
@@ -37,7 +42,13 @@ public class StudentController {
         return new ResponseEntity<>(student, HttpStatus.CREATED);
     }
 
-    //get list of subjects
+    /**
+     * endpoint to get list of subjects of students
+     *
+     * @param principal Provided by Spring
+     * @return List of StudentSubject class
+     * @see StudentSubject
+     */
     @GetMapping("/student/subjects")
     @ResponseBody
     public List<StudentSubject> getSubjects(Principal principal) {

@@ -1,6 +1,7 @@
 package com.example.apgw.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,6 +11,7 @@ import java.util.List;
 
 
 @Entity
+@Data
 public class Student {
     @Id
     private String email;
@@ -31,18 +33,5 @@ public class Student {
         this.email = email;
         this.name = name;
     }
-
-    public List<StudentSubject> getSubjects() {
-        return subjects;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
 
 }

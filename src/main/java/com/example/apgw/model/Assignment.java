@@ -1,9 +1,12 @@
 package com.example.apgw.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Data
 public class Assignment {
     @Id
     @GeneratedValue
@@ -24,25 +27,5 @@ public class Assignment {
     }
 
     private Assignment() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public String getInputPath() {
-        return inputPath;
-    }
-
-    public String getOutputPath() {
-        return outputPath;
-    }
-
-    public String getQuestionPath() {
-        return questionPath;
     }
 }

@@ -37,6 +37,16 @@ public class StudentSubjectController {
         this.subjectRepository = subjectRepository;
     }
 
+    /**
+     * Add students to a subject. Returns String message containing
+     * error message or success message
+     *
+     * @param principal   Provided by Spring
+     * @param subjectName Name of subject
+     * @param file        CSV file containing student info
+     * @return Returns string containing success/error message.
+     * @see MultipartFile
+     */
     @PostMapping(value = "/addStudents")
     @ResponseBody
     public ResponseEntity<String> addSubject(Principal principal,

@@ -1,9 +1,13 @@
 package com.example.apgw.service;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.json.simple.JSONObject;
 
 import java.security.Principal;
 
+@EqualsAndHashCode
+@ToString
 public class UserPrincipal implements Principal {
     private String email;
     private String name;
@@ -21,21 +25,6 @@ public class UserPrincipal implements Principal {
             this.name = "";
         }
 
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        return (o instanceof UserPrincipal && ((UserPrincipal) o).email.equals(this.email));
-    }
-
-    @Override
-    public String toString() {
-        return "name:" + name + ":email:" + email + ":picture:" + picture;
-    }
-
-    @Override
-    public int hashCode() {
-        return email.hashCode() * picture.hashCode() * name.hashCode();
     }
 
     @Override

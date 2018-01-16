@@ -22,15 +22,23 @@ public class SubjectController {
     private final TeacherRepository teacherRepository;
 
     @Autowired
-    public SubjectController(SubjectRepository subjectRepository, TeacherRepository teacherRepository) {
+    public SubjectController(SubjectRepository subjectRepository,
+                             TeacherRepository teacherRepository) {
         this.subjectRepository = subjectRepository;
         this.teacherRepository = teacherRepository;
     }
 
+    /**
+     * add subject endpoint. Subject name must be unique for the teacher.
+     *
+     * @param principal Provided by Spring
+     * @param name      name of subject
+     * @return String message showing status
+     */
     @PostMapping("/addSubject")
     @ResponseBody
     public ResponseEntity<String> addSubject(Principal principal,
-                           @RequestParam(name = "name") String name) {
+                                             @RequestParam(name = "name") String name) {
         UserPrincipal userPrincipal = new UserPrincipal(principal);
         Teacher teacher = teacherRepository.findOne(userPrincipal.getEmail());
         Subject subject = new Subject(name, teacher);

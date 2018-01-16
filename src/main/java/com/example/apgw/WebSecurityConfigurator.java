@@ -10,6 +10,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 public class WebSecurityConfigurator extends WebSecurityConfigurerAdapter {
 
+    /**
+     * Security configuration. Disables CSRF.
+     * Allows open access to index.html, js files and other assets.
+     * All other files are protected, and require user to be authenticated.
+     *
+     * @param http Provided by Spring
+     * @throws Exception If security configuration fails.
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
