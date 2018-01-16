@@ -5,7 +5,6 @@ import com.example.apgw.model.Teacher;
 import com.example.apgw.repository.SubjectRepository;
 import com.example.apgw.repository.TeacherRepository;
 import com.example.apgw.service.UserPrincipal;
-import com.opencsv.CSVReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.io.Reader;
 import java.security.Principal;
 
 @RestController
@@ -38,7 +34,7 @@ public class SubjectController {
         UserPrincipal userPrincipal = new UserPrincipal(principal);
         Teacher teacher = teacherRepository.findOne(userPrincipal.getEmail());
         Subject subject = new Subject(name, teacher);
-        Subject subExist = subjectRepository.findByTeacherAndName(teacher, name);
+        Subject subExist = subjectRepository.findByNameAndTeacher(name, teacher);
         if (subExist == null && !name.isEmpty()) {
             subjectRepository.save(subject);
             return new ResponseEntity<>("Subject added", HttpStatus.CREATED);
@@ -47,25 +43,6 @@ public class SubjectController {
         } else {
             return new ResponseEntity<>("Name cannot be empty", HttpStatus.NOT_MODIFIED);
 
-        }
-    }
-
-    @PostMapping("/addStudents")
-    public ResponseEntity<String> addStudent(Principal principal,
-                                             @RequestParam("subject") String subject,
-                                             @RequestParam("file") MultipartFile file) {
-        if (file.isEmpty()) {
-            return new ResponseEntity<>("Empty file", HttpStatus.NO_CONTENT);
-        }
-        try {
-            CSVReader reader = new CSVReader((Reader) file);
-            String[] line;
-            while ((line = reader.readNext()) != null) {
-                System.out.println("Student Id" + line[0] + ", Email" + line[1]);
-            }
-            return new ResponseEntity<>("Uploaded", HttpStatus.CREATED);
-        } catch (IOException ex) {
-            return new ResponseEntity<>("Error while Parsing", HttpStatus.NOT_MODIFIED);
         }
     }
 }

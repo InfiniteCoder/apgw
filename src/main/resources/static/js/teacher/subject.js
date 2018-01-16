@@ -20,7 +20,7 @@ function studentUpload() {
 
     //create formdata object
     var formData = new FormData();
-    formData.append('subject', getUrlParameter(name));
+    formData.append('subject', getUrlParameter("name"));
     formData.append('file', file);
 
     //make post call
@@ -33,7 +33,6 @@ function studentUpload() {
         success: function (data) {
             // console.log("success!");
             // console.log(data);
-            alert(data);
         },
         error: function (jqXHR) {
             console.log(jqXHR);

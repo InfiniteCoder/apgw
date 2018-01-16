@@ -3,7 +3,7 @@ package com.example.apgw.model;
 
 import java.io.Serializable;
 
-class StudentSubjectId implements Serializable {
-    private Subject subject;
-    private Student student;
+public class StudentSubjectId implements Serializable {
+    private Long subjectId;
+    private String studentEmail;
 }
