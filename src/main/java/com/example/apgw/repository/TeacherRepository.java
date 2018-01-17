@@ -3,8 +3,6 @@ package com.example.apgw.repository;
 import com.example.apgw.model.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.transaction.Transactional;
-
-@Transactional
+@org.springframework.transaction.annotation.Transactional
 public interface TeacherRepository extends JpaRepository<Teacher, String> {
 }

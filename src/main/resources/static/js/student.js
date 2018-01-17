@@ -13,7 +13,6 @@ function showSubjects() {
 window.onload = function () {
     hideLogin();
 
-
     var btn = document.getElementById("subjectList");
     btn.addEventListener("click", function () {
         showSubjects();

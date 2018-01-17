@@ -17,7 +17,7 @@ public class UserObject {
      * Creates a JSONObject containing user's authentication details from Principal.
      *
      * @param principal Principal object containing data of user
-     * @return JSONObject containing part of principal's data (userAuthentication -> details)
+     * @return JSONObject containing part of principal's data (userAuthentication.details)
      */
     public static JSONObject getUserDetails(Principal principal) {
         ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
