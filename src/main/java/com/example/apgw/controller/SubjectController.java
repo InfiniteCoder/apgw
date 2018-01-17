@@ -49,7 +49,7 @@ public class SubjectController {
         } else if (subExist != null) {
             return new ResponseEntity<>("Subject already exists", HttpStatus.NOT_MODIFIED);
         } else {
-            return new ResponseEntity<>("Name cannot be empty", HttpStatus.NOT_MODIFIED);
+            return new ResponseEntity<>("Name cannot be empty", HttpStatus.NO_CONTENT);
 
         }
     }

@@ -1,8 +1,23 @@
 function addSubject() {
     //console.log("In Add");
     var name = document.getElementById("subnametxt").value;
-    $.post("/addSubject", {name: name}, function () {
-        $("#successModal").modal("show");
+    $.post("/addSubject", {name: name}, function (data, textStatus, jqXHR) {
+        console.log(jqXHR.statusText);
+        var responseMsg = jqXHR.statusText;
+        if (responseMsg === "notmodified") {
+            $("#modalMessage").text("Subject Already Exists");
+            $("#successModal").modal("show");
+        }
+        else if (responseMsg === "nocontent") {
+            $("#modalMessage").text("Subject Name cannot be Empty");
+            $("#successModal").modal("show");
+
+        }
+        else {
+            $("#modalMessage").text("Subject Added");
+            $("#successModal").modal("show");
+        }
+
         document.getElementById("subnametxt").value = "";
     });
 
