@@ -1,7 +1,9 @@
 package com.example.apgw.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -9,7 +11,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Subject {
 
     @Id
@@ -22,6 +25,7 @@ public class Subject {
     @JsonBackReference
     private Teacher teacher;
     @OneToMany(mappedBy = "student")
+    @JsonManagedReference
     private List<StudentSubject> students;
     @OneToMany(mappedBy = "subject")
     private List<Assignment> assignments;

@@ -4,7 +4,7 @@ import com.example.apgw.model.Subject;
 import com.example.apgw.model.Teacher;
 import com.example.apgw.repository.SubjectRepository;
 import com.example.apgw.repository.TeacherRepository;
-import com.example.apgw.service.UserPrincipal;
+import com.example.apgw.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +20,14 @@ public class SubjectController {
 
     private final SubjectRepository subjectRepository;
     private final TeacherRepository teacherRepository;
-
+    private final UserService userService;
     @Autowired
     public SubjectController(SubjectRepository subjectRepository,
-                             TeacherRepository teacherRepository) {
+                             TeacherRepository teacherRepository,
+                             UserService userService) {
         this.subjectRepository = subjectRepository;
         this.teacherRepository = teacherRepository;
+        this.userService = userService;
     }
 
     /**
@@ -39,8 +41,7 @@ public class SubjectController {
     @ResponseBody
     public ResponseEntity<String> addSubject(Principal principal,
                                              @RequestParam(name = "name") String name) {
-        UserPrincipal userPrincipal = new UserPrincipal(principal);
-        Teacher teacher = teacherRepository.findOne(userPrincipal.getEmail());
+        Teacher teacher = teacherRepository.findOne(userService.getEmail(principal));
         Subject subject = new Subject(name, teacher);
         Subject subExist = subjectRepository.findByNameAndTeacher(name, teacher);
         if (subExist == null && !name.isEmpty()) {

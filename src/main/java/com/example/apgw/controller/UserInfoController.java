@@ -1,11 +1,8 @@
 package com.example.apgw.controller;
 
-import com.example.apgw.model.Student;
-import com.example.apgw.model.Teacher;
 import com.example.apgw.model.User;
-import com.example.apgw.repository.StudentRepository;
-import com.example.apgw.repository.TeacherRepository;
 import com.example.apgw.service.UserPrincipal;
+import com.example.apgw.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +15,11 @@ import java.security.Principal;
 @RestController
 public class UserInfoController {
 
-    private final StudentRepository studentRepository;
-    private final TeacherRepository teacherRepository;
+    private final UserService userService;
 
     @Autowired
-    public UserInfoController(StudentRepository studentRepository,
-                              TeacherRepository teacherRepository) {
-        this.studentRepository = studentRepository;
-        this.teacherRepository = teacherRepository;
+    public UserInfoController(UserService userService) {
+        this.userService = userService;
     }
 
     /**
@@ -64,19 +58,7 @@ public class UserInfoController {
      */
     @GetMapping(value = "/userType")
     public ResponseEntity<String> getUserType(Principal principal) {
-        UserPrincipal userPrincipal = new UserPrincipal(principal);
-        String email = userPrincipal.getEmail();
-        //check if a student
-        Student student = studentRepository.findOne(email);
-        if (student != null) {
-            return new ResponseEntity<>("student", HttpStatus.OK);
-        }
-        //check if teacher
-        Teacher teacher = teacherRepository.findOne(email);
-        if (teacher != null) {
-            return new ResponseEntity<>("teacher", HttpStatus.OK);
-        }
-        //else, new user
-        return new ResponseEntity<>("new", HttpStatus.OK);
+        String type = userService.getType(principal);
+        return new ResponseEntity<>(type, HttpStatus.OK);
     }
 }
