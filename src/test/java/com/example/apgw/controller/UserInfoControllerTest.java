@@ -14,6 +14,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+
 class UserInfoControllerTest {
 
     @Mock

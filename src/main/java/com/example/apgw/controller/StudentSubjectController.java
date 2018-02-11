@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 public class StudentSubjectController {
 
-
     private final StudentSubjectService studentSubjectService;
     @Autowired
     public StudentSubjectController(StudentSubjectService studentSubjectService) {
