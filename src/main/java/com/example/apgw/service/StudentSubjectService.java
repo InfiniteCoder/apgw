@@ -18,14 +18,21 @@ import java.util.List;
 @Service
 public class StudentSubjectService {
 
+    private final SubjectRepository subjectRepository;
+    private final TeacherRepository teacherRepository;
+    private final StudentSubjectRepository studentSubjectRepository;
+    private final UserService userService;
+
     @Autowired
-    SubjectRepository subjectRepository;
-    @Autowired
-    TeacherRepository teacherRepository;
-    @Autowired
-    StudentSubjectRepository studentSubjectRepository;
-    @Autowired
-    UserService userService;
+    public StudentSubjectService(SubjectRepository subjectRepository,
+                                 TeacherRepository teacherRepository,
+                                 StudentSubjectRepository studentSubjectRepository,
+                                 UserService userService) {
+        this.subjectRepository = subjectRepository;
+        this.teacherRepository = teacherRepository;
+        this.studentSubjectRepository = studentSubjectRepository;
+        this.userService = userService;
+    }
 
     public List<StudentSubject> getStudents(Principal principal, String subjectName) {
         String email = userService.getEmail(principal);

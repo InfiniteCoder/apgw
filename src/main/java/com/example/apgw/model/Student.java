@@ -20,7 +20,6 @@ public class Student {
     @NotNull
     private String name;
     @OneToMany(mappedBy = "student")
-
     @JsonManagedReference
     private List<StudentSubject> subjects;
 

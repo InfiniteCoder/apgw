@@ -24,7 +24,7 @@ public class Subject {
     @ManyToOne
     @JsonBackReference
     private Teacher teacher;
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "subject")
     @JsonManagedReference
     private List<StudentSubject> students;
     @OneToMany(mappedBy = "subject")
