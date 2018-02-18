@@ -13,6 +13,7 @@ public class Assignment {
     private Long id;
     @ManyToOne
     private Subject subject;
+    private String title;
     private String inputPath;
     private String outputPath;
     private String questionPath;
@@ -20,18 +21,27 @@ public class Assignment {
     private List<Submission> submissions;
 
     /**
-     * Create new Assignment
      *
-     * @param subject      Subject to which the Assignment belongs
-     * @param inputPath    Path to file which contains expected input text
-     * @param outputPath   Path to file which contains expected output text
-     * @param questionPath Path to file which contains question text
+     * @param subject subject to which assignment is associated
+     * @param title title of assignment
+     * @param inputPath path to file storing test case input
+     * @param outputPath path to file storing test case output
+     * @param questionPath path to file storing question text
      */
-    public Assignment(Subject subject, String inputPath, String outputPath, String questionPath) {
+    public Assignment(Subject subject,
+                      String title,
+                      String inputPath,
+                      String outputPath,
+                      String questionPath) {
         this.subject = subject;
+        this.title = title;
         this.inputPath = inputPath;
         this.outputPath = outputPath;
         this.questionPath = questionPath;
+    }
+
+    public Assignment(Subject subject) {
+        this.subject = subject;
     }
 
     private Assignment() {
