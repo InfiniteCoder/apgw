@@ -1,15 +1,18 @@
 package com.example.apgw.controller;
 
+import com.example.apgw.model.Assignment;
 import com.example.apgw.service.AssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 public class AssignmentController {
@@ -40,5 +43,12 @@ public class AssignmentController {
                 return new ResponseEntity<>(reply, HttpStatus.CREATED);
 
         }
+    }
+
+    @GetMapping("/api/assignments")
+    public ResponseEntity<List<Assignment>> getAssignments(Principal principal,
+                                                           @RequestParam(name = "subjectName") String subjectName) {
+        List<Assignment> list = service.getAssignments(principal, subjectName);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }

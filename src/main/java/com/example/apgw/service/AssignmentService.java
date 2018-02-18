@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
 
 @Service
 public class AssignmentService {
@@ -95,5 +96,16 @@ public class AssignmentService {
         assignment.setQuestionPath(questionPath);
         assignmentRepository.save(assignment);
         return "created";
+    }
+
+    public List<Assignment> getAssignments(Principal principal,
+                                           String subjectName) {
+
+        //get subject
+        String teacherEmail = userService.getEmail(principal);
+        Teacher teacher = teacherRepository.findOne(teacherEmail);
+        Subject subject = subjectRepository.findByNameAndTeacher(subjectName, teacher);
+
+        return subject.getAssignments();
     }
 }

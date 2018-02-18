@@ -28,6 +28,7 @@ public class Subject {
     @JsonManagedReference
     private List<StudentSubject> students;
     @OneToMany(mappedBy = "subject")
+    @JsonManagedReference
     private List<Assignment> assignments;
 
     /**

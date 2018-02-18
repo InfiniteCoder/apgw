@@ -1,5 +1,7 @@
 package com.example.apgw.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,11 +14,13 @@ public class Assignment {
     @GeneratedValue
     private Long id;
     @ManyToOne
+    @JsonBackReference
     private Subject subject;
     private String title;
     private String inputPath;
     private String outputPath;
     private String questionPath;
+    @JsonManagedReference
     @OneToMany(mappedBy = "assignment")
     private List<Submission> submissions;
 

@@ -1,5 +1,6 @@
 package com.example.apgw.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ public class Submission {
     private Long id;
 
     @ManyToOne
+    @JsonBackReference
     private Assignment assignment;
     @ManyToOne
     private Student student;
