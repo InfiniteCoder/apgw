@@ -2,7 +2,7 @@ function showSubjects() {
     $.getJSON("/student/subjects", function (data) {
         var sublist = "";
         for (var i = 0; i < data.length; i++) {
-            sublist += "<li class=\"list-group-item\"><span>" + data[i].subject.name + "</span></li>";
+            sublist += "<li class=\"list-group-item\"><span>" + data[i].name + "</span></li>";
         }
         var listElement = $("#subList");
         listElement.empty();
