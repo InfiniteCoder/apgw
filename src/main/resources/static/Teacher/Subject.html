@@ -45,7 +45,7 @@
 <div>
     <ul class="nav nav-tabs">
         <li><a href="#tab-1" role="tab" data-toggle="tab">Assignments </a></li>
-        <li><a href="#tab-2" role="tab" data-toggle="tab">Students </a></li>
+        <li><a href="#tab-2" role="tab" data-toggle="tab" id="displayStudents">Students </a></li>
         <li class="active"><a href="#tab-3" role="tab" data-toggle="tab">Add Assignment</a></li>
         <li><a href="#tab-4" role="tab" data-toggle="tab">Add Students</a></li>
     </ul>
@@ -58,10 +58,8 @@
             </ul>
         </div>
         <div class="tab-pane" role="tabpanel" id="tab-2">
-            <ul class="list-group">
-                <li class="list-group-item"><span>List Group Item 1</span></li>
-                <li class="list-group-item"><span>List Group Item 2</span></li>
-                <li class="list-group-item"><span>List Group Item 3</span></li>
+            <ul class="list-group" id="studentList">
+                <!--<li class="list-group-item"><span>List Group Item 1</span></li>-->
             </ul>
         </div>
         <div class="tab-pane active" role="tabpanel" id="tab-3" style="margin-top:5px;">
