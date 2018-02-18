@@ -23,7 +23,7 @@ public class AssignmentController {
 
     @PostMapping("/api/addAssignment")
     public ResponseEntity<String> addAssignment(Principal principal,
-                                                String subjectName,
+                                                @RequestParam(name = "subjectName") String subjectName,
                                                 @RequestParam(name = "title") String title,
                                                 @RequestParam(name = "inputFile") MultipartFile inputFile,
                                                 @RequestParam(name = "outputFile") MultipartFile outputFile,
