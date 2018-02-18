@@ -36,7 +36,7 @@ public class StudentSubjectController {
                                              @RequestParam("subject") String subjectName,
                                              @RequestParam("file") MultipartFile file) {
 
-        String reply = studentSubjectService.addSubject(principal, subjectName, file);
+        String reply = studentSubjectService.addStudents(principal, subjectName, file);
         switch (reply) {
             case "Empty File":
                 return new ResponseEntity<>(reply, HttpStatus.NO_CONTENT);

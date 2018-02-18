@@ -41,7 +41,7 @@ public class StudentSubjectService {
         return subject.getStudents();
     }
 
-    public String addSubject(Principal principal, String subjectName, MultipartFile file) {
+    public String addStudents(Principal principal, String subjectName, MultipartFile file) {
         if (file.isEmpty()) {
             return "Empty file";
         }
