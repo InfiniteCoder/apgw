@@ -9,7 +9,6 @@ import org.mockito.Mock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.security.Principal;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,8 +19,6 @@ class StudentControllerTest {
     private StudentController subject;
     @Mock
     private StudentService service;
-    @Mock
-    private Principal principal;
 
     @BeforeEach
     void setUp() {
@@ -31,13 +28,13 @@ class StudentControllerTest {
 
     @Test
     void createStudent() {
-        ResponseEntity<Student> response = subject.createStudent(principal);
+        ResponseEntity<Student> response = subject.createStudent();
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
 
     @Test
     void getSubjects() {
-        List<Subject> response = subject.getSubjects(principal);
+        List<Subject> response = subject.getSubjects();
         assertEquals(true, response.isEmpty());
     }
 }

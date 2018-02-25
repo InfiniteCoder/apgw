@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -25,13 +24,12 @@ public class AssignmentController {
     }
 
     @PostMapping("/api/addAssignment")
-    public ResponseEntity<String> addAssignment(Principal principal,
-                                                @RequestParam(name = "subjectName") String subjectName,
+    public ResponseEntity<String> addAssignment(@RequestParam(name = "subjectName") String subjectName,
                                                 @RequestParam(name = "title") String title,
                                                 @RequestParam(name = "inputFile") MultipartFile inputFile,
                                                 @RequestParam(name = "outputFile") MultipartFile outputFile,
                                                 @RequestParam(name = "questionFile") MultipartFile questionFile) {
-        String reply = service.addAssignment(principal, subjectName, title, inputFile, outputFile, questionFile);
+        String reply = service.addAssignment(subjectName, title, inputFile, outputFile, questionFile);
         switch (reply) {
             case "Empty title":
             case "Empty file":
@@ -46,9 +44,8 @@ public class AssignmentController {
     }
 
     @GetMapping("/api/assignments")
-    public ResponseEntity<List<Assignment>> getAssignments(Principal principal,
-                                                           @RequestParam(name = "subjectName") String subjectName) {
-        List<Assignment> list = service.getAssignments(principal, subjectName);
+    public ResponseEntity<List<Assignment>> getAssignments(@RequestParam(name = "subjectName") String subjectName) {
+        List<Assignment> list = service.getAssignments(subjectName);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 

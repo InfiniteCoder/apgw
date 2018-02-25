@@ -4,7 +4,6 @@ import com.example.apgw.model.Assignment;
 import com.example.apgw.model.Subject;
 import com.example.apgw.model.Teacher;
 import com.example.apgw.repository.AssignmentRepository;
-import com.example.apgw.repository.StudentRepository;
 import com.example.apgw.repository.SubjectRepository;
 import com.example.apgw.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -23,7 +21,6 @@ public class AssignmentService {
     private final AssignmentRepository assignmentRepository;
     private final SubjectRepository subjectRepository;
     private final TeacherRepository teacherRepository;
-    private final StudentRepository studentRepository;
     private final UserService userService;
     @Value("${file-path}")
     String basedir;
@@ -32,24 +29,21 @@ public class AssignmentService {
     public AssignmentService(AssignmentRepository assignmentRepository,
                              SubjectRepository subjectRepository,
                              TeacherRepository teacherRepository,
-                             StudentRepository studentRepository,
                              UserService userService) {
         this.assignmentRepository = assignmentRepository;
         this.subjectRepository = subjectRepository;
         this.teacherRepository = teacherRepository;
-        this.studentRepository = studentRepository;
         this.userService = userService;
     }
 
-    public String addAssignment(Principal principal,
-                                String subjectName,
+    public String addAssignment(String subjectName,
                                 String title,
                                 MultipartFile inputFile,
                                 MultipartFile outputFile,
                                 MultipartFile questionFile) {
 
         // find relevant subject
-        String teacherEmail = userService.getEmail(principal);
+        String teacherEmail = userService.getEmail();
         Teacher teacher = teacherRepository.findOne(teacherEmail);
         Subject subject = subjectRepository.findByNameAndTeacher(subjectName, teacher);
 
@@ -102,11 +96,10 @@ public class AssignmentService {
         return "created";
     }
 
-    public List<Assignment> getAssignments(Principal principal,
-                                           String subjectName) {
+    public List<Assignment> getAssignments(String subjectName) {
 
         //get subject
-        String teacherEmail = userService.getEmail(principal);
+        String teacherEmail = userService.getEmail();
         Teacher teacher = teacherRepository.findOne(teacherEmail);
         Subject subject = subjectRepository.findByNameAndTeacher(subjectName, teacher);
 

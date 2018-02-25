@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,20 +33,20 @@ public class StudentSubjectService {
         this.userService = userService;
     }
 
-    public List<StudentSubject> getStudents(Principal principal, String subjectName) {
-        String email = userService.getEmail(principal);
+    public List<StudentSubject> getStudents(String subjectName) {
+        String email = userService.getEmail();
         Teacher teacher = teacherRepository.findOne(email);
         Subject subject = subjectRepository.findByNameAndTeacher(subjectName, teacher);
         return subject.getStudents();
     }
 
-    public String addStudents(Principal principal, String subjectName, MultipartFile file) {
+    public String addStudents(String subjectName, MultipartFile file) {
         if (file.isEmpty()) {
             return "Empty file";
         }
 
         //Get teacher
-        String teacherEmail = userService.getEmail(principal);
+        String teacherEmail = userService.getEmail();
         Teacher teacher = teacherRepository.findOne(teacherEmail);
         //Get Subject
         Subject subject = subjectRepository.findByNameAndTeacher(subjectName, teacher);

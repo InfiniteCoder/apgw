@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
-
 @RestController
 public class SubjectController {
 
@@ -33,15 +31,13 @@ public class SubjectController {
     /**
      * add subject endpoint. Subject name must be unique for the teacher.
      *
-     * @param principal Provided by Spring
      * @param name      name of subject
      * @return String message showing status
      */
     @PostMapping("/addSubject")
     @ResponseBody
-    public ResponseEntity<String> addSubject(Principal principal,
-                                             @RequestParam(name = "name") String name) {
-        Teacher teacher = teacherRepository.findOne(userService.getEmail(principal));
+    public ResponseEntity<String> addSubject(@RequestParam(name = "name") String name) {
+        Teacher teacher = teacherRepository.findOne(userService.getEmail());
         Subject subject = new Subject(name, teacher);
         Subject subExist = subjectRepository.findByNameAndTeacher(name, teacher);
         if (subExist == null && !name.isEmpty()) {

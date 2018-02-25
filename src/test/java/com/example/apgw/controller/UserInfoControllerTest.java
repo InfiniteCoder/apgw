@@ -12,7 +12,6 @@ import java.security.Principal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.any;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 
@@ -35,24 +34,24 @@ class UserInfoControllerTest {
 
     @Test
     void shouldReturnStudent() {
-        given(userService.getType(any(Principal.class))).willReturn("student");
-        ResponseEntity<String> reply = subject.getUserType(principal);
+        given(userService.getType()).willReturn("student");
+        ResponseEntity<String> reply = subject.getUserType();
         assertEquals("student", reply.getBody());
         assertEquals(HttpStatus.OK, reply.getStatusCode());
     }
 
     @Test
     void shouldReturnTeacher() {
-        given(userService.getType(any(Principal.class))).willReturn("teacher");
-        ResponseEntity<String> reply = subject.getUserType(principal);
+        given(userService.getType()).willReturn("teacher");
+        ResponseEntity<String> reply = subject.getUserType();
         assertEquals("teacher", reply.getBody());
         assertEquals(HttpStatus.OK, reply.getStatusCode());
     }
 
     @Test
     void shouldReturnNew() {
-        given(userService.getType(any(Principal.class))).willReturn("new");
-        ResponseEntity<String> reply = subject.getUserType(principal);
+        given(userService.getType()).willReturn("new");
+        ResponseEntity<String> reply = subject.getUserType();
         assertEquals("new", reply.getBody());
         assertEquals(HttpStatus.OK, reply.getStatusCode());
     }

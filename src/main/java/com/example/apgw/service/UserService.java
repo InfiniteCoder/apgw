@@ -5,19 +5,26 @@ import com.example.apgw.model.Teacher;
 import com.example.apgw.repository.StudentRepository;
 import com.example.apgw.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
+import java.util.LinkedHashMap;
 
+@SuppressWarnings("unchecked")
 @Service
 public class UserService {
-    @Autowired
-    StudentRepository studentRepository;
-    @Autowired
-    TeacherRepository teacherRepository;
+    private final StudentRepository studentRepository;
+    private final TeacherRepository teacherRepository;
 
-    public String getType(Principal principal) {
-        String email = getEmail(principal);
+    @Autowired
+    public UserService(StudentRepository studentRepository, TeacherRepository teacherRepository) {
+        this.studentRepository = studentRepository;
+        this.teacherRepository = teacherRepository;
+    }
+
+    public String getType() {
+        String email = getEmail();
 
         //check if student
         Student student = studentRepository.findOne(email);
@@ -31,18 +38,28 @@ public class UserService {
         return "new";
     }
 
-    public String getEmail(Principal principal) {
-        UserPrincipal userPrincipal = new UserPrincipal(principal);
-        return userPrincipal.getEmail();
+    public String getEmail() {
+        OAuth2Authentication authentication =
+                (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
+        LinkedHashMap<String, String> properties =
+                (LinkedHashMap<String, String>) authentication.getUserAuthentication().getDetails();
+        return properties.get("email");
+
     }
 
-    public String getName(Principal principal) {
-        UserPrincipal userPrincipal = new UserPrincipal(principal);
-        return userPrincipal.getName();
+    public String getName() {
+        OAuth2Authentication authentication =
+                (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
+        LinkedHashMap<String, String> properties =
+                (LinkedHashMap<String, String>) authentication.getUserAuthentication().getDetails();
+        return properties.get("name");
     }
 
-    public String getPicture(Principal principal) {
-        UserPrincipal userPrincipal = new UserPrincipal(principal);
-        return userPrincipal.getPicture();
+    public String getPicture() {
+        OAuth2Authentication authentication =
+                (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
+        LinkedHashMap<String, String> properties =
+                (LinkedHashMap<String, String>) authentication.getUserAuthentication().getDetails();
+        return properties.get("picture");
     }
 }

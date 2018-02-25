@@ -7,7 +7,6 @@ import com.example.apgw.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,16 +28,16 @@ public class StudentService {
      * @return Student object
      * @see UserPrincipal
      */
-    public Student createStudent(Principal principal) {
-        String email = userService.getEmail(principal);
-        String name = userService.getName(principal);
+    public Student createStudent() {
+        String email = userService.getEmail();
+        String name = userService.getName();
         Student student = new Student(email, name);
         studentRepository.save(student);
         return student;
     }
 
-    public List<Subject> getSubjects(Principal principal) {
-        String email = userService.getEmail(principal);
+    public List<Subject> getSubjects() {
+        String email = userService.getEmail();
         Student student = studentRepository.findOne(email);
         List<StudentSubject> list = student.getSubjects();
 

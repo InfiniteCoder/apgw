@@ -53,12 +53,11 @@ public class UserInfoController {
     /**
      * Get Type of user. Type is either teacher, student or new.
      *
-     * @param principal Provided by Spring
      * @return Type of user as String.
      */
     @GetMapping(value = "/userType")
-    public ResponseEntity<String> getUserType(Principal principal) {
-        String type = userService.getType(principal);
+    public ResponseEntity<String> getUserType() {
+        String type = userService.getType();
         return new ResponseEntity<>(type, HttpStatus.OK);
     }
 }

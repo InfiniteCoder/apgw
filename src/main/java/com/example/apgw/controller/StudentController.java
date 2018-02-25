@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -28,27 +27,25 @@ public class StudentController {
     /**
      * endpoint to create new student.
      *
-     * @param principal Provided by Spring
      * @return Created Student
      * @see Student
      */
     @PostMapping("/createStudent")
     @ResponseBody
-    public ResponseEntity<Student> createStudent(Principal principal) {
-        Student student = service.createStudent(principal);
+    public ResponseEntity<Student> createStudent() {
+        Student student = service.createStudent();
         return new ResponseEntity<>(student, HttpStatus.CREATED);
     }
 
     /**
      * endpoint to get list of subjects of students.
      *
-     * @param principal Provided by Spring
      * @return List of StudentSubject class
      * @see StudentSubject
      */
     @GetMapping("/student/subjects")
     @ResponseBody
-    public List<Subject> getSubjects(Principal principal) {
-        return service.getSubjects(principal);
+    public List<Subject> getSubjects() {
+        return service.getSubjects();
     }
 }
