@@ -2,6 +2,7 @@ package com.example.apgw.service;
 
 import com.example.apgw.model.Student;
 import com.example.apgw.model.Teacher;
+import com.example.apgw.model.User;
 import com.example.apgw.repository.StudentRepository;
 import com.example.apgw.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +62,9 @@ public class UserService {
         LinkedHashMap<String, String> properties =
                 (LinkedHashMap<String, String>) authentication.getUserAuthentication().getDetails();
         return properties.get("picture");
+    }
+
+    public User user() {
+        return new User(getEmail(), getPicture(), getName());
     }
 }

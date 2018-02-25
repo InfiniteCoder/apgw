@@ -1,7 +1,6 @@
 package com.example.apgw.controller;
 
 import com.example.apgw.model.User;
-import com.example.apgw.service.UserPrincipal;
 import com.example.apgw.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,8 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.security.Principal;
 
 @RestController
 public class UserInfoController {
@@ -26,16 +23,11 @@ public class UserInfoController {
      * Get email, name and picture of logged in user.
      * Picture is an url pointing to Google servers.
      *
-     * @param principal Provided by Spring
      * @return email, name and picture of user.
      */
     @GetMapping(value = "/user")
-    public ResponseEntity<User> getUser(Principal principal) {
-        UserPrincipal userPrincipal = new UserPrincipal(principal);
-        String email = userPrincipal.getEmail();
-        String name = userPrincipal.getName();
-        String picture = userPrincipal.getPicture();
-        User user = new User(email, picture, name);
+    public ResponseEntity<User> getUser() {
+        User user = userService.user();
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

@@ -1,5 +1,6 @@
 package com.example.apgw.controller;
 
+import com.example.apgw.model.User;
 import com.example.apgw.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,18 +25,18 @@ class UserInfoControllerTest {
     @Mock
     private Authentication authentication;
 
-    private UserInfoController subject;
+    private UserInfoController testSubject;
 
     @BeforeEach
     void setUp() {
         initMocks(this);
-        subject = new UserInfoController(userService);
+        testSubject = new UserInfoController(userService);
     }
 
     @Test
     void shouldReturnStudent() {
         given(userService.getType()).willReturn("student");
-        ResponseEntity<String> reply = subject.getUserType();
+        ResponseEntity<String> reply = testSubject.getUserType();
         assertEquals("student", reply.getBody());
         assertEquals(HttpStatus.OK, reply.getStatusCode());
     }
@@ -43,7 +44,7 @@ class UserInfoControllerTest {
     @Test
     void shouldReturnTeacher() {
         given(userService.getType()).willReturn("teacher");
-        ResponseEntity<String> reply = subject.getUserType();
+        ResponseEntity<String> reply = testSubject.getUserType();
         assertEquals("teacher", reply.getBody());
         assertEquals(HttpStatus.OK, reply.getStatusCode());
     }
@@ -51,7 +52,7 @@ class UserInfoControllerTest {
     @Test
     void shouldReturnNew() {
         given(userService.getType()).willReturn("new");
-        ResponseEntity<String> reply = subject.getUserType();
+        ResponseEntity<String> reply = testSubject.getUserType();
         assertEquals("new", reply.getBody());
         assertEquals(HttpStatus.OK, reply.getStatusCode());
     }
@@ -59,14 +60,27 @@ class UserInfoControllerTest {
     @Test
     void isAuthShouldReturnTrue() {
         given(authentication.isAuthenticated()).willReturn(true);
-        boolean reply = subject.isAuth(authentication);
+        boolean reply = testSubject.isAuth(authentication);
         assertEquals(true, reply);
     }
 
     @Test
     void isAuthShouldReturnFalse() {
         given(authentication.isAuthenticated()).willReturn(false);
-        boolean reply = subject.isAuth(authentication);
+        boolean reply = testSubject.isAuth(authentication);
         assertEquals(false, reply);
+    }
+
+    @Test
+    void shouldReturnUser() {
+        String email = "foo@example.com";
+        String picture = "https://example.com/pic.jpg";
+        String name = "John Doe";
+        User user = new User(email, picture, name);
+        given(userService.user()).willReturn(user);
+
+        ResponseEntity<User> reply = testSubject.getUser();
+
+        assertEquals(HttpStatus.OK, reply.getStatusCode());
     }
 }
