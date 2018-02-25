@@ -26,7 +26,6 @@ public class StudentService {
      * Create new Student. Pass the userPrincipal object to constructor
      *
      * @return Student object
-     * @see UserPrincipal
      */
     public Student createStudent() {
         String email = userService.getEmail();
