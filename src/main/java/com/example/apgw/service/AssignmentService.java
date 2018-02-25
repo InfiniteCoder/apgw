@@ -4,6 +4,7 @@ import com.example.apgw.model.Assignment;
 import com.example.apgw.model.Subject;
 import com.example.apgw.model.Teacher;
 import com.example.apgw.repository.AssignmentRepository;
+import com.example.apgw.repository.StudentRepository;
 import com.example.apgw.repository.SubjectRepository;
 import com.example.apgw.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class AssignmentService {
     private final AssignmentRepository assignmentRepository;
     private final SubjectRepository subjectRepository;
     private final TeacherRepository teacherRepository;
+    private final StudentRepository studentRepository;
     private final UserService userService;
     @Value("${file-path}")
     String basedir;
@@ -30,10 +32,12 @@ public class AssignmentService {
     public AssignmentService(AssignmentRepository assignmentRepository,
                              SubjectRepository subjectRepository,
                              TeacherRepository teacherRepository,
+                             StudentRepository studentRepository,
                              UserService userService) {
         this.assignmentRepository = assignmentRepository;
         this.subjectRepository = subjectRepository;
         this.teacherRepository = teacherRepository;
+        this.studentRepository = studentRepository;
         this.userService = userService;
     }
 
@@ -106,6 +110,13 @@ public class AssignmentService {
         Teacher teacher = teacherRepository.findOne(teacherEmail);
         Subject subject = subjectRepository.findByNameAndTeacher(subjectName, teacher);
 
+        return subject.getAssignments();
+    }
+
+    public List<Assignment> getAssignmentsById(Long id) {
+        //Todo: Check student is associated to the subject
+        //return
+        Subject subject = subjectRepository.findOne(id);
         return subject.getAssignments();
     }
 }

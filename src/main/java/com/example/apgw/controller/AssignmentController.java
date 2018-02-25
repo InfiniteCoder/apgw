@@ -51,4 +51,10 @@ public class AssignmentController {
         List<Assignment> list = service.getAssignments(principal, subjectName);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
+    @GetMapping("/api/assignmentsById")
+    public ResponseEntity<List<Assignment>> getAssignmentsById(Long subjectId) {
+        List<Assignment> list = service.getAssignmentsById(subjectId);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 }
