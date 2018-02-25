@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 
 import java.security.Principal;
 
@@ -21,6 +22,9 @@ class UserInfoControllerTest {
     private UserService userService;
     @Mock
     private Principal principal;
+    @Mock
+    private Authentication authentication;
+
     private UserInfoController subject;
 
     @BeforeEach
@@ -51,5 +55,19 @@ class UserInfoControllerTest {
         ResponseEntity<String> reply = subject.getUserType(principal);
         assertEquals("new", reply.getBody());
         assertEquals(HttpStatus.OK, reply.getStatusCode());
+    }
+
+    @Test
+    void isAuthShouldReturnTrue() {
+        given(authentication.isAuthenticated()).willReturn(true);
+        boolean reply = subject.isAuth(authentication);
+        assertEquals(true, reply);
+    }
+
+    @Test
+    void isAuthShouldReturnFalse() {
+        given(authentication.isAuthenticated()).willReturn(false);
+        boolean reply = subject.isAuth(authentication);
+        assertEquals(false, reply);
     }
 }
