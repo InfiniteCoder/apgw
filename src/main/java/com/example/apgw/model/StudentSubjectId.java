@@ -9,4 +9,12 @@ import java.io.Serializable;
 public class StudentSubjectId implements Serializable {
     private Long subjectId;
     private String studentEmail;
+
+    public StudentSubjectId(Long subjectId, String studentEmail) {
+        this.subjectId = subjectId;
+        this.studentEmail = studentEmail;
+    }
+
+    public StudentSubjectId() {
+    }
 }
