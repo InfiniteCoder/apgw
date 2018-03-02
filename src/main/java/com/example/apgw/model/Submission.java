@@ -2,6 +2,7 @@ package com.example.apgw.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @Data
+@ToString
 public class Submission {
     @Id
     @GeneratedValue
@@ -38,5 +40,6 @@ public class Submission {
     }
 
     private Submission() {
+
     }
 }

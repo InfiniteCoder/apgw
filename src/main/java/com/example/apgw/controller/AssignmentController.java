@@ -54,4 +54,15 @@ public class AssignmentController {
         List<Assignment> list = service.getAssignmentsById(subjectId);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
+    @PostMapping("/api/grade")
+    public ResponseEntity<String> grade(@RequestParam(name = "id") Long assignmentId) {
+        try {
+            service.grade(assignmentId);
+            return new ResponseEntity<>("grading completed", HttpStatus.CREATED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_MODIFIED);
+        }
+    }
 }
