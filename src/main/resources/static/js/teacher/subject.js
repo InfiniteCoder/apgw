@@ -14,6 +14,59 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
+function assignUpload() {
+    console.log("Assignment Upload Button clicked");
+    var subName = getUrlParameter("name");
+    console.log(subName);
+    var assignmentTitle = document.getElementById("assignTitle").value;
+    console.log(assignmentTitle);
+    var inputFile = document.getElementById("assignInputFile").files[0];
+    var outputFile = document.getElementById("assignOutputFile").files[0];
+    var quesFile = document.getElementById("assignQuesFile").files[0];
+
+    var formData = new FormData();
+    formData.append("subjectName", subName);
+    formData.append("title", assignmentTitle);
+    formData.append("inputFile", inputFile);
+    formData.append("outputFile", outputFile);
+    formData.append("questionFile", quesFile);
+
+    $.ajax(
+        {
+            url: "/api/addAssignment",
+            type: "POST",
+            data: formData,
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,  // tell jQuery not to set contentType
+            success: function (data, textStatus, jqXHR) {
+                var responseMsg = jqXHR.statusText;
+                if (responseMsg === "created") {
+                    $("#assignModalMsg").text("Files Uploaded Successfully");
+                    $("#assignModal").modal("show");
+
+                }
+                else if (responseMsg === "nocontent") {
+                    $("#assignModalMsg").text("Empty File");
+                    $("#assignModal").modal("show");
+
+                }
+                else {
+                    $("#assignModalMsg").text("Not Modified");
+                    $("#assignModal").modal("show");
+                }
+
+                // console.log("success!");
+                // console.log(data);
+            },
+            error: function (jqXHR) {
+                console.log(jqXHR);
+                $("#assignModalMsg").text("Error, Select a file");
+                $("#assignModal").modal("show");
+            }
+        }
+    );
+}
+
 function studentUpload() {
     console.log("student upload btn clicked");
     var file = document.getElementById("fileInput").files[0];
@@ -30,12 +83,30 @@ function studentUpload() {
         data: formData,
         processData: false,  // tell jQuery not to process the data
         contentType: false,  // tell jQuery not to set contentType
-        success: function (data) {
+        success: function (data, textStatus, jqXHR) {
+            var responseMsg = jqXHR.statusText;
+            if (responseMsg === "created") {
+                $("#studModalMessage").text("List Uploaded Successfully");
+                $("#studUploadModal").modal("show");
+
+            }
+            else if (responseMsg === "nocontent") {
+                $("#studModalMessage").text("Empty File");
+                $("#studUploadModal").modal("show");
+
+            }
+            else {
+                $("#studModalMessage").text("Not Modified");
+                $("#studUploadModal").modal("show");
+            }
+
             // console.log("success!");
             // console.log(data);
         },
         error: function (jqXHR) {
             console.log(jqXHR);
+            $("#studModalMessage").text("Error, Select a file");
+            $("#studUploadModal").modal("show");
         }
     });
 
@@ -83,9 +154,14 @@ function displayStudent() {
 
 window.onload = function () {
     hideLogin();
+    $("#subName").text(getUrlParameter("name"));
+
     var studentUploadBtn = document.getElementById("studentUploadBtn");
     studentUploadBtn.addEventListener("click", studentUpload);
 
     var displayStudentsBtn = document.getElementById("displayStudents");
     displayStudentsBtn.addEventListener("click", displayStudent);
+
+    var assignmentUploadBtn = document.getElementById("assignUploadBtn");
+    assignmentUploadBtn.addEventListener("click", assignUpload);
 };
