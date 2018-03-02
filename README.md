@@ -1,8 +1,54 @@
-[![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
-
 [![Build Status](https://travis-ci.org/InfiniteCoder/apgw.svg?branch=testing)](https://travis-ci.org/InfiniteCoder/apgw)     [![Known Vulnerabilities](https://snyk.io/test/github/InfiniteCoder/apgw/badge.svg)](https://snyk.io/test/github/InfiniteCoder/apgw) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d205284a8c554870afe668bd387efbdb)](https://www.codacy.com/app/InfiniteCoder/apgw?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=InfiniteCoder/apgw&amp;utm_campaign=Badge_Grade) [![Maintainability](https://api.codeclimate.com/v1/badges/953923a0414a683bfbf7/maintainability)](https://codeclimate.com/github/InfiniteCoder/apgw/maintainability) [![codecov](https://codecov.io/gh/InfiniteCoder/apgw/branch/testing/graph/badge.svg)](https://codecov.io/gh/InfiniteCoder/apgw) 
 
 
 
 # APGW
-Mega Project: Web application for automatically grading programs.
+Web application for automatically grading programs.
+
+APGW provides a single platform for students and teachers to automate the process of grading programming assignments. Teachers can create assignments and generate grading reports, while students can upload programs. APGW automatically calculates grades based on the test cases provided by the teacher.
+
+----
+
+> **Note:** This is pre-release software. Docker builds are planned.
+## Setup
+
+### Creating Google OAuth2 project
+1. You will need a google OAuth2 project so that users can login using their google accounts. Create one by following [this tutorial](https://support.google.com/cloud/answer/6158849?hl=en)
+2. Allow Google+ API access to the project. This is required to read basic details such as name and email-id of the user.
+
+### Create a database
+1. A MariaDB/MySQL database is required to store data.
+2. Setup a database with whatever name you like. Note down the name, password and URL of the database.
+
+### Installation
+1. A Linux based operating system is required. A stable operating system such as Debian is recommended.
+2. Install `jdk 8` and `maven`. Other versions of java are unsupported.
+3. Install `docker` and get the `gcc:7.3` image
+
+       docker pull gcc:7.3
+ 
+4. Get a copy of this code using git, or by downloading the zip
+
+       git clone https://github.com/InfiniteCoder/apgw.git
+    
+5. Compile the code using maven
+
+       cd apgw && mvn package
+   this will generate a fat jar in target directory.
+       
+6. Set Environmental variables
+   1. `apgw_client_id`      :   Client id for the google OAuth2 project
+   2. `apgw_client_secret`  :   Client secret for the google OAuth2 project
+   3. `apgw_db_password`    :   Database user password
+   4. `apgw_db_url`         :   Database url
+   5. `apgw_db_username`    :   Database user
+   6. `file-path`(optional) :   Path where files(eg: Assignments, programs) should be stored. Defaults to user home. A directory named `apgw` will be created at this path.
+   
+7. Execute
+
+      java -jar /target/*.jar
+      
+8. The application will listen on port 8080 on all IP addresses.
+
+## License
+APGW is licensed under GNU GPLv3. For more, see LICENSE.
