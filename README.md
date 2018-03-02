@@ -6,10 +6,8 @@
 Web application for automatically grading programs.
 
 APGW provides a single platform for students and teachers to automate the process of grading programming assignments. Teachers can create assignments and generate grading reports, while students can upload programs. APGW automatically calculates grades based on the test cases provided by the teacher.
-
-----
-
 > **Note:** This is pre-release software. Docker builds are planned.
+
 ## Setup
 
 ### Creating Google OAuth2 project
