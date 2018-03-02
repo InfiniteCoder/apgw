@@ -13,7 +13,7 @@ APGW provides a single platform for students and teachers to automate the proces
 ## Setup
 
 ### Creating Google OAuth2 project
-1. You will need a google OAuth2 project so that users can login using their google accounts. Create one by following [this tutorial](https://support.google.com/cloud/answer/6158849?hl=en)
+1. You will need a Google OAuth2 project so that users can login using their google accounts. Create one by following [this tutorial](https://support.google.com/cloud/answer/6158849?hl=en)
 2. Allow Google+ API access to the project. This is required to read basic details such as name and email-id of the user.
 
 ### Create a database
@@ -37,16 +37,16 @@ APGW provides a single platform for students and teachers to automate the proces
    this will generate a fat jar in target directory.
        
 6. Set Environmental variables
-   1. `apgw_client_id`      :   Client id for the google OAuth2 project
-   2. `apgw_client_secret`  :   Client secret for the google OAuth2 project
-   3. `apgw_db_password`    :   Database user password
-   4. `apgw_db_url`         :   Database url
-   5. `apgw_db_username`    :   Database user
-   6. `file-path`(optional) :   Path where files(eg: Assignments, programs) should be stored. Defaults to user home. A directory named `apgw` will be created at this path.
+   - `apgw_client_id`      :   Client id for the google OAuth2 project
+   - `apgw_client_secret`  :   Client secret for the google OAuth2 project
+   - `apgw_db_password`    :   Database user password
+   - `apgw_db_url`         :   Database url
+   - `apgw_db_username`    :   Database user
+   - `file-path`(optional) :   Path where files(eg: Assignments, programs) should be stored. Defaults to user home. A directory named `apgw` will be created at this path.
    
 7. Execute
 
-      java -jar /target/*.jar
+       java -jar /target/*.jar
       
 8. The application will listen on port 8080 on all IP addresses.
 
