@@ -17,6 +17,7 @@ import java.util.List;
 public class TeacherController {
 
     private final TeacherService teacherService;
+
     @Autowired
     public TeacherController(TeacherService teacherService) {
         this.teacherService = teacherService;

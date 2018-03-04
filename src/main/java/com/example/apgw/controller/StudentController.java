@@ -40,7 +40,7 @@ public class StudentController {
     /**
      * endpoint to get list of subjects of students.
      *
-     * @return List of StudentSubject class
+     * @return List of Subject class
      * @see StudentSubject
      */
     @GetMapping("/student/subjects")

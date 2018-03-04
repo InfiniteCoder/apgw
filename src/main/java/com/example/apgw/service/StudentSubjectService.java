@@ -22,6 +22,14 @@ public class StudentSubjectService {
     private final StudentSubjectRepository studentSubjectRepository;
     private final UserService userService;
 
+    /**
+     * Constructor. Generally not required to use directly.
+     *
+     * @param subjectRepository        Subject repository.
+     * @param teacherRepository        Teacher repository.
+     * @param studentSubjectRepository StudentSubject repository.
+     * @param userService              UserService object.
+     */
     @Autowired
     public StudentSubjectService(SubjectRepository subjectRepository,
                                  TeacherRepository teacherRepository,
@@ -33,6 +41,13 @@ public class StudentSubjectService {
         this.userService = userService;
     }
 
+    /**
+     * Get list of students.
+     *
+     * @param subjectName Name of subject.
+     * @return List of subjects.
+     * @see StudentSubject
+     */
     public List<StudentSubject> getStudents(String subjectName) {
         String email = userService.getEmail();
         Teacher teacher = teacherRepository.findOne(email);
@@ -40,6 +55,15 @@ public class StudentSubjectService {
         return subject.getStudents();
     }
 
+    /**
+     * Add students to a subject. Returns String message containing
+     * error message or success message
+     *
+     * @param subjectName Name of subject
+     * @param file        CSV file containing student info
+     * @return Returns string containing success/error message.
+     * @see MultipartFile
+     */
     public String addStudents(String subjectName, MultipartFile file) {
         if (file.isEmpty()) {
             return "Empty file";

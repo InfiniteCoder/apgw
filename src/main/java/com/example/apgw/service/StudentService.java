@@ -35,6 +35,12 @@ public class StudentService {
         return student;
     }
 
+    /**
+     * endpoint to get list of subjects of students.
+     *
+     * @return List of Subject class
+     * @see StudentSubject
+     */
     public List<Subject> getSubjects() {
         String email = userService.getEmail();
         Student student = studentRepository.findOne(email);

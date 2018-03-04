@@ -14,7 +14,8 @@ public class StudentCSVParser {
      * Parses the CSV file and returns an ArrayList of StudentSubject,
      * which contains the provided students and subject.
      *
-     * @param file      CSV file in the format student-uid,student-email. DON'T include heading line.
+     * @param file      CSV file in the format student-uid,student-email.
+     *                  DON'T include heading line.
      * @param subjectId The id of subject to which students are to be added.
      * @return ArrayList of StudentSubject containing data from CSV file, and the subjectid.
      * @throws IOException If the CSV file is malformed.

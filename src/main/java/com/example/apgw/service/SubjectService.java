@@ -23,6 +23,12 @@ public class SubjectService {
         this.subjectRepository = subjectRepository;
     }
 
+    /**
+     * add subject endpoint. Subject name must be unique for the teacher.
+     *
+     * @param name name of subject
+     * @return String message showing status
+     */
     public String addSubject(String name) {
         Teacher teacher = teacherRepository.findOne(userService.getEmail());
         Subject subject = new Subject(name, teacher);

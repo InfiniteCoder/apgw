@@ -30,8 +30,8 @@ public class StudentSubjectController {
      */
     @PostMapping(value = "/addStudents")
     @ResponseBody
-    public ResponseEntity<String> addSubject(@RequestParam("subject") String subjectName,
-                                             @RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> addStudents(@RequestParam("subject") String subjectName,
+                                              @RequestParam("file") MultipartFile file) {
 
         String reply = studentSubjectService.addStudents(subjectName, file);
         switch (reply) {
