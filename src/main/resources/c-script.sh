@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 result=0
-gcc *.c
-cat input | ./a.out > actualoutput
-cmp actualoutput testoutput > /dev/null
-if [ $? == 0 ]; then
-    result = ${result} + 1
+gcc ./*.c
+./a.out < input > actualoutput
+if cmp actualoutput output 1> /dev/null 2> /dev/null
+then
+    result=$((result + 1))
 fi
 echo ${result}
