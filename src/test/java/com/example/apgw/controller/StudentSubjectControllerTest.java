@@ -42,7 +42,7 @@ class StudentSubjectControllerTest {
         String expectedReply = "Empty File";
         given(service.addStudents(any(String.class), eq(file))).willReturn(expectedReply);
 
-        ResponseEntity<String> reply = subject.addSubject("Intro to CS", file);
+        ResponseEntity<String> reply = subject.addStudents("Intro to CS", file);
 
         assertEquals(HttpStatus.NO_CONTENT, reply.getStatusCode());
         assertEquals(expectedReply, reply.getBody());
@@ -53,7 +53,7 @@ class StudentSubjectControllerTest {
         String expectedReply = "Students added";
         given(service.addStudents(any(String.class), eq(file))).willReturn(expectedReply);
 
-        ResponseEntity<String> reply = subject.addSubject("Intro to CS", file);
+        ResponseEntity<String> reply = subject.addStudents("Intro to CS", file);
 
         assertEquals(HttpStatus.CREATED, reply.getStatusCode());
         assertEquals(expectedReply, reply.getBody());
@@ -64,7 +64,7 @@ class StudentSubjectControllerTest {
         String expectedReply = "Foo Bar";
         given(service.addStudents(any(String.class), eq(file))).willReturn(expectedReply);
 
-        ResponseEntity<String> reply = subject.addSubject("Intro to CS", file);
+        ResponseEntity<String> reply = subject.addStudents("Intro to CS", file);
 
         assertEquals(HttpStatus.NOT_MODIFIED, reply.getStatusCode());
         assertEquals(expectedReply, reply.getBody());
