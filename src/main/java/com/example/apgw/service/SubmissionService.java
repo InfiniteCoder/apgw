@@ -38,9 +38,16 @@ public class SubmissionService {
         this.submissionRepository = submissionRepository;
     }
 
-    public String addSubmission(Long AssignmentId, MultipartFile file) {
+    /**
+     * Add a submission.
+     *
+     * @param assignmentId id of assignment.
+     * @param file         submitted file.
+     * @return Error/success message with HttpStatus.
+     */
+    public String addSubmission(Long assignmentId, MultipartFile file) {
         //find Assignment
-        Assignment assignment = assignmentRepository.findOne(AssignmentId);
+        Assignment assignment = assignmentRepository.findOne(assignmentId);
 
         //check student is allowed to upload
         Subject assignmentSubject = assignment.getSubject();
@@ -86,6 +93,11 @@ public class SubmissionService {
         return "created";
     }
 
+    /**
+     * get list of submissions.
+     * @param assignmentId get id of assignment.
+     * @return list of submission.
+     */
     public List<Submission> getSubmissions(Long assignmentId) {
         Assignment assignment = assignmentRepository.findOne(assignmentId);
         return assignment.getSubmissions();

@@ -24,9 +24,18 @@ public class SubmissionController {
         this.service = service;
     }
 
+    /**
+     * Add a submission.
+     *
+     * @param assignmentId id of assignment.
+     * @param file         submitted file.
+     * @return Error/success message with HttpStatus.
+     */
     @PostMapping("/api/addSubmission")
-    public ResponseEntity<String> addSubmission(@RequestParam(name = "id") Long assignmentId,
-                                                @RequestParam(name = "file") MultipartFile file) {
+    public ResponseEntity<String> addSubmission(
+            @RequestParam(name = "id") Long assignmentId,
+            @RequestParam(name = "file") MultipartFile file) {
+
         String reply = service.addSubmission(assignmentId, file);
         switch (reply) {
             case "Permission denied":
@@ -39,8 +48,15 @@ public class SubmissionController {
         }
     }
 
+    /**
+     * get list of submissions.
+     * @param assignmentId get id of assignment.
+     * @return list of submission.
+     */
     @GetMapping("/api/submissions")
-    public ResponseEntity<List<Submission>> submission(@RequestParam(name = "id") Long assignmentId) {
+    public ResponseEntity<List<Submission>> submission(
+            @RequestParam(name = "id") Long assignmentId) {
+
         List<Submission> list = service.getSubmissions(assignmentId);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }

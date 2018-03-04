@@ -52,6 +52,16 @@ public class AssignmentService {
         this.submissionRepository = submissionRepository;
     }
 
+    /**
+     * Add Assignment to the subject.
+     *
+     * @param subjectName  Name of subject to which assignment is to be added.
+     * @param title        Title fo assignment.
+     * @param inputFile    File containing input test cases.
+     * @param outputFile   File containing output test cases.
+     * @param questionFile File containing question details.
+     * @return Error/success message.
+     */
     public String addAssignment(String subjectName,
                                 String title,
                                 MultipartFile inputFile,
@@ -112,6 +122,11 @@ public class AssignmentService {
         return "created";
     }
 
+    /**
+     * List all assignments, search by subjects.
+     * @param subjectName name of subject.
+     * @return List of assignments.
+     */
     public List<Assignment> getAssignments(String subjectName) {
 
         //get subject
@@ -122,6 +137,11 @@ public class AssignmentService {
         return subject.getAssignments();
     }
 
+    /**
+     * List all assignments, search by Id.
+     * @param id Id of subject.
+     * @return List of assignment.
+     */
     public List<Assignment> getAssignmentsById(Long id) {
         //Todo: Check student is associated to the subject
         //return
@@ -129,6 +149,13 @@ public class AssignmentService {
         return subject.getAssignments();
     }
 
+    /**
+     * Grade all submissions for an assignment.
+     * @param id id of assignment.
+     * @throws IOException If reading/writing files fails.
+     * @throws InterruptedException If process gets interrupted.
+     * @throws NotOwnerException If current user is not the owner of the subject.
+     */
     public void grade(Long id) throws IOException, InterruptedException, NotOwnerException {
         //get the Assignment
         Assignment assignment = assignmentRepository.findOne(id);
@@ -168,6 +195,14 @@ public class AssignmentService {
         }
     }
 
+    /**
+     * Copy files to temp directory
+     * @param submission submission whose files are to be copied.
+     * @param assignment assignment whose files are to be copied.
+     * @param path path of tempdir.
+     * @throws IOException If I/O fails.
+     * @throws URISyntaxException If path syntax is incorrect.
+     */
     private void copyFiles(Submission submission, Assignment assignment, Path path)
             throws IOException, URISyntaxException {
         //create dir if does not exist

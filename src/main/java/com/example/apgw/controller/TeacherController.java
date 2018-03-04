@@ -25,7 +25,7 @@ public class TeacherController {
     /**
      * Create new teacher.
      *
-     * @return Object of newly created teacher
+     * @return Object of newly created teacher.
      * @see Teacher
      */
     @PostMapping("/createTeacher")
@@ -38,7 +38,7 @@ public class TeacherController {
     /**
      * Get the subjects of logged in teacher.
      *
-     * @return List of subjects
+     * @return List of subjects.
      * @see Subject
      */
     @GetMapping("/teacher/subjects")

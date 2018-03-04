@@ -34,8 +34,8 @@ public class UserInfoController {
     /**
      * Check if user is Authenticated(logged in).
      *
-     * @param authentication Provided by Spring
-     * @return true or false, suggesting if user is authenticated
+     * @param authentication Provided by Spring.
+     * @return true or false, suggesting if user is authenticated.
      */
     @GetMapping(value = "/all/isUserAuth")
     public boolean isAuth(Authentication authentication) {

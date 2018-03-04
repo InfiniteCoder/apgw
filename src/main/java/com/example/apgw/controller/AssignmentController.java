@@ -23,12 +23,24 @@ public class AssignmentController {
         this.service = service;
     }
 
+    /**
+     * Add Assignment to the subject.
+     *
+     * @param subjectName  Name of subject to which assignment is to be added.
+     * @param title        Title fo assignment.
+     * @param inputFile    File containing input test cases.
+     * @param outputFile   File containing output test cases.
+     * @param questionFile File containing question details.
+     * @return Error/success message with HttpStatus.
+     */
     @PostMapping("/api/addAssignment")
-    public ResponseEntity<String> addAssignment(@RequestParam(name = "subjectName") String subjectName,
-                                                @RequestParam(name = "title") String title,
-                                                @RequestParam(name = "inputFile") MultipartFile inputFile,
-                                                @RequestParam(name = "outputFile") MultipartFile outputFile,
-                                                @RequestParam(name = "questionFile") MultipartFile questionFile) {
+    public ResponseEntity<String> addAssignment(
+            @RequestParam(name = "subjectName") String subjectName,
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "inputFile") MultipartFile inputFile,
+            @RequestParam(name = "outputFile") MultipartFile outputFile,
+            @RequestParam(name = "questionFile") MultipartFile questionFile) {
+
         String reply = service.addAssignment(subjectName, title, inputFile, outputFile, questionFile);
         switch (reply) {
             case "Empty title":
@@ -43,18 +55,35 @@ public class AssignmentController {
         }
     }
 
+    /**
+     * List all assignments, search by subjects.
+     * @param subjectName name of subject.
+     * @return List of assignments.
+     */
     @GetMapping("/api/assignments")
-    public ResponseEntity<List<Assignment>> getAssignments(@RequestParam(name = "subjectName") String subjectName) {
+    public ResponseEntity<List<Assignment>> getAssignments(
+            @RequestParam(name = "subjectName") String subjectName) {
+
         List<Assignment> list = service.getAssignments(subjectName);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    /**
+     * List all assignments, search by Id.
+     * @param subjectId Id of subject.
+     * @return List of assignment.
+     */
     @GetMapping("/api/assignmentsById")
     public ResponseEntity<List<Assignment>> getAssignmentsById(Long subjectId) {
         List<Assignment> list = service.getAssignmentsById(subjectId);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    /**
+     * Grade all submissions for an assignment.
+     * @param assignmentId Id of assignment to grade.
+     * @return Error/success message with HttpStatus.
+     */
     @PostMapping("/api/grade")
     public ResponseEntity<String> grade(@RequestParam(name = "id") Long assignmentId) {
         try {

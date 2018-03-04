@@ -44,6 +44,13 @@ public class StudentSubjectController {
         }
     }
 
+    /**
+     * Get list of students.
+     *
+     * @param subjectName Name of subject.
+     * @return List of subjects.
+     * @see StudentSubject
+     */
     @GetMapping("/api/getStudents")
     public ResponseEntity<List<StudentSubject>> getStudent(@RequestParam(name = "subjectName")
                                                                    String subjectName) {
