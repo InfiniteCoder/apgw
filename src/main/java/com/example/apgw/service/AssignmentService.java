@@ -227,4 +227,14 @@ public class AssignmentService {
             throw new FileSystemException("cannot change permission");
         }
     }
+
+    /**
+     * Get an assignment
+     *
+     * @param id id of assignment to retrieve
+     * @return Assignment
+     */
+    public Assignment getAssignment(Long id) {
+        return assignmentRepository.findOne(id);
+    }
 }

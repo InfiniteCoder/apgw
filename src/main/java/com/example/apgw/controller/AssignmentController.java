@@ -94,4 +94,15 @@ public class AssignmentController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_MODIFIED);
         }
     }
+
+    /**
+     * Get an assignment
+     *
+     * @param id id of assignment to retrieve
+     * @return Assignment
+     */
+    @GetMapping("/api/getAssignment")
+    public ResponseEntity<Assignment> getAssignment(Long id) {
+        return new ResponseEntity<>(service.getAssignment(id), HttpStatus.OK);
+    }
 }
