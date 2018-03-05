@@ -1,5 +1,6 @@
 function hideLogin() {
     //check if user is authenticated
+    console.log("Hide Login");
     var cmnRequest = new XMLHttpRequest();
     cmnRequest.open("GET", "all/isUserAuth");
     cmnRequest.onload = function () {

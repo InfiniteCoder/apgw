@@ -39,19 +39,20 @@ function assignUpload() {
             processData: false,  // tell jQuery not to process the data
             contentType: false,  // tell jQuery not to set contentType
             success: function (data, textStatus, jqXHR) {
-                var responseMsg = jqXHR.statusText;
-                if (responseMsg === "created") {
+                var responseMsg = jqXHR.status;
+                console.log(responseMsg);
+                if (responseMsg === 201) {
                     $("#assignModalMsg").text("Files Uploaded Successfully");
                     $("#assignModal").modal("show");
 
                 }
-                else if (responseMsg === "nocontent") {
-                    $("#assignModalMsg").text("Empty File");
+                else if (responseMsg === 204) {
+                    $("#assignModalMsg").text("Error, Something's missing");
                     $("#assignModal").modal("show");
 
                 }
-                else {
-                    $("#assignModalMsg").text("Not Modified");
+                else if (responseMsg === 304) {
+                    $("#assignModalMsg").text("Error");
                     $("#assignModal").modal("show");
                 }
 
@@ -59,8 +60,8 @@ function assignUpload() {
                 // console.log(data);
             },
             error: function (jqXHR) {
-                console.log(jqXHR);
-                $("#assignModalMsg").text("Error, Select a file");
+                console.log(jqXHR.status);
+                $("#assignModalMsg").text("Error");
                 $("#assignModal").modal("show");
             }
         }
@@ -104,8 +105,8 @@ function studentUpload() {
             // console.log(data);
         },
         error: function (jqXHR) {
-            console.log(jqXHR);
-            $("#studModalMessage").text("Error, Select a file");
+            console.log(jqXHR.status);
+            $("#studModalMessage").text("Error");
             $("#studUploadModal").modal("show");
         }
     });
@@ -139,21 +140,47 @@ function displayStudent() {
 
         }
     );
-    /*$.getJSON("/api/getStudents", function (data) {
-        var studlist = "";
-        console.log("Display Students");
-        for (var i = 0; i < data.length; i++) {
-            studlist += "<li class=\"list-group-item\"><span>" + data[i].name + "</span></li>";
-        }
-        var listElement = $("#studentList");
-        listElement.empty();
-        listElement.append(studlist);
-    });*/
 }
 
+function addTestCases() {
+    console.log("add test cases");
+    var result = "<li class=\"list-group-item\" style=\"height:45px;\">" +
+        "<div class=\"col-md-12\" style=\"width:50%;height:auto;\"><input type=\"file\" style=\"color:rgb(249,244,244);height:28px;\" id=\"assignInputFile\"></div>" +
+        "<div class=\"col-md-12\" style=\"width:50%;height:auto;\"><input type=\"file\" style=\"color:rgb(249,244,244);height:28px;\" id=\"assignOutputFile\"></div>" +
+        "</li>";
+    var elementId = $("#addTestCase");
+    elementId.append(result);
+}
 
+function displayAssignFunc() {
+    $.ajax(
+        {
+            url: "/api/assignments",
+            type: "GET",
+            data: {subjectName: getUrlParameter("name")},
+            //contentType: "application/json;charset=utf-8",
+            //dataType: "json",
+            success: function (data) {
+                var result = "";
+                for (var i = 0; i < data.length; i++) {
+                    result += "<li class=\"list-group-item\"><span>" + data[i].title + "</span></li>";
+                    console.log(data[i].title);
+                }
+                var listElement = $("#assignList");
+                listElement.empty();
+                listElement.append(result);
+
+            },
+            error: function (jqXHR) {
+                console.log(jqXHR);
+            }
+
+        }
+    );
+}
 window.onload = function () {
     hideLogin();
+    document.getElementById("addFiles").style.cursor = "pointer";
     $("#subName").text(getUrlParameter("name"));
 
     var studentUploadBtn = document.getElementById("studentUploadBtn");
@@ -164,4 +191,10 @@ window.onload = function () {
 
     var assignmentUploadBtn = document.getElementById("assignUploadBtn");
     assignmentUploadBtn.addEventListener("click", assignUpload);
+
+    var addTestCasesBtn = document.getElementById("addFiles");
+    addTestCasesBtn.addEventListener("click", addTestCases);
+
+    var displayAssignBtn = document.getElementById("displayAssign");
+    displayAssignBtn.addEventListener("click", displayAssignFunc)
 };
