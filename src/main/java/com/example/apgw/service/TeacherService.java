@@ -14,9 +14,9 @@ public class TeacherService {
     private final TeacherRepository teacherRepository;
 
     /**
-     * Used to create Teacher.
-     *
-     * @param userService UserService object which provides user details
+     * TeacherService constructor.
+     * @param userService provides details of user.
+     * @param teacherRepository repository for Teacher model.
      */
     @Autowired
     public TeacherService(UserService userService,
@@ -25,6 +25,11 @@ public class TeacherService {
         this.teacherRepository = teacherRepository;
     }
 
+    /**
+     * Create a teacher object.
+     *
+     * @return Teacher instance.
+     */
     public Teacher createTeacher() {
         String email = userService.getEmail();
         String name = userService.getName();
@@ -34,6 +39,10 @@ public class TeacherService {
 
     }
 
+    /**
+     * Get list of Subjects of the teacher.
+     * @return List of subjects.
+     */
     public List<Subject> getSubjects() {
         Teacher teacher = teacherRepository.findOne(userService.getEmail());
         return teacher.getSubjects();
