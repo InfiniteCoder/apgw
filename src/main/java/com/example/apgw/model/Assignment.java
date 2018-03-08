@@ -52,6 +52,6 @@ public class Assignment {
         this.subject = subject;
     }
 
-    private Assignment() {
+    public Assignment() {
     }
 }
