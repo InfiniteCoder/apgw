@@ -9,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 
-import java.security.Principal;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -20,8 +18,6 @@ class UserInfoControllerTest {
 
     @Mock
     private UserService userService;
-    @Mock
-    private Principal principal;
     @Mock
     private Authentication authentication;
 
