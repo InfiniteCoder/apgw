@@ -9,13 +9,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="assets/css/Features-Boxed.css">
-    <link rel="stylesheet" href="assets/css/Footer-Basic.css">
-    <link rel="stylesheet" href="assets/css/Footer-Dark.css">
-    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
-    <link rel="stylesheet" href="assets/css/Login-Form-Dark.css">
-    <link rel="stylesheet" href="assets/css/Navigation-with-Button1.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
+    <link rel="stylesheet" href="../assets/css/Features-Boxed.css">
+    <link rel="stylesheet" href="../assets/css/Footer-Basic.css">
+    <link rel="stylesheet" href="../assets/css/Footer-Dark.css">
+    <link rel="stylesheet" href="../assets/css/Login-Form-Clean.css">
+    <link rel="stylesheet" href="../assets/css/Login-Form-Dark.css">
+    <link rel="stylesheet" href="../assets/css/Navigation-with-Button1.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 
 <body>
@@ -31,29 +33,25 @@
                     class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav">
                     <li role="presentation"><a href="#">About </a></li>
-                    <li role="presentation"><a href="https://github.com/InfiniteCoder/apgw">Source Code</a></li>
+                    <li role="presentation"><a href="#">Source Code</a></li>
                 </ul>
-                <p class="navbar-text navbar-right actions"><a class="btn btn-default action-button"
-                                                               href="#" id="login_btn">Login </a></p>
+                <p class="navbar-text navbar-right actions"><a class="btn btn-default action-button" role="button"
+                                                               href="#">Login </a></p>
             </div>
         </div>
     </nav>
 </div>
-<div style="margin-top:5px;">
-    <ul class="nav nav-tabs">
-        <li><a href="#tab-1" role="tab" data-toggle="tab" id="subjectList">Subject List</a></li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="tab-1">
-            <ul class="list-group" id="subList">
-                <!--<li class="list-group-item"><span>List Group Item 1</span></li>-->
-
-            </ul>
-        </div>
-    </div>
-</div>
-<div style="height:275px;"></div>
-<div class="footer-basic">
+<p style="height:30px;font-size:20px;margin-top:15px;">Assignment Title:-<var id="assignName"></var></p>
+<ul class="list-group" style="margin-top:15px;" id="subList">
+    <!--<li class="list-group-item"><span>List Group Item 1</span></li>
+    <li class="list-group-item"><span>List Group Item 2</span></li>
+    <li class="list-group-item"><span>List Group Item 3</span></li>-->
+</ul>
+<p style="height:30px;font-size:20px;margin-top:15px;">Total Submissions:-</p>
+<button class="btn btn-default" type="button"
+        style="margin-top:15px;width:26%;font-size:20px;height:50px;margin-right:37%;margin-left:37%;">Grade
+</button>
+<div class="footer-basic" style="margin-top:20%;">
     <footer>
         <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i
                 class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a
@@ -70,8 +68,10 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="js/common/navigation.js"></script>
-<script src="js/student.js"></script>
+<script src="../js/common/navigation.js"></script>
+<script src="../js/teacher/submission.js"></script>
+<script src="../js/teacher/Cookies.src.js"></script>
+</body>
 </body>
 
 </html>

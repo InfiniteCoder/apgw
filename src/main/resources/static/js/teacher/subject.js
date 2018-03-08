@@ -85,13 +85,13 @@ function studentUpload() {
         processData: false,  // tell jQuery not to process the data
         contentType: false,  // tell jQuery not to set contentType
         success: function (data, textStatus, jqXHR) {
-            var responseMsg = jqXHR.statusText;
-            if (responseMsg === "created") {
-                $("#studModalMessage").text("List Uploaded Successfully");
+            var responseMsg = jqXHR.status;
+            if (responseMsg === 201) {
+                $("#studModalMessage").text("Students added");
                 $("#studUploadModal").modal("show");
 
             }
-            else if (responseMsg === "nocontent") {
+            else if (responseMsg === 204) {
                 $("#studModalMessage").text("Empty File");
                 $("#studUploadModal").modal("show");
 
@@ -162,13 +162,17 @@ function displayAssignFunc() {
             //dataType: "json",
             success: function (data) {
                 var result = "";
+                var assignid;
                 for (var i = 0; i < data.length; i++) {
-                    result += "<li class=\"list-group-item\"><span>" + data[i].title + "</span></li>";
+                    assignid = data[i].id;
+                    result += "<li class=\"list-group-item\" onclick=\"showSubmission(this)\" data-assign-id=" + assignid + ">" + data[i].title + "</li>";
                     console.log(data[i].title);
+                    console.log(assignid);
                 }
                 var listElement = $("#assignList");
                 listElement.empty();
                 listElement.append(result);
+                document.getElementById("assignList").style.cursor = "pointer";
 
             },
             error: function (jqXHR) {
@@ -177,6 +181,16 @@ function displayAssignFunc() {
 
         }
     );
+}
+
+function showSubmission(e) {
+    var assignName = e.innerHTML;
+    Cookies.set('assignName', assignName, {path: '/'});
+    var assignId = e.getAttribute("data-assign-id");
+    console.log(assignId);
+    //console.log(subName);
+    window.location = "Submission.html" + "?id=" + assignId;
+
 }
 window.onload = function () {
     hideLogin();

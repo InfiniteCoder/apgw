@@ -62,10 +62,4 @@ window.onload = function () {
     subList.addEventListener("click", teachersub);
 
 
-    /*  $.getJSON("/teacher/subjects", function (data) {
-          var subId = data.id;
-          console.log(subId);
-      });*/
-
-
 };
