@@ -27,9 +27,9 @@ function displaySubFunc() {
                 //var assignid;
                 for (var i = 0; i < data.length; i++) {
                     //assignid = data[i].id;
-                    result += "<li class=\"list-group-item\" data-sub-id=" + data[i].id + ">" + data[i].studentName + "</li>";
+                    result += "<li class=\"list-group-item\" data-sub-id=" + data[i].id + ">" + data[i].student.name + "</li>";
                     console.log(data[i].id);
-                    console.log(data[i].studentName);
+                    console.log(data[i].student.name);
                 }
                 var listElement = $("#subList");
                 listElement.empty();
