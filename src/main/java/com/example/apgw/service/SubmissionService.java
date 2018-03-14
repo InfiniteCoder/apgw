@@ -61,8 +61,8 @@ public class SubmissionService {
             return "Permission denied";
         }
 
-        //Create temp submission
-        Submission submissionTemp = new Submission(assignment, student, "");
+        //Create submission
+        Submission submissionTemp = new Submission(assignment, student);
         Submission submission = submissionRepository.save(submissionTemp);
 
         //set path
@@ -86,10 +86,6 @@ public class SubmissionService {
             submissionRepository.delete(submission.getId());
             return "FS error";
         }
-
-        //update db
-        submission.setUploadPath(submissionPath);
-        submissionRepository.save(submission);
         return "created";
     }
 

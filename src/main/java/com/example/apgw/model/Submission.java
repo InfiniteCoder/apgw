@@ -22,7 +22,6 @@ public class Submission {
     private Assignment assignment;
     @ManyToOne
     private Student student;
-    private String uploadPath;
     private int marks;
 
     /**
@@ -31,15 +30,12 @@ public class Submission {
      *
      * @param assignment Assignment to which submission belongs
      * @param student    Student who submitted the code
-     * @param uploadPath File pointing to submitted code
      */
-    public Submission(Assignment assignment, Student student, String uploadPath) {
+    public Submission(Assignment assignment, Student student) {
         this.assignment = assignment;
         this.student = student;
-        this.uploadPath = uploadPath;
     }
 
     private Submission() {
-
     }
 }

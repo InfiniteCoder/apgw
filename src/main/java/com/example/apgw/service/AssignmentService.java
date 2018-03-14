@@ -24,6 +24,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.acl.NotOwnerException;
 import java.util.List;
+import java.util.Optional;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
@@ -81,23 +82,23 @@ public class AssignmentService {
             return "Empty file";
         }
 
-        // create Assignment with only subject to get id
-        Assignment assignment = assignmentRepository.save(new Assignment(subject));
+        // create Assignment
+        Assignment assignment = assignmentRepository.save(new Assignment(subject, title));
         Long id = assignment.getId();
 
         //set path
-
-        String path = basedir + "/apgw/" + id + "/";
+        String path = basedir + "/apgw/assi/" + id + "/";
         if (!new File(path).exists()) {
             boolean mkdir = new File(path).mkdirs();
             if (!mkdir) {
                 return "Error creating dir";
             }
         }
+
         //Save files
-        String inputPath = path + inputFile.getOriginalFilename();
-        String outputPath = path + outputFile.getOriginalFilename();
-        String questionPath = path + questionFile.getOriginalFilename();
+        String inputPath = path + "input";
+        String outputPath = path + "output";
+        String questionPath = path + "question";
         File inputDest = new File(inputPath);
         File outputDest = new File(outputPath);
         File questionDest = new File(questionPath);
@@ -112,13 +113,6 @@ public class AssignmentService {
             assignmentRepository.delete(id);
             return "FS error";
         }
-
-        //update db
-        assignment.setTitle(title);
-        assignment.setInputPath(inputPath);
-        assignment.setOutputPath(outputPath);
-        assignment.setQuestionPath(questionPath);
-        assignmentRepository.save(assignment);
         return "created";
     }
 
@@ -213,10 +207,15 @@ public class AssignmentService {
             }
         }
         //copy files to temp
-        Path uploadPath = Paths.get(submission.getUploadPath());
-        Path inputPath = Paths.get(assignment.getInputPath());
-        Path outputPath = Paths.get(assignment.getOutputPath());
-        Files.copy(uploadPath, path.resolve(uploadPath.getFileName()), REPLACE_EXISTING);
+        Path submissionDirectory = Paths.get(basedir + "/apgw/submission/" + submission.getId());
+        Optional<Path> submissionPath = Files.list(submissionDirectory).findFirst();
+        Path inputPath = Paths.get(basedir + "/apgw/assi/" + assignment.getId() + "/input");
+        Path outputPath = Paths.get(basedir + "/apgw/assi/" + assignment.getId() + "/output");
+        if (submissionPath.isPresent()) {
+            Files.copy(submissionPath.get(),
+                    path.resolve(submissionPath.get().getFileName()),
+                    REPLACE_EXISTING);
+        }
         Files.copy(inputPath, path.resolve("input"), REPLACE_EXISTING);
         Files.copy(outputPath, path.resolve("output"), REPLACE_EXISTING);
         Files.copy(Paths.get(getClass().getResource("/c-script.sh").toURI()),
