@@ -1,13 +1,9 @@
 package com.example.apgw.service;
 
 import com.example.apgw.helper.FileStorageHelper;
-import com.example.apgw.model.Assignment;
-import com.example.apgw.model.Subject;
-import com.example.apgw.model.Submission;
-import com.example.apgw.model.Teacher;
+import com.example.apgw.model.*;
 import com.example.apgw.repository.AssignmentRepository;
-import com.example.apgw.repository.SubjectRepository;
-import com.example.apgw.repository.SubmissionRepository;
+import com.example.apgw.repository.StudentRepository;
 import com.example.apgw.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,11 +23,9 @@ import java.util.List;
 public class AssignmentService {
 
     private final AssignmentRepository assignmentRepository;
-    private final SubjectRepository subjectRepository;
     private final TeacherRepository teacherRepository;
     private final UserService userService;
-    private final SubmissionRepository submissionRepository;
-
+    private final StudentRepository studentRepository;
     @Value("${file-path}")
     String basedir;
 
@@ -39,22 +33,19 @@ public class AssignmentService {
      * Constructor for Assignment Service.
      *
      * @param assignmentRepository Repository for assignment.
-     * @param subjectRepository    Repository for subject.
      * @param teacherRepository    Repository for teacher.
      * @param userService          Repository for userService.
-     * @param submissionRepository Repository for submission.
+     * @param studentRepository    Repository for Student.
      */
     @Autowired
     public AssignmentService(AssignmentRepository assignmentRepository,
-                             SubjectRepository subjectRepository,
                              TeacherRepository teacherRepository,
                              UserService userService,
-                             SubmissionRepository submissionRepository) {
+                             StudentRepository studentRepository) {
         this.assignmentRepository = assignmentRepository;
-        this.subjectRepository = subjectRepository;
         this.teacherRepository = teacherRepository;
         this.userService = userService;
-        this.submissionRepository = submissionRepository;
+        this.studentRepository = studentRepository;
     }
 
     /**
@@ -74,14 +65,11 @@ public class AssignmentService {
 
         // find relevant subject
         String teacherEmail = userService.getEmail();
-        Teacher teacher = teacherRepository.findOne(teacherEmail);
-        Subject subject = subjectRepository.findByNameAndTeacher(subjectName, teacher);
+        Subject subject = getSubject(subjectName, teacherEmail);
 
         // check title and files are not empty
-        if (title.isEmpty()
-                || inputFile.isEmpty()
-                || outputFile.isEmpty()
-                || questionFile.isEmpty()) {
+        if (title.isEmpty() || inputFile.isEmpty()
+                || outputFile.isEmpty() || questionFile.isEmpty()) {
             throw new Exception("empty input");
         }
 
@@ -91,7 +79,7 @@ public class AssignmentService {
 
         //try to save files
         try {
-            FileStorageHelper.storeAssignmentFiles(id, inputFile, outputFile, questionFile);
+            new FileStorageHelper(basedir).storeAssignmentFiles(id, inputFile, outputFile, questionFile);
         } catch (IOException ex) {
             //delete assignment
             assignmentRepository.delete(id);
@@ -100,39 +88,59 @@ public class AssignmentService {
     }
 
     /**
+     * Get subject of a teacher.
+     *
+     * @param subjectName  name of subject.
+     * @param teacherEmail email id of teacher.
+     * @return Subject.
+     * @throws NotOwnerException if subject name is invalid,
+     *                           or teacher does not own the subject.
+     */
+    private Subject getSubject(String subjectName, String teacherEmail) throws NotOwnerException {
+        Teacher teacher = teacherRepository.findOne(teacherEmail);
+        return teacher.getSubjects().stream()
+                .filter(s -> s.getName().equals(subjectName))
+                .findFirst()
+                .orElseThrow(NotOwnerException::new);
+    }
+
+    /**
      * List all assignments, search by subjects.
+     *
      * @param subjectName name of subject.
      * @return List of assignments.
      */
     public List<Assignment> getAssignments(String subjectName) throws NotOwnerException {
         //get subject
         String teacherEmail = userService.getEmail();
-        Teacher teacher = teacherRepository.findOne(teacherEmail);
-        Subject subject = teacher.getSubjects().stream()
-                .filter(s -> s.getName().equals(subjectName))
-                .findFirst()
-                .orElseThrow(NotOwnerException::new);
+        Subject subject = getSubject(subjectName, teacherEmail);
         return subject.getAssignments();
     }
 
     /**
      * List all assignments, search by Id.
+     *
      * @param id Id of subject.
      * @return List of assignment.
      */
-    public List<Assignment> getAssignmentsById(Long id) {
-        //Todo: Check student is associated to the subject
-        //return
-        Subject subject = subjectRepository.findOne(id);
-        return subject.getAssignments();
+    public List<Assignment> getAssignmentsById(Long id) throws NotOwnerException {
+        String email = userService.getEmail();
+        Student student = studentRepository.findOne(email);
+        StudentSubject studentSubject = student.getSubjects().stream()
+                .filter(studentSubject1 ->
+                        studentSubject1.getSubject().getId().equals(id))
+                .findFirst()
+                .orElseThrow(NotOwnerException::new);
+        return studentSubject.getSubject().getAssignments();
     }
 
     /**
      * Grade all submissions for an assignment.
+     *
      * @param id id of assignment.
-     * @throws IOException If reading/writing files fails.
+     * @throws IOException          If reading/writing files fails.
      * @throws InterruptedException If process gets interrupted.
-     * @throws NotOwnerException If current user is not the owner of the subject.
+     * @throws NotOwnerException    If current user is not the owner of the subject.
      */
     public void grade(Long id) throws IOException, InterruptedException, NotOwnerException {
         //get the Assignment
@@ -152,7 +160,7 @@ public class AssignmentService {
         for (Submission submission : submissions) {
             //copy files
             try {
-                FileStorageHelper.copyFiles(submission, assignment, path);
+                new FileStorageHelper(basedir).copyFiles(submission, assignment, path);
             } catch (Exception e) {
                 e.printStackTrace();
                 throw new FileSystemException("Cannot create directory");
@@ -171,8 +179,9 @@ public class AssignmentService {
 
             //update marks
             submission.setMarks(marks);
-            submissionRepository.save(submission);
         }
+        assignment.setSubmissions(submissions);
+        assignmentRepository.save(assignment);
     }
 
     /**

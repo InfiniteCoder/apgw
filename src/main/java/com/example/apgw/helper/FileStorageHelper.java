@@ -2,7 +2,6 @@ package com.example.apgw.helper;
 
 import com.example.apgw.model.Assignment;
 import com.example.apgw.model.Submission;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -18,8 +17,11 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class FileStorageHelper {
 
-    @Value("${file-path}")
-    static String basedir;
+    private String basedir;
+
+    public FileStorageHelper(String basedir) {
+        this.basedir = basedir;
+    }
 
     /**
      * Store files of assignment on disk.
@@ -29,10 +31,10 @@ public class FileStorageHelper {
      * @param outputFile   file containing output.
      * @param questionFile file containing question.
      */
-    public static void storeAssignmentFiles(Long id,
-                                            MultipartFile inputFile,
-                                            MultipartFile outputFile,
-                                            MultipartFile questionFile)
+    public void storeAssignmentFiles(Long id,
+                                     MultipartFile inputFile,
+                                     MultipartFile outputFile,
+                                     MultipartFile questionFile)
             throws IOException {
         //set path
         String path = basedir + "/apgw/assi/" + id + "/";
@@ -66,7 +68,7 @@ public class FileStorageHelper {
      * @throws IOException        If I/O fails.
      * @throws URISyntaxException If path syntax is incorrect.
      */
-    public static void copyFiles(Submission submission, Assignment assignment, Path path)
+    public void copyFiles(Submission submission, Assignment assignment, Path path)
             throws IOException, URISyntaxException {
         //create dir if does not exist
         if (!path.toFile().exists()) {

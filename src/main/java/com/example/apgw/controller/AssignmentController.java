@@ -83,8 +83,15 @@ public class AssignmentController {
      */
     @GetMapping("/api/assignmentsById")
     public ResponseEntity<List<Assignment>> getAssignmentsById(Long subjectId) {
-        List<Assignment> list = service.getAssignmentsById(subjectId);
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        List<Assignment> list;
+        try {
+            list = service.getAssignmentsById(subjectId);
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        } catch (NotOwnerException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     /**

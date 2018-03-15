@@ -80,7 +80,7 @@ class AssignmentControllerTest {
     }
 
     @Test
-    void getAssignmentsById() {
+    void getAssignmentsById() throws NotOwnerException {
         List<Assignment> list = new ArrayList<>();
         long id = 1;
         given(service.getAssignmentsById(id)).willReturn(list);
