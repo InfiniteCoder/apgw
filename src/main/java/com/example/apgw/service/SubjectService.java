@@ -14,6 +14,13 @@ public class SubjectService {
     private final UserService userService;
     private final SubjectRepository subjectRepository;
 
+    /**
+     * Controller for Subject Service.
+     *
+     * @param teacherRepository Repository for Teacher.
+     * @param userService       Repository for UserService.
+     * @param subjectRepository Repository for Subject.
+     */
     @Autowired
     public SubjectService(TeacherRepository teacherRepository,
                           UserService userService,

@@ -97,4 +97,21 @@ public class FileStorageHelper {
             throw new FileSystemException("cannot change permission");
         }
     }
+
+    public void storeSubmissionFiles(Submission submission, MultipartFile file)
+            throws IOException {
+        //set path
+        String path = basedir + "/apgw/submission/" + submission.getId() + "/";
+        if (!new File(path).exists()) {
+            boolean mkdir = new File(path).mkdirs();
+            if (!mkdir) {
+                throw new FileSystemException("Cannot create dir");
+            }
+        }
+
+        //Save files
+        String submissionPath = path + file.getOriginalFilename();
+        File dest = new File(submissionPath);
+        file.transferTo(dest);
+    }
 }

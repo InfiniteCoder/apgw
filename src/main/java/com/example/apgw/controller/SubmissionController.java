@@ -1,17 +1,16 @@
 package com.example.apgw.controller;
 
-import com.example.apgw.model.Submission;
 import com.example.apgw.service.SubmissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.io.IOException;
+import java.security.acl.NotOwnerException;
 
 @Controller
 public class SubmissionController {
@@ -35,29 +34,16 @@ public class SubmissionController {
     public ResponseEntity<String> addSubmission(
             @RequestParam(name = "id") Long assignmentId,
             @RequestParam(name = "file") MultipartFile file) {
-
-        String reply = service.addSubmission(assignmentId, file);
-        switch (reply) {
-            case "Permission denied":
-            case "Error creating dir":
-            case "FS Error":
-                return new ResponseEntity<>(reply, HttpStatus.NOT_MODIFIED);
-
-            default:
-                return new ResponseEntity<>(reply, HttpStatus.CREATED);
+        try {
+            service.addSubmission(assignmentId, file);
+            return new ResponseEntity<>("created", HttpStatus.CREATED);
+        } catch (NotOwnerException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Permission denied", HttpStatus.NOT_MODIFIED);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("I/O Error", HttpStatus.NOT_MODIFIED);
         }
-    }
 
-    /**
-     * get list of submissions.
-     * @param assignmentId get id of assignment.
-     * @return list of submission.
-     */
-    @GetMapping("/api/submissions")
-    public ResponseEntity<List<Submission>> submission(
-            @RequestParam(name = "id") Long assignmentId) {
-
-        List<Submission> list = service.getSubmissions(assignmentId);
-        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }

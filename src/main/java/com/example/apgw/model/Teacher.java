@@ -24,10 +24,10 @@ public class Teacher {
     private List<Subject> subjects;
 
     /**
-     * Constructor for Teacher
+     * Constructor for Teacher.
      *
-     * @param email email id of teacher
-     * @param name  name of teacher. Full name preferred
+     * @param email email id of teacher.
+     * @param name  name of teacher. Full name preferred.
      */
     public Teacher(String email, String name) {
         this.email = email;

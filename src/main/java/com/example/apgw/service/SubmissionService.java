@@ -1,26 +1,25 @@
 package com.example.apgw.service;
 
-import com.example.apgw.model.*;
+import com.example.apgw.helper.FileStorageHelper;
+import com.example.apgw.model.Assignment;
+import com.example.apgw.model.Student;
+import com.example.apgw.model.StudentSubject;
+import com.example.apgw.model.Submission;
 import com.example.apgw.repository.AssignmentRepository;
-import com.example.apgw.repository.StudentRepository;
-import com.example.apgw.repository.StudentSubjectRepository;
 import com.example.apgw.repository.SubmissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.security.acl.NotOwnerException;
 
 @Service
 public class SubmissionService {
 
     private final AssignmentRepository assignmentRepository;
-    private final StudentRepository studentRepository;
     private final UserService userService;
-    private final StudentSubjectRepository studentSubjectRepository;
     private final SubmissionRepository submissionRepository;
     @Value("${file-path}")
     String basedir;
@@ -29,21 +28,15 @@ public class SubmissionService {
      * Constructor for Submission service.
      *
      * @param assignmentRepository     Repository for Assignment.
-     * @param studentRepository        Repository for Student.
      * @param userService              Repository for UserService.
-     * @param studentSubjectRepository Repository for StudentSubjectRepository.
      * @param submissionRepository     Repository for SubmissionRepository.
      */
     @Autowired
     public SubmissionService(AssignmentRepository assignmentRepository,
-                             StudentRepository studentRepository,
                              UserService userService,
-                             StudentSubjectRepository studentSubjectRepository,
                              SubmissionRepository submissionRepository) {
         this.assignmentRepository = assignmentRepository;
-        this.studentRepository = studentRepository;
         this.userService = userService;
-        this.studentSubjectRepository = studentSubjectRepository;
         this.submissionRepository = submissionRepository;
     }
 
@@ -51,59 +44,36 @@ public class SubmissionService {
      * Add a submission.
      * @param assignmentId id of assignment.
      * @param file         submitted file.
-     * @return Error/success message with HttpStatus.
      */
-    public String addSubmission(Long assignmentId, MultipartFile file) {
+    public void addSubmission(Long assignmentId, MultipartFile file)
+            throws NotOwnerException, IOException {
         //find Assignment
         Assignment assignment = assignmentRepository.findOne(assignmentId);
 
         //check student is allowed to upload
-        Subject assignmentSubject = assignment.getSubject();
-        Long subjectId = assignmentSubject.getId();
-        Student student = studentRepository.findOne(userService.getEmail());
-        String email = student.getEmail();
-
-        StudentSubjectId idObject = new StudentSubjectId(subjectId, email);
-        StudentSubject studentSubject = studentSubjectRepository.findOne(idObject);
-        if (studentSubject == null) {
-            return "Permission denied";
-        }
+        Student student = assignment.getSubject().getStudents().stream()
+                .filter(this::isCurrentStudent)
+                .findFirst()
+                .orElseThrow(NotOwnerException::new)
+                .getStudent();
 
         //Create submission
         Submission submissionTemp = new Submission(assignment, student);
         Submission submission = submissionRepository.save(submissionTemp);
 
-        //set path
-        String path = basedir + "/apgw/submission/" + submission.getId() + "/";
-        if (!new File(path).exists()) {
-            boolean mkdir = new File(path).mkdirs();
-            if (!mkdir) {
-                return "Error creating dir";
-            }
-        }
-
-        //Save files
-        String submissionPath = path + file.getOriginalFilename();
-        File dest = new File(submissionPath);
-
         try {
-            file.transferTo(dest);
+            new FileStorageHelper(basedir)
+                    .storeSubmissionFiles(submission, file);
         } catch (IOException e) {
-            //if failed, update db
             e.printStackTrace();
             submissionRepository.delete(submission.getId());
-            return "FS error";
+            throw e;
         }
-        return "created";
     }
 
-    /**
-     * get list of submissions.
-     * @param assignmentId get id of assignment.
-     * @return list of submission.
-     */
-    public List<Submission> getSubmissions(Long assignmentId) {
-        Assignment assignment = assignmentRepository.findOne(assignmentId);
-        return assignment.getSubmissions();
+
+    private boolean isCurrentStudent(StudentSubject studentSubject) {
+        String email = userService.getEmail();
+        return studentSubject.getStudentEmail().equals(email);
     }
 }

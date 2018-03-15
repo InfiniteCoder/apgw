@@ -79,7 +79,8 @@ public class AssignmentService {
 
         //try to save files
         try {
-            new FileStorageHelper(basedir).storeAssignmentFiles(id, inputFile, outputFile, questionFile);
+            new FileStorageHelper(basedir)
+                    .storeAssignmentFiles(id, inputFile, outputFile, questionFile);
         } catch (IOException ex) {
             //delete assignment
             assignmentRepository.delete(id);
@@ -162,19 +163,15 @@ public class AssignmentService {
             try {
                 new FileStorageHelper(basedir).copyFiles(submission, assignment, path);
             } catch (Exception e) {
-                e.printStackTrace();
                 throw new FileSystemException("Cannot create directory");
             }
 
             //run docker
             Process process = Runtime.getRuntime().exec("docker run --rm -v"
-                    + path
-                    + "/:/home/files/ -w /home/files gcc:7.3 ./c-script.sh");
+                    + path + "/:/home/files/ -w /home/files gcc:7.3 ./c-script.sh");
             process.waitFor();
             InputStreamReader isReader = new InputStreamReader(process.getInputStream());
-            BufferedReader reader = new BufferedReader(isReader);
-            String line;
-            line = reader.readLine();
+            String line = new BufferedReader(isReader).readLine();
             int marks = Integer.parseInt(line);
 
             //update marks
@@ -192,5 +189,16 @@ public class AssignmentService {
      */
     public Assignment getAssignment(Long id) {
         return assignmentRepository.findOne(id);
+    }
+
+    /**
+     * get list of submissions.
+     *
+     * @param assignmentId get id of assignment.
+     * @return list of submission.
+     */
+    public List<Submission> getSubmissions(Long assignmentId) {
+        Assignment assignment = assignmentRepository.findOne(assignmentId);
+        return assignment.getSubmissions();
     }
 }

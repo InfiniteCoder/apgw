@@ -1,6 +1,7 @@
 package com.example.apgw.controller;
 
 import com.example.apgw.model.Assignment;
+import com.example.apgw.model.Submission;
 import com.example.apgw.service.AssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -64,7 +65,6 @@ public class AssignmentController {
     @GetMapping("/api/assignments")
     public ResponseEntity<List<Assignment>> getAssignments(
             @RequestParam(name = "subjectName") String subjectName) {
-
         List<Assignment> list;
         try {
             list = service.getAssignments(subjectName);
@@ -120,5 +120,19 @@ public class AssignmentController {
     @GetMapping("/api/getAssignment")
     public ResponseEntity<Assignment> getAssignment(Long id) {
         return new ResponseEntity<>(service.getAssignment(id), HttpStatus.OK);
+    }
+
+    /**
+     * get list of submissions.
+     *
+     * @param assignmentId get id of assignment.
+     * @return list of submission.
+     */
+    @GetMapping("/api/submissions")
+    public ResponseEntity<List<Submission>> submission(
+            @RequestParam(name = "id") Long assignmentId) {
+
+        List<Submission> list = service.getSubmissions(assignmentId);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }
