@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 
-import java.io.IOException;
 import java.security.acl.NotOwnerException;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +88,7 @@ class AssignmentControllerTest {
     }
 
     @Test
-    void gradeShouldReturnCreated() throws InterruptedException, NotOwnerException, IOException {
+    void gradeShouldReturnCreated() throws NotOwnerException {
         long id = 1;
         doNothing().when(service).grade(id);
         ResponseEntity<String> reply = subject.grade(id);
@@ -98,29 +97,13 @@ class AssignmentControllerTest {
         assertEquals("grading completed", reply.getBody());
     }
 
-    @Test
-    void gradeShouldReturnNotModifiedOnIOException()
-            throws InterruptedException, NotOwnerException, IOException {
-        long id = 1;
-        doThrow(new IOException()).when(service).grade(id);
-        ResponseEntity<String> reply = subject.grade(id);
-        assertEquals(HttpStatus.NOT_MODIFIED, reply.getStatusCode());
-    }
+
 
     @Test
     void gradeShouldReturnNotModifiedOnNotOwnerException()
-            throws InterruptedException, NotOwnerException, IOException {
+            throws NotOwnerException {
         long id = 1;
         doThrow(new NotOwnerException()).when(service).grade(id);
-        ResponseEntity<String> reply = subject.grade(id);
-        assertEquals(HttpStatus.NOT_MODIFIED, reply.getStatusCode());
-    }
-
-    @Test
-    void gradeShouldReturnNotModifiedOnInterruptedException()
-            throws InterruptedException, NotOwnerException, IOException {
-        long id = 1;
-        doThrow(new InterruptedException()).when(service).grade(id);
         ResponseEntity<String> reply = subject.grade(id);
         assertEquals(HttpStatus.NOT_MODIFIED, reply.getStatusCode());
     }
