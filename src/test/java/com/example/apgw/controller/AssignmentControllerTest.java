@@ -32,8 +32,8 @@ class AssignmentControllerTest {
     }
 
     @Test
-    void addAssignmentShouldReturnCreatedOnSuccess() {
-        given(service.addAssignment(any(), any(), any(), any(), any())).willReturn("");
+    void addAssignmentShouldReturnCreatedOnSuccess() throws Exception {
+        doNothing().when(service).addAssignment(any(), any(), any(), any(), any());
         MockMultipartFile file = new MockMultipartFile("inputFile",
                 "input.txt",
                 "text/plain",
@@ -45,8 +45,8 @@ class AssignmentControllerTest {
     }
 
     @Test
-    void addAssignmentShouldReturnNoContentOnEmptyTitle() {
-        given(service.addAssignment(any(), any(), any(), any(), any())).willReturn("Empty title");
+    void addAssignmentShouldReturnNoContentOnEmptyTitle() throws Exception {
+        doThrow(new Exception()).when(service).addAssignment(any(), any(), any(), any(), any());
         MockMultipartFile file = new MockMultipartFile("inputFile",
                 "input.txt",
                 "text/plain",
@@ -58,34 +58,8 @@ class AssignmentControllerTest {
     }
 
     @Test
-    void addAssignmentShouldReturnNotModifiedOnFSError() {
-        given(service.addAssignment(any(), any(), any(), any(), any())).willReturn("FS error");
-        MockMultipartFile file = new MockMultipartFile("inputFile",
-                "input.txt",
-                "text/plain",
-                "some text".getBytes());
-        ResponseEntity<String> reply =
-                subject.addAssignment("Foo", "", file, file, file);
-
-        assertEquals(HttpStatus.NOT_MODIFIED, reply.getStatusCode());
-    }
-
-    @Test
-    void addAssignmentShouldReturnNotModifiedOnErrorCreatingDir() {
-        given(service.addAssignment(any(), any(), any(), any(), any())).willReturn("Error creating dir");
-        MockMultipartFile file = new MockMultipartFile("inputFile",
-                "input.txt",
-                "text/plain",
-                "some text".getBytes());
-        ResponseEntity<String> reply =
-                subject.addAssignment("Foo", "", file, file, file);
-
-        assertEquals(HttpStatus.NOT_MODIFIED, reply.getStatusCode());
-    }
-
-    @Test
-    void addAssignmentShouldReturnNoContentOnEmptyFile() {
-        given(service.addAssignment(any(), any(), any(), any(), any())).willReturn("Empty file");
+    void addAssignmentShouldReturnNoContentOnEmptyFile() throws Exception {
+        doThrow(new Exception()).when(service).addAssignment(any(), any(), any(), any(), any());
         MockMultipartFile file = new MockMultipartFile("inputFile",
                 "input.txt",
                 "text/plain",
@@ -97,7 +71,7 @@ class AssignmentControllerTest {
     }
 
     @Test
-    void getAssignments() {
+    void getAssignments() throws NotOwnerException {
         List<Assignment> list = new ArrayList<>();
         String name = "Foo";
         given(service.getAssignments(name)).willReturn(list);

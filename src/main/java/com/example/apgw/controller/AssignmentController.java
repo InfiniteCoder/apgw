@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.security.acl.NotOwnerException;
 import java.util.List;
 
 @RestController
@@ -41,23 +43,21 @@ public class AssignmentController {
             @RequestParam(name = "outputFile") MultipartFile outputFile,
             @RequestParam(name = "questionFile") MultipartFile questionFile) {
 
-        String reply = service.addAssignment(subjectName,
-                title, inputFile, outputFile, questionFile);
-        switch (reply) {
-            case "Empty title":
-            case "Empty file":
-                return new ResponseEntity<>(reply, HttpStatus.NO_CONTENT);
-            case "FS error":
-            case "Error creating dir":
-                return new ResponseEntity<>(reply, HttpStatus.NOT_MODIFIED);
-            default:
-                return new ResponseEntity<>(reply, HttpStatus.CREATED);
-
+        try {
+            service.addAssignment(subjectName, title, inputFile, outputFile, questionFile);
+            return new ResponseEntity<>("created", HttpStatus.CREATED);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Not Modified", HttpStatus.NOT_MODIFIED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Empty Files", HttpStatus.NO_CONTENT);
         }
     }
 
     /**
      * List all assignments, search by subjects.
+     *
      * @param subjectName name of subject.
      * @return List of assignments.
      */
@@ -65,12 +65,19 @@ public class AssignmentController {
     public ResponseEntity<List<Assignment>> getAssignments(
             @RequestParam(name = "subjectName") String subjectName) {
 
-        List<Assignment> list = service.getAssignments(subjectName);
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        List<Assignment> list;
+        try {
+            list = service.getAssignments(subjectName);
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        } catch (NotOwnerException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     /**
      * List all assignments, search by Id.
+     *
      * @param subjectId Id of subject.
      * @return List of assignment.
      */
@@ -82,6 +89,7 @@ public class AssignmentController {
 
     /**
      * Grade all submissions for an assignment.
+     *
      * @param assignmentId Id of assignment to grade.
      * @return Error/success message with HttpStatus.
      */
