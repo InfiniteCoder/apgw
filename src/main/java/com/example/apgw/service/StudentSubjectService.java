@@ -1,5 +1,6 @@
 package com.example.apgw.service;
 
+import com.example.apgw.helper.StudentCsvParser;
 import com.example.apgw.model.StudentSubject;
 import com.example.apgw.model.Subject;
 import com.example.apgw.model.Teacher;
@@ -77,7 +78,7 @@ public class StudentSubjectService {
 
         //parse CSV
         try {
-            ArrayList<StudentSubject> list = StudentCSVParser.parse(file, subject.getId());
+            ArrayList<StudentSubject> list = StudentCsvParser.parse(file, subject.getId());
             studentSubjectRepository.save(list);
             return "Students added";
         } catch (IOException e) {

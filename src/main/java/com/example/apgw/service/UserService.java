@@ -1,8 +1,8 @@
 package com.example.apgw.service;
 
+import com.example.apgw.helper.User;
 import com.example.apgw.model.Student;
 import com.example.apgw.model.Teacher;
-import com.example.apgw.model.User;
 import com.example.apgw.repository.StudentRepository;
 import com.example.apgw.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +18,24 @@ public class UserService {
     private final StudentRepository studentRepository;
     private final TeacherRepository teacherRepository;
 
+    /**
+     * Constructor for userService.
+     *
+     * @param studentRepository Repository for student.
+     * @param teacherRepository Repository for teacher.
+     */
     @Autowired
-    public UserService(StudentRepository studentRepository, TeacherRepository teacherRepository) {
+    public UserService(StudentRepository studentRepository,
+                       TeacherRepository teacherRepository) {
         this.studentRepository = studentRepository;
         this.teacherRepository = teacherRepository;
     }
 
+    /**
+     * Get type of user as "teacher", "student" or "new".
+     *
+     * @return String.
+     */
     public String getType() {
         String email = getEmail();
 
@@ -39,6 +51,11 @@ public class UserService {
         return "new";
     }
 
+    /**
+     * Get email id of user.
+     *
+     * @return email id.
+     */
     public String getEmail() {
         OAuth2Authentication authentication =
                 (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
@@ -48,6 +65,10 @@ public class UserService {
 
     }
 
+    /**
+     * Get name of user.
+     * @return name.
+     */
     public String getName() {
         OAuth2Authentication authentication =
                 (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
@@ -56,6 +77,10 @@ public class UserService {
         return properties.get("name");
     }
 
+    /**
+     * Get picture of user.
+     * @return picture URL.
+     */
     public String getPicture() {
         OAuth2Authentication authentication =
                 (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
@@ -64,6 +89,10 @@ public class UserService {
         return properties.get("picture");
     }
 
+    /**
+     * Create new user.
+     * @return new User object.
+     */
     public User user() {
         return new User(getEmail(), getPicture(), getName());
     }

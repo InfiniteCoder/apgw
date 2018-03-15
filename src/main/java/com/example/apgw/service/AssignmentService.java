@@ -40,6 +40,15 @@ public class AssignmentService {
     @Value("${file-path}")
     String basedir;
 
+    /**
+     * Constructor for Assignment Service.
+     *
+     * @param assignmentRepository Repository for assignment.
+     * @param subjectRepository    Repository for subject.
+     * @param teacherRepository    Repository for teacher.
+     * @param userService          Repository for userService.
+     * @param submissionRepository Repository for submission.
+     */
     @Autowired
     public AssignmentService(AssignmentRepository assignmentRepository,
                              SubjectRepository subjectRepository,
@@ -178,7 +187,8 @@ public class AssignmentService {
             Process process = Runtime.getRuntime().exec("docker run --rm -v" + path +
                     "/:/home/files/ -w /home/files gcc:7.3 ./c-script.sh");
             process.waitFor();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            InputStreamReader isReader = new InputStreamReader(process.getInputStream());
+            BufferedReader reader = new BufferedReader(isReader);
             String line;
             line = reader.readLine();
             int marks = Integer.parseInt(line);
@@ -190,7 +200,7 @@ public class AssignmentService {
     }
 
     /**
-     * Copy files to temp directory
+     * Copy files to temp directory.
      * @param submission submission whose files are to be copied.
      * @param assignment assignment whose files are to be copied.
      * @param path path of tempdir.
@@ -228,10 +238,10 @@ public class AssignmentService {
     }
 
     /**
-     * Get an assignment
+     * Get an assignment.
      *
-     * @param id id of assignment to retrieve
-     * @return Assignment
+     * @param id id of assignment to retrieve.
+     * @return Assignment.
      */
     public Assignment getAssignment(Long id) {
         return assignmentRepository.findOne(id);

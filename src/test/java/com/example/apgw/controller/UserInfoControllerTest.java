@@ -1,6 +1,6 @@
 package com.example.apgw.controller;
 
-import com.example.apgw.model.User;
+import com.example.apgw.helper.User;
 import com.example.apgw.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.example.apgw.service;
+package com.example.apgw.helper;
 
 import com.example.apgw.model.StudentSubject;
 import com.opencsv.CSVReader;
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class StudentCSVParser {
+public class StudentCsvParser {
     /**
      * Parses the CSV file and returns an ArrayList of StudentSubject,
      * which contains the provided students and subject.

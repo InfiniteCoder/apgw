@@ -25,6 +25,15 @@ public class SubmissionService {
     @Value("${file-path}")
     String basedir;
 
+    /**
+     * Constructor for Submission service.
+     *
+     * @param assignmentRepository     Repository for Assignment.
+     * @param studentRepository        Repository for Student.
+     * @param userService              Repository for UserService.
+     * @param studentSubjectRepository Repository for StudentSubjectRepository.
+     * @param submissionRepository     Repository for SubmissionRepository.
+     */
     @Autowired
     public SubmissionService(AssignmentRepository assignmentRepository,
                              StudentRepository studentRepository,
@@ -40,7 +49,6 @@ public class SubmissionService {
 
     /**
      * Add a submission.
-     *
      * @param assignmentId id of assignment.
      * @param file         submitted file.
      * @return Error/success message with HttpStatus.

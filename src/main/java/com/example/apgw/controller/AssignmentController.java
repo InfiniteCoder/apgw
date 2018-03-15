@@ -41,7 +41,8 @@ public class AssignmentController {
             @RequestParam(name = "outputFile") MultipartFile outputFile,
             @RequestParam(name = "questionFile") MultipartFile questionFile) {
 
-        String reply = service.addAssignment(subjectName, title, inputFile, outputFile, questionFile);
+        String reply = service.addAssignment(subjectName,
+                title, inputFile, outputFile, questionFile);
         switch (reply) {
             case "Empty title":
             case "Empty file":
@@ -96,10 +97,10 @@ public class AssignmentController {
     }
 
     /**
-     * Get an assignment
+     * Get an assignment.
      *
-     * @param id id of assignment to retrieve
-     * @return Assignment
+     * @param id id of assignment to retrieve.
+     * @return Assignment.
      */
     @GetMapping("/api/getAssignment")
     public ResponseEntity<Assignment> getAssignment(Long id) {
