@@ -139,11 +139,9 @@ public class AssignmentService {
      * Grade all submissions for an assignment.
      *
      * @param id id of assignment.
-     * @throws IOException          If reading/writing files fails.
-     * @throws InterruptedException If process gets interrupted.
      * @throws NotOwnerException    If current user is not the owner of the subject.
      */
-    public void grade(Long id) throws IOException, InterruptedException, NotOwnerException {
+    public void grade(Long id) throws NotOwnerException {
         //get the Assignment
         Assignment assignment = assignmentRepository.findOne(id);
 
@@ -157,26 +155,16 @@ public class AssignmentService {
         List<Submission> submissions = assignment.getSubmissions();
         Path path = Paths.get(basedir + "/apgw/temp");
 
-        //for every submission
-        for (Submission submission : submissions) {
-            //copy files
+        //grade every submission
+        submissions.forEach(submission ->
+        {
             try {
-                new FileStorageHelper(basedir).copyFiles(submission, assignment, path);
+                testSubmission(submission, assignment, path);
             } catch (Exception e) {
-                throw new FileSystemException("Cannot create directory");
+                e.printStackTrace();
             }
+        });
 
-            //run docker
-            Process process = Runtime.getRuntime().exec("docker run --rm -v"
-                    + path + "/:/home/files/ -w /home/files gcc:7.3 ./c-script.sh");
-            process.waitFor();
-            InputStreamReader isReader = new InputStreamReader(process.getInputStream());
-            String line = new BufferedReader(isReader).readLine();
-            int marks = Integer.parseInt(line);
-
-            //update marks
-            submission.setMarks(marks);
-        }
         assignment.setSubmissions(submissions);
         assignmentRepository.save(assignment);
     }
@@ -210,5 +198,37 @@ public class AssignmentService {
      */
     public Path getQuestionPath(Long id) {
         return Paths.get(basedir + "/apgw/assi/" + id + "/question");
+    }
+
+    /**
+     * Tests the submitted code against test cases.
+     *
+     * @param submission submission to be tested.
+     * @param assignment assignment related to submission.
+     * @param path       path where assignment files are stored.
+     * @throws IOException          If parsing result fails.
+     * @throws InterruptedException If process fails.
+     */
+    private void testSubmission(Submission submission,
+                                Assignment assignment,
+                                Path path)
+            throws IOException, InterruptedException {
+        //copy files
+        try {
+            new FileStorageHelper(basedir).copyFiles(submission, assignment, path);
+        } catch (Exception e) {
+            throw new FileSystemException("Cannot create directory");
+        }
+
+        //run docker
+        Process process = Runtime.getRuntime().exec("docker run --rm -v"
+                + path + "/:/home/files/ -w /home/files gcc:7.3 ./c-script.sh");
+        process.waitFor();
+        InputStreamReader isReader = new InputStreamReader(process.getInputStream());
+        String line = new BufferedReader(isReader).readLine();
+        int marks = Integer.parseInt(line);
+
+        //update marks
+        submission.setMarks(marks);
     }
 }
