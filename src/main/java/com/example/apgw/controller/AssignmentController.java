@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.security.acl.NotOwnerException;
 import java.util.List;
 
@@ -134,5 +136,22 @@ public class AssignmentController {
 
         List<Submission> list = service.getSubmissions(assignmentId);
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    /**
+     * Returns question file.
+     *
+     * @param id       id of assignment.
+     * @param response HttpServletResponse.
+     */
+    @GetMapping("/api/questionFile")
+    public void getImageAsResource(Long id, HttpServletResponse response) {
+        try {
+            Files.copy(service.getQuestionPath(id),
+                    response.getOutputStream());
+            response.flushBuffer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

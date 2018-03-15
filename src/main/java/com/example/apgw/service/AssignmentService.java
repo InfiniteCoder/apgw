@@ -201,4 +201,14 @@ public class AssignmentService {
         Assignment assignment = assignmentRepository.findOne(assignmentId);
         return assignment.getSubmissions();
     }
+
+    /**
+     * get path of question file.
+     *
+     * @param id id of assignment.
+     * @return path of question file.
+     */
+    public Path getQuestionPath(Long id) {
+        return Paths.get(basedir + "/apgw/assi/" + id + "/question");
+    }
 }
