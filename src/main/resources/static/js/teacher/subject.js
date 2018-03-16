@@ -15,11 +15,10 @@ var getUrlParameter = function getUrlParameter(sParam) {
 };
 
 function assignUpload() {
-    console.log("Assignment Upload Button clicked");
     var subName = getUrlParameter("name");
-    console.log(subName);
+
     var assignmentTitle = document.getElementById("assignTitle").value;
-    console.log(assignmentTitle);
+
     var inputFile = document.getElementById("assignInputFile").files[0];
     var outputFile = document.getElementById("assignOutputFile").files[0];
     var quesFile = document.getElementById("assignQuesFile").files[0];
@@ -40,7 +39,7 @@ function assignUpload() {
             contentType: false,  // tell jQuery not to set contentType
             success: function (data, textStatus, jqXHR) {
                 var responseMsg = jqXHR.status;
-                console.log(responseMsg);
+                //console.log(responseMsg);
                 if (responseMsg === 201) {
                     $("#assignModalMsg").text("Files Uploaded Successfully");
                     $("#assignModal").modal("show");
@@ -60,7 +59,7 @@ function assignUpload() {
                 // console.log(data);
             },
             error: function (jqXHR) {
-                console.log(jqXHR.status);
+                //console.log(jqXHR.status);
                 $("#assignModalMsg").text("Error");
                 $("#assignModal").modal("show");
             }
@@ -69,7 +68,7 @@ function assignUpload() {
 }
 
 function studentUpload() {
-    console.log("student upload btn clicked");
+    //console.log("student upload btn clicked");
     var file = document.getElementById("fileInput").files[0];
 
     //create formdata object
@@ -105,7 +104,7 @@ function studentUpload() {
             // console.log(data);
         },
         error: function (jqXHR) {
-            console.log(jqXHR.status);
+            //console.log(jqXHR.status);
             $("#studModalMessage").text("Error");
             $("#studUploadModal").modal("show");
         }
@@ -127,7 +126,7 @@ function displayStudent() {
                 var result = "";
                 for (var i = 0; i < data.length; i++) {
                     result += "<li class=\"list-group-item\"><span>" + data[i].studentEmail + "</span></li>";
-                    console.log(data[i].studentEmail);
+                    //console.log(data[i].studentEmail);
                 }
                 var listElement = $("#studentList");
                 listElement.empty();
@@ -135,7 +134,7 @@ function displayStudent() {
 
             },
             error: function (jqXHR) {
-                console.log(jqXHR);
+                //console.log(jqXHR);
             }
 
         }
@@ -143,7 +142,7 @@ function displayStudent() {
 }
 
 function addTestCases() {
-    console.log("add test cases");
+    //console.log("add test cases");
     var result = "<li class=\"list-group-item\" style=\"height:45px;\">" +
         "<div class=\"col-md-12\" style=\"width:50%;height:auto;\"><input type=\"file\" style=\"color:rgb(249,244,244);height:28px;\" id=\"assignInputFile\"></div>" +
         "<div class=\"col-md-12\" style=\"width:50%;height:auto;\"><input type=\"file\" style=\"color:rgb(249,244,244);height:28px;\" id=\"assignOutputFile\"></div>" +
@@ -166,8 +165,8 @@ function displayAssignFunc() {
                 for (var i = 0; i < data.length; i++) {
                     assignid = data[i].id;
                     result += "<li class=\"list-group-item\" onclick=\"showSubmission(this)\" data-assign-id=" + assignid + ">" + data[i].title + "</li>";
-                    console.log(data[i].title);
-                    console.log(assignid);
+                    //console.log(data[i].title);
+                    //console.log(assignid);
                 }
                 var listElement = $("#assignList");
                 listElement.empty();
@@ -176,7 +175,7 @@ function displayAssignFunc() {
 
             },
             error: function (jqXHR) {
-                console.log(jqXHR);
+                //console.log(jqXHR);
             }
 
         }
@@ -187,7 +186,7 @@ function showSubmission(e) {
     var assignName = e.innerHTML;
     Cookies.set('assignName', assignName, {path: '/'});
     var assignId = e.getAttribute("data-assign-id");
-    console.log(assignId);
+    //console.log(assignId);
     //console.log(subName);
     window.location = "Submission.html" + "?id=" + assignId;
 

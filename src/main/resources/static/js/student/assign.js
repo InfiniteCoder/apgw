@@ -25,7 +25,6 @@ function displayAssignFunc() {
                 var result = "";
                 for (var i = 0; i < data.length; i++) {
                     result += "<li class=\"list-group-item\" onclick=\"addSubmission(this)\" data-assign-id=" + data[i].id + ">" + data[i].title + "</li>";
-                    console.log(data[i].id);
                 }
                 var listElement = $("#assignList");
                 listElement.empty();
@@ -34,7 +33,6 @@ function displayAssignFunc() {
 
             },
             error: function (jqXHR) {
-                console.log(jqXHR);
             }
 
         }
@@ -52,7 +50,6 @@ function addSubmission(e) {
 window.onload = function () {
     $("#subName").text(getUrlParameter("name"));
 
-    var displayAssignBtn = document.getElementById("displayAssign");
-    displayAssignBtn.addEventListener("click", displayAssignFunc);
+    displayAssignFunc();
 
 };

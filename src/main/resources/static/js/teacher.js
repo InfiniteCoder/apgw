@@ -2,7 +2,7 @@ function addSubject() {
     //console.log("In Add");
     var name = document.getElementById("subnametxt").value;
     $.post("/addSubject", {name: name}, function (data, textStatus, jqXHR) {
-        console.log(jqXHR.statusText);
+        //console.log(jqXHR.statusText);
         var responseMsg = jqXHR.statusText;
         if (responseMsg === "notmodified") {
             $("#modalMessage").text("Subject Already Exists");
@@ -26,7 +26,7 @@ function addSubject() {
 function showSubjects() {
     $.getJSON("/teacher/subjects", function (data) {
         var sublist = "";
-        console.log(data.name);
+        //console.log(data.name);
         for (var i = 0; i < data.length; i++) {
             sublist += "<li class=\"list-group-item\"><span>" + data[i].name + "</span></li>";
             console.log(data[i].id);

@@ -144,11 +144,12 @@ public class AssignmentController {
      * @param id       id of assignment.
      * @param response HttpServletResponse.
      */
-    @GetMapping("/api/questionFile")
+    @GetMapping(value = "/api/questionFile", produces = "text/plain")
     public void getImageAsResource(Long id, HttpServletResponse response) {
         try {
             Files.copy(service.getQuestionPath(id),
                     response.getOutputStream());
+            response.setCharacterEncoding("UTF-8");
             response.flushBuffer();
         } catch (IOException e) {
             e.printStackTrace();

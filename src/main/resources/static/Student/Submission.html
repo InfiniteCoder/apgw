@@ -2,7 +2,8 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <!--<meta charset="utf-8">-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>APGW</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css">
@@ -33,30 +34,43 @@
                     class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav">
                     <li role="presentation"><a href="#">About </a></li>
-                    <li role="presentation"><a href="#">Source Code</a></li>
+                    <li role="presentation"><a href="https://github.com/InfiniteCoder/apgw">Source Code</a></li>
                 </ul>
                 <p class="navbar-text navbar-right actions"><a class="btn btn-default action-button" role="button"
-                                                               href="#">Login </a></p>
+                                                               href="/logout">Logout </a></p>
             </div>
         </div>
     </nav>
 </div>
 <p style="height:auto;font-size:20px;margin-top:5px;margin-left:10px;">Assignment Title:- <var
         id="assignTitle"></var></p>
-<p style="font-size:20px;height:auto;margin-left:20px;margin-right:20px;">Question:</p>
+<p style="font-size:20px;height:auto;margin-left:20px;margin-right:20px;">Question: <var id="questionFile"></var></p>
 <h4 style="margin-top:25px;height:25px;margin-left:15px;">Select Your program file and Upload</h4><input type="file"
-                                                                                                         style="font-size:20px;color:rgb(245,242,242);width:30%;margin-top:10px;margin-left:15px;">
-<button class="btn btn-default" type="button" style="width:20%;font-size:20px;margin-left:40%;margin-top:20px;">Upload
+                                                                                                         style="font-size:20px;color:rgb(245,242,242);width:30%;margin-top:10px;margin-left:15px;"
+                                                                                                         id="subFile">
+<button class="btn btn-default" type="button" style="width:20%;font-size:20px;margin-left:40%;margin-top:20px;"
+        id="subUploadBtn">Upload
 </button>
-<div
-        style="height:250px;"></div>
+<div style="height:250px;"></div>
+<div class="modal fade" role="dialog" tabindex="-1" id="successModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p id="modalMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="footer-basic">
     <footer>
         <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i
                 class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a
                 href="#"><i class="icon ion-social-facebook"></i></a></div>
         <ul class="list-inline">
-            <li><a href="#">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="#">Services</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Terms</a></li>

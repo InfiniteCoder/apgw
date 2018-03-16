@@ -28,8 +28,8 @@ function displaySubFunc() {
                 for (var i = 0; i < data.length; i++) {
                     //assignid = data[i].id;
                     result += "<li class=\"list-group-item\" data-sub-id=" + data[i].id + ">" + data[i].student.name + "</li>";
-                    console.log(data[i].id);
-                    console.log(data[i].student.name);
+                    //console.log(data[i].id);
+                    //console.log(data[i].student.name);
                 }
                 var listElement = $("#subList");
                 listElement.empty();
@@ -38,7 +38,7 @@ function displaySubFunc() {
 
             },
             error: function (jqXHR) {
-                console.log(jqXHR);
+                //console.log(jqXHR);
             }
 
         }
@@ -51,7 +51,7 @@ window.onload = function () {
     var assignName = Cookies.get('assignName');
     $("#assignName").text(assignName);
     var aid = getUrlParameter("id");
-    console.log(aid);
+    //console.log(aid);
 
     displaySubFunc();
 };
