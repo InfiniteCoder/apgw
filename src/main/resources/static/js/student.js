@@ -13,23 +13,6 @@ function showSubjects() {
         var listElement = $("#subList");
         listElement.empty();
         listElement.append(sublist);
-        //console.log(id.length);
-
-        /*for(var j=0;j<id.length;j++)
-        {
-            var subId = id[j];
-            console.log(subId);
-            //$('#subList li').attr('data-subId', function(subId) {
-              //  return 'subList'+(subId);
-            //});
-            // after elements have been created
-            $('#sublist li').each(function (subId) {
-                console.log(subId);
-                $(this).attr('data-subId',+subId);
-            });
-        }*/
-
-
         document.getElementById("subList").style.cursor = "pointer";
     });
 }
@@ -37,13 +20,13 @@ function showSubjects() {
 function showAssign(e) {
     //var abc = $('.list-group-item:first');
     var subId = e.getAttribute("data-sub-id");
+    var subName = e.innerHTML;
     console.log(subId);
     //console.log(subName);
-    window.location = "/Student/Assignment.html" + "?id=" + subId;
+    window.location = "/Student/Assignment.html" + "?id=" + subId + "&name=" + subName;
 }
 
 window.onload = function () {
-    hideLogin();
 
     var btn = document.getElementById("subjectList");
     btn.addEventListener("click", function () {
