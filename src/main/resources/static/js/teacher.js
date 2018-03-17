@@ -28,7 +28,7 @@ function showSubjects() {
         var sublist = "";
         //console.log(data.name);
         for (var i = 0; i < data.length; i++) {
-            sublist += "<li class=\"list-group-item\"><span>" + data[i].name + "</span></li>";
+            sublist += "<li class=\"list-group-item\" onclick=\"teachersub(this)\" data-sub-id=" + data[i].id + "><span>" + data[i].name + "</span></li>";
             console.log(data[i].id);
         }
         var listElement = $("#sub_list");
@@ -39,10 +39,10 @@ function showSubjects() {
 }
 
 function teachersub(e) {
-    var subName = e.target.textContent;
-
+    var subName = e.textContent;
+    var subId = e.getAttribute("data-sub-id");
     //console.log(subName);
-    window.location = "/Teacher/Subject.html" + "?name=" + subName;
+    window.location = "/Teacher/Subject.html" + "?name=" + subName + "&id=" + subId;
 }
 
 window.onload = function () {
@@ -58,8 +58,8 @@ window.onload = function () {
         showSubjects();
     });
 
-    var subList = document.getElementById("sub_list");
-    subList.addEventListener("click", teachersub);
+    //var subList = document.getElementById("sub_list");
+    //subList.addEventListener("click", teachersub);
 
 
 };

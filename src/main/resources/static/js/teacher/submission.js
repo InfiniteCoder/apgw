@@ -24,12 +24,25 @@ function displaySubFunc() {
             //dataType: "json",
             success: function (data) {
                 var result = "";
-                //var assignid;
+                var sid = getUrlParameter("sid");
+                //console.log(sid);
                 for (var i = 0; i < data.length; i++) {
-                    //assignid = data[i].id;
-                    result += "<li class=\"list-group-item\" data-sub-id=" + data[i].id + ">" + data[i].student.name + "</li>";
-                    //console.log(data[i].id);
-                    //console.log(data[i].student.name);
+                    var subuid;
+                    for (var j = 0; j < data[i].student.subjects.length; j++) {
+                        var temp = data[i].student.subjects[j].subjectId;
+                        //console.log(temp);
+
+                        if (temp == sid) {
+                            subuid = data[i].student.subjects[j].uid;
+                        }
+                        //subuid = data[i].student.subjects[j].uid;
+                        //console.log(subuid);
+                    }
+                    result += "<li class=\"list-group-item\"><span>" + subuid + "</span> - " + data[i].student.name + "</li>";
+                    //console.log(data[i].marks);
+                    //console.log(data[i].student.subjects[0].uid);
+                    //var sub = data[i].student;
+
                 }
                 var listElement = $("#subList");
                 listElement.empty();
@@ -45,13 +58,35 @@ function displaySubFunc() {
     );
 }
 
+function gradeAssign() {
+
+    console.log("Grading");
+    $.ajax(
+        {
+            url: "/api/grade",
+            type: "POST",
+            data: {id: getUrlParameter("id")},
+            success: function (data) {
+                console.log("graded success");
+            },
+            error: function (jqXHR) {
+                console.log("error");
+            }
+        }
+    );
+
+}
+
 window.onload = function () {
     hideLogin();
     //$("#subName").text(getUrlParameter("name"));
     var assignName = Cookies.get('assignName');
     $("#assignName").text(assignName);
-    var aid = getUrlParameter("id");
+    //var aid = getUrlParameter("id");
     //console.log(aid);
 
     displaySubFunc();
+
+    var gradingBtn = document.getElementById("gradeBtn");
+    gradingBtn.addEventListener("click", gradeAssign);
 };

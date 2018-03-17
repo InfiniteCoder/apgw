@@ -188,7 +188,8 @@ function showSubmission(e) {
     var assignId = e.getAttribute("data-assign-id");
     //console.log(assignId);
     //console.log(subName);
-    window.location = "Submission.html" + "?id=" + assignId;
+    var subId = getUrlParameter("id");
+    window.location = "Submission.html" + "?id=" + assignId + "&sid=" + subId;
 
 }
 window.onload = function () {
