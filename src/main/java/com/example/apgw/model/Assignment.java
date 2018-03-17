@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,6 +24,7 @@ public class Assignment {
     private String title;
     @JsonManagedReference
     @OneToMany(mappedBy = "assignment")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private List<Submission> submissions;
 
     public Assignment(Subject subject, String title) {

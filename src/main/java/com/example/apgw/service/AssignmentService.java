@@ -231,4 +231,8 @@ public class AssignmentService {
         //update marks
         submission.setMarks(marks);
     }
+
+    public void deleteAssignment(Long id) {
+        assignmentRepository.delete(id);
+    }
 }
