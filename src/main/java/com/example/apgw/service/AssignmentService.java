@@ -153,7 +153,7 @@ public class AssignmentService {
 
         //get all submissions
         List<Submission> submissions = assignment.getSubmissions();
-        Path path = Paths.get(basedir + "/apgw/temp");
+        Path path = Paths.get(basedir + "/apgw/temp/");
 
         //grade every submission
         submissions.forEach(submission ->
