@@ -4,10 +4,9 @@ import com.example.apgw.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.acl.NotOwnerException;
 
 @RestController
 public class SubjectController {
@@ -37,6 +36,23 @@ public class SubjectController {
             default:
                 return new ResponseEntity<>(reply, HttpStatus.NO_CONTENT);
 
+        }
+    }
+
+    /**
+     * delete a subject.
+     *
+     * @param id id of subject to be deleted.
+     * @return success status.
+     */
+    @DeleteMapping("/api/subject")
+    public ResponseEntity<String> deleteSubject(Long id) {
+        try {
+            service.deleteSubject(id);
+            return new ResponseEntity<>("subject deleted", HttpStatus.OK);
+        } catch (NotOwnerException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("not owner", HttpStatus.NOT_FOUND);
         }
     }
 }

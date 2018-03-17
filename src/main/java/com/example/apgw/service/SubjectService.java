@@ -7,6 +7,8 @@ import com.example.apgw.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.acl.NotOwnerException;
+
 @Service
 public class SubjectService {
 
@@ -48,6 +50,22 @@ public class SubjectService {
         } else {
             return "Name cannot be empty";
 
+        }
+    }
+
+    /**
+     * delete a subject.
+     *
+     * @param id id of subject to be deleted.
+     * @throws NotOwnerException if current user is not the owner of this subject.
+     */
+    public void deleteSubject(Long id) throws NotOwnerException {
+        Subject subject = subjectRepository.findOne(id);
+        //delete only if current user is owner of this subject
+        if (subject.getTeacher().getEmail().equals(userService.getEmail())) {
+            subjectRepository.delete(id);
+        } else {
+            throw new NotOwnerException();
         }
     }
 }

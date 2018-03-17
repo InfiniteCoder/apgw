@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -26,9 +27,11 @@ public class Subject {
     private Teacher teacher;
     @OneToMany(mappedBy = "subject")
     @JsonManagedReference
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private List<StudentSubject> students;
     @OneToMany(mappedBy = "subject")
     @JsonManagedReference
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private List<Assignment> assignments;
 
     /**
