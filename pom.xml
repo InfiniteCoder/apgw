@@ -102,6 +102,13 @@
             <artifactId>opencsv</artifactId>
             <version>4.1</version>
         </dependency>
+
+        <!-- For common tasks -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

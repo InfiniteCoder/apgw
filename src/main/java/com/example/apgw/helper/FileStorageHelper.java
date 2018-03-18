@@ -2,6 +2,8 @@ package com.example.apgw.helper;
 
 import com.example.apgw.model.Assignment;
 import com.example.apgw.model.Submission;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -11,7 +13,7 @@ import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Optional;
+import java.util.*;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
@@ -89,10 +91,23 @@ public class FileStorageHelper {
         }
         Files.copy(inputPath, path.resolve("input"), REPLACE_EXISTING);
         Files.copy(outputPath, path.resolve("output"), REPLACE_EXISTING);
-        Files.copy(Paths.get(FileStorageHelper.class.getResource("/c-script.sh").toURI()),
-                path.resolve("c-script.sh"),
+
+        //check type and copy appropriate script
+        String type = getCodeType(submission);
+        String scriptName = "";
+        switch (type) {
+            case "c":
+                scriptName = "c-script.sh";
+                break;
+            case "cpp":
+                scriptName = "cpp-script.sh";
+                break;
+        }
+
+        Files.copy(Paths.get(FileStorageHelper.class.getResource("/" + scriptName).toURI()),
+                path.resolve(scriptName),
                 REPLACE_EXISTING);
-        Boolean isExecutable = path.resolve("c-script.sh").toFile().setExecutable(true);
+        Boolean isExecutable = path.resolve(scriptName).toFile().setExecutable(true);
         if (!isExecutable) {
             throw new FileSystemException("cannot change permission");
         }
@@ -113,5 +128,45 @@ public class FileStorageHelper {
         String submissionPath = path + file.getOriginalFilename();
         File dest = new File(submissionPath);
         file.transferTo(dest);
+    }
+
+    /**
+     * Get the source code type of a submission.
+     *
+     * @param submission Submission to be checked.
+     * @return type, valid options are "c", "cpp" and "invalid".
+     */
+    public String getCodeType(Submission submission) {
+        File codeDir = new File(basedir + "/apgw/submission/" + submission.getId());
+        File codeFile = Objects.requireNonNull(codeDir.listFiles())[0];
+        String type = FilenameUtils.getExtension(codeFile.getName());
+        if (type.equals("c")) {
+            return "c";
+        }
+
+        //c++ types
+        Set<String> cppSuffixes =
+                new HashSet<>(Arrays.asList("cc", "cp", "cxx", "cpp", "CPP", "c++", "C"));
+        if (cppSuffixes.contains(type)) {
+            return "cpp";
+        }
+        return "invalid";
+    }
+
+    /**
+     * clean temp dir.
+     *
+     * @param tempPath path to temp dir.
+     * @throws IOException If deletion fails.
+     */
+    public void deleteTemp(Path tempPath) throws IOException {
+        //set tempPath
+        FileUtils.cleanDirectory(tempPath.toFile());
+    }
+
+    public String getExtention(Submission submission) {
+        File codeDir = new File(basedir + "/apgw/submission/" + submission.getId());
+        File codeFile = Objects.requireNonNull(codeDir.listFiles())[0];
+        return FilenameUtils.getExtension(codeFile.getName());
     }
 }

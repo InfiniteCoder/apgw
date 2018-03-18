@@ -1,6 +1,7 @@
 package com.example.apgw.service;
 
 import com.example.apgw.helper.FileStorageHelper;
+import com.example.apgw.helper.GradingHelper;
 import com.example.apgw.model.*;
 import com.example.apgw.repository.AssignmentRepository;
 import com.example.apgw.repository.StudentRepository;
@@ -10,10 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.file.FileSystemException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.acl.NotOwnerException;
@@ -159,7 +157,7 @@ public class AssignmentService {
         submissions.forEach(submission ->
         {
             try {
-                testSubmission(submission, assignment, path);
+                new GradingHelper(basedir).testSubmission(submission, assignment, path);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -200,38 +198,11 @@ public class AssignmentService {
         return Paths.get(basedir + "/apgw/assi/" + id + "/question");
     }
 
+
     /**
-     * Tests the submitted code against test cases.
-     *
-     * @param submission submission to be tested.
-     * @param assignment assignment related to submission.
-     * @param path       path where assignment files are stored.
-     * @throws IOException          If parsing result fails.
-     * @throws InterruptedException If process fails.
+     * Delete an assignment.
+     * @param id id of assignment to be deleted.
      */
-    private void testSubmission(Submission submission,
-                                Assignment assignment,
-                                Path path)
-            throws IOException, InterruptedException {
-        //copy files
-        try {
-            new FileStorageHelper(basedir).copyFiles(submission, assignment, path);
-        } catch (Exception e) {
-            throw new FileSystemException("Cannot create directory");
-        }
-
-        //run docker
-        Process process = Runtime.getRuntime().exec("docker run --rm -v"
-                + path + "/:/home/files/ -w /home/files gcc:7.3 ./c-script.sh");
-        process.waitFor();
-        InputStreamReader isReader = new InputStreamReader(process.getInputStream());
-        String line = new BufferedReader(isReader).readLine();
-        int marks = Integer.parseInt(line);
-
-        //update marks
-        submission.setMarks(marks);
-    }
-
     public void deleteAssignment(Long id) {
         assignmentRepository.delete(id);
     }
