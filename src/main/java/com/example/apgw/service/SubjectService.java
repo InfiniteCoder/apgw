@@ -1,6 +1,7 @@
 package com.example.apgw.service;
 
 import com.example.apgw.model.Subject;
+import com.example.apgw.model.SubjectDetails;
 import com.example.apgw.model.Teacher;
 import com.example.apgw.repository.SubjectRepository;
 import com.example.apgw.repository.TeacherRepository;
@@ -38,10 +39,11 @@ public class SubjectService {
      * @param name name of subject
      * @return String message showing status
      */
-    public String addSubject(String name) {
+    public String addSubject(String name, String year, String dept) {
         Teacher teacher = teacherRepository.findOne(userService.getEmail());
-        Subject subject = new Subject(name, teacher);
-        Subject subExist = subjectRepository.findByNameAndTeacher(name, teacher);
+        SubjectDetails details = new SubjectDetails(name, year, dept);
+        Subject subject = new Subject(details);
+        Subject subExist = subjectRepository.findByDetails_NameAndTeacher(name, teacher);
         if (subExist == null && !name.isEmpty()) {
             subjectRepository.save(subject);
             return "Subject added";

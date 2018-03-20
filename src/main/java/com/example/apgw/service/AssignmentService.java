@@ -98,7 +98,7 @@ public class AssignmentService {
     private Subject getSubject(String subjectName, String teacherEmail) throws NotOwnerException {
         Teacher teacher = teacherRepository.findOne(teacherEmail);
         return teacher.getSubjects().stream()
-                .filter(s -> s.getName().equals(subjectName))
+                .filter(s -> s.getDetails().getName().equals(subjectName))
                 .findFirst()
                 .orElseThrow(NotOwnerException::new);
     }
