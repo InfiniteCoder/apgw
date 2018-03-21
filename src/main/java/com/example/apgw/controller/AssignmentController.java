@@ -6,10 +6,7 @@ import com.example.apgw.service.AssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -161,7 +158,7 @@ public class AssignmentController {
      * @param id id of assignment to be deleted.
      * @return Success status.
      */
-    @PostMapping(value = "/api/assignment")
+    @DeleteMapping(value = "/api/assignment")
     public ResponseEntity<String> deleteAssignment(Long id) {
         service.deleteAssignment(id);
         return new ResponseEntity<>("deleted assignment", HttpStatus.OK);

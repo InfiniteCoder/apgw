@@ -64,7 +64,7 @@ public class GradingHelper {
         try {
             marks = Integer.parseInt(line);
         } catch (Exception e) {
-            System.out.println(line);
+            e.printStackTrace();
         }
 
         //update marks

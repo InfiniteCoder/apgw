@@ -190,13 +190,9 @@ function deleteAssign(e) {
     //var formData = new FormData();
     //formData.append("id", assignId);
     $.ajax({
-        url: "/api/assignment",
-        type: "POST",
-        data: {id: assignId},
-        //contentType:'application/json',  // <---add this
-        //dataType: 'text',
-        //processData: false,  // tell jQuery not to process the data
-        //contentType: false,  // tell jQuery not to set contentType
+        url: "/api/assignment?id=" + assignId,
+        type: "DELETE",
+
         success: function (data) {
             console.log("Success delete");
             var row = e.parentNode.parentNode;
