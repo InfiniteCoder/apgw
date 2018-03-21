@@ -4,3 +4,5 @@ target/
 .idea
 *.iml
 ### NetBeans ###
+### Linux ###
+.directory
