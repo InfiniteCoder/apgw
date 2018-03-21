@@ -28,7 +28,7 @@ function showSubjects() {
         var sublist = "";
         //console.log(data.name);
         for (var i = 0; i < data.length; i++) {
-            sublist += "<li class=\"list-group-item\" onclick=\"teachersub(this)\" data-sub-id=" + data[i].id + "><span>" + data[i].name + "</span></li>";
+            sublist += "<li class=\"list-group-item\" onclick=\"teachersub(this)\" data-sub-id=" + data[i].id + ">" + data[i].name + "<i class=\"material-icons\" style=\"height:30px;width:30px;float:right;\"></i></li>";
             console.log(data[i].id);
         }
         var listElement = $("#sub_list");

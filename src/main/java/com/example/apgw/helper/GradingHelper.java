@@ -60,7 +60,12 @@ public class GradingHelper {
         process.waitFor();
         InputStreamReader isReader = new InputStreamReader(process.getInputStream());
         String line = new BufferedReader(isReader).readLine();
-        int marks = Integer.parseInt(line);
+        int marks = 0;
+        try {
+            marks = Integer.parseInt(line);
+        } catch (Exception e) {
+            System.out.println(line);
+        }
 
         //update marks
         submission.setMarks(marks);
