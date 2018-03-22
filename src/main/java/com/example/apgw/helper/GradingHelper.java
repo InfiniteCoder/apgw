@@ -46,13 +46,13 @@ public class GradingHelper {
         String type = fileStorageHelper.getCodeType(submission);
         switch (type) {
             case "c":
-                dockerCommand = "docker run --rm -v"
+                dockerCommand = "docker run --rm -v "
                         + tempPath + "/:/home/files/ -w /home/files gcc:7.3 ./c-script.sh";
                 break;
             case "cpp":
                 dockerCommand = "docker run -e CodeFileExt="
                         + fileStorageHelper.getExtention(submission)
-                        + " --rm -v"
+                        + " --rm -v "
                         + tempPath + "/:/home/files/ -w /home/files gcc:7.3 ./cpp-script.sh";
                 break;
         }
