@@ -30,9 +30,7 @@ public class StudentCsvParser {
             String[] line;
             while ((line = reader.readNext()) != null) {
                 String uid = line[0];
-                System.out.println(uid);
                 String studentEmail = line[1];
-                System.out.println(studentEmail);
                 StudentSubject studentSubject = new StudentSubject(subjectId, studentEmail, uid);
                 list.add(studentSubject);
             }
