@@ -14,24 +14,17 @@ security:
             userInfoUri: https://www.googleapis.com/userinfo/v2/me
             preferTokenInfo: false
 
-# database settings
+# H2
 spring:
-    datasource:
-        password: ${apgw_db_password}
-        url: ${apgw_db_url}
-        username: ${apgw_db_username}
-        tomcat:
-          test-while-idle: true
-          validation-query: SELECT 1
-    jpa:
-        hibernate:
-            ddl-auto: update
-            naming:
-              strategy: org.hibernate.cfg.ImprovedNamingStrategy
-        properties:
-            hibernate:
-                dialect: org.hibernate.dialect.MySQL5Dialect
-        show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  datasource:
+    url: jdbc:h2:file:~/test
+    username: test
+    password: test123
+    driver-class-name: org.h2.Driver
 
 # server settings
 server:

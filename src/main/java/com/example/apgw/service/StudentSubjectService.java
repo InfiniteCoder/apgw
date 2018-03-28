@@ -52,7 +52,7 @@ public class StudentSubjectService {
     public List<StudentSubject> getStudents(String subjectName) {
         String email = userService.getEmail();
         Teacher teacher = teacherRepository.findOne(email);
-        Subject subject = subjectRepository.findByNameAndTeacher(subjectName, teacher);
+        Subject subject = subjectRepository.findByDetails_NameAndTeacher(subjectName, teacher);
         return subject.getStudents();
     }
 
@@ -74,7 +74,7 @@ public class StudentSubjectService {
         String teacherEmail = userService.getEmail();
         Teacher teacher = teacherRepository.findOne(teacherEmail);
         //Get Subject
-        Subject subject = subjectRepository.findByNameAndTeacher(subjectName, teacher);
+        Subject subject = subjectRepository.findByDetails_NameAndTeacher(subjectName, teacher);
 
         //parse CSV
         try {
