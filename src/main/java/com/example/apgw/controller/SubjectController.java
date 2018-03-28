@@ -24,15 +24,13 @@ public class SubjectController {
     /**
      * add subject endpoint. Subject name must be unique for the teacher.
      *
-     * @param name name of subject
+     * @param id id of subjectdetails
      * @return String message showing status
      */
     @PostMapping("/addSubject")
     @ResponseBody
-    public ResponseEntity<String> addSubject(String name,
-                                             String year,
-                                             String dept) {
-        String reply = service.addSubject(name, year, dept);
+    public ResponseEntity<String> addSubject(Long id) {
+        String reply = service.addSubject(id);
         switch (reply) {
             case "Subject added":
                 return new ResponseEntity<>(reply, HttpStatus.CREATED);

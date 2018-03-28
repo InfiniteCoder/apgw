@@ -25,30 +25,33 @@ class SubjectControllerTest {
 
     @Test
     void addSubjectShouldReturnCreated() {
+        long id = 1;
         String expected = "Subject added";
-        given(service.addSubject("Foo", "I", "CSE")).willReturn(expected);
+        given(service.addSubject(id)).willReturn(expected);
 
-        ResponseEntity<String> reply = testSubject.addSubject("Foo", "I", "CSE");
+        ResponseEntity<String> reply = testSubject.addSubject(id);
 
         assertEquals(HttpStatus.CREATED, reply.getStatusCode());
     }
 
     @Test
     void addSubjectShouldReturnNotModified() {
+        long id = 1;
         String expected = "Subject already exists";
-        given(service.addSubject("Foo", "I", "CSE")).willReturn(expected);
+        given(service.addSubject(id)).willReturn(expected);
 
-        ResponseEntity<String> reply = testSubject.addSubject("Foo", "I", "CSE");
+        ResponseEntity<String> reply = testSubject.addSubject(id);
 
         assertEquals(HttpStatus.NOT_MODIFIED, reply.getStatusCode());
     }
 
     @Test
     void addSubjectShouldReturnNoContent() {
+        long id = 1;
         String expected = "Name can not be empty";
-        given(service.addSubject("Foo", "I", "CSE")).willReturn(expected);
+        given(service.addSubject(id)).willReturn(expected);
 
-        ResponseEntity<String> reply = testSubject.addSubject("Foo", "I", "CSE");
+        ResponseEntity<String> reply = testSubject.addSubject(id);
 
         assertEquals(HttpStatus.NO_CONTENT, reply.getStatusCode());
     }

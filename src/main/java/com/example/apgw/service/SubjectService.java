@@ -16,42 +16,46 @@ public class SubjectService {
     private final TeacherRepository teacherRepository;
     private final UserService userService;
     private final SubjectRepository subjectRepository;
+    private final SubjectDetailsService subjectDetailsService;
 
     /**
      * Controller for Subject Service.
-     *
-     * @param teacherRepository Repository for Teacher.
+     *  @param teacherRepository Repository for Teacher.
      * @param userService       Repository for UserService.
      * @param subjectRepository Repository for Subject.
+     * @param subjectDetailsService Repository for SubjectDetails.
      */
     @Autowired
     public SubjectService(TeacherRepository teacherRepository,
                           UserService userService,
-                          SubjectRepository subjectRepository) {
+                          SubjectRepository subjectRepository,
+                          SubjectDetailsService subjectDetailsService) {
         this.teacherRepository = teacherRepository;
         this.userService = userService;
         this.subjectRepository = subjectRepository;
+        this.subjectDetailsService = subjectDetailsService;
     }
 
     /**
      * add subject endpoint. Subject name must be unique for the teacher.
      *
-     * @param name name of subject
+     * @param id id of SubjectDetails.
      * @return String message showing status
      */
-    public String addSubject(String name, String year, String dept) {
+    public String addSubject(Long id) {
         Teacher teacher = teacherRepository.findOne(userService.getEmail());
-        SubjectDetails details = new SubjectDetails(name, year, dept);
-        Subject subject = new Subject(details);
-        Subject subExist = subjectRepository.findByDetails_NameAndTeacher(name, teacher);
-        if (subExist == null && !name.isEmpty()) {
+        SubjectDetails subjectDetails = subjectDetailsService.findOne(id);
+        Subject subject = new Subject(subjectDetails, teacher);
+        Subject subExist = subjectRepository.findByDetails_NameAndTeacher(
+                subjectDetails.getName(),
+                teacher);
+        if (subExist == null && !subjectDetails.getName().isEmpty()) {
             subjectRepository.save(subject);
             return "Subject added";
         } else if (subExist != null) {
             return "Subject already exists";
         } else {
             return "Name cannot be empty";
-
         }
     }
 
