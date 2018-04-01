@@ -20,7 +20,6 @@ public class Subject {
     @GeneratedValue
     private Long id;
     @ManyToOne
-    @JsonBackReference
     private SubjectDetails details;
     @ManyToOne
     @JsonBackReference
@@ -34,7 +33,8 @@ public class Subject {
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private List<Assignment> assignments;
 
-    public Subject(SubjectDetails details) {
+    public Subject(SubjectDetails details, Teacher teacher) {
         this.details = details;
+        this.teacher = teacher;
     }
 }

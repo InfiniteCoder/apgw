@@ -39,7 +39,6 @@ function assignUpload() {
             contentType: false,  // tell jQuery not to set contentType
             success: function (data, textStatus, jqXHR) {
                 var responseMsg = jqXHR.status;
-                //console.log(responseMsg);
                 if (responseMsg === 201) {
                     $("#assignModalMsg").text("Files Uploaded Successfully");
                     $("#assignModal").modal("show");
@@ -54,9 +53,6 @@ function assignUpload() {
                     $("#assignModalMsg").text("Error");
                     $("#assignModal").modal("show");
                 }
-
-                // console.log("success!");
-                // console.log(data);
             },
             error: function (jqXHR) {
                 //console.log(jqXHR.status);
@@ -104,7 +100,6 @@ function studentUpload() {
             // console.log(data);
         },
         error: function (jqXHR) {
-            //console.log(jqXHR.status);
             $("#studModalMessage").text("Error");
             $("#studUploadModal").modal("show");
         }

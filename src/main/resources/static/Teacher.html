@@ -41,24 +41,82 @@
 </div>
 <div>
     <ul class="nav nav-tabs">
-        <li><a href="#tab-1" role="tab" data-toggle="tab" id="tab_sub">Subjects </a></li>
-        <li class="active"><a href="#tab-2" role="tab" data-toggle="tab" style="margin-left:1px;">Add Subjects</a></li>
+        <li class="active"><a href="#tab-1" role="tab" data-toggle="tab" id="tab_sub">Subjects </a></li>
+        <li><a href="#tab-2" role="tab" data-toggle="tab" style="margin-left:1px;" id="addsubtab">Add Subjects</a></li>
     </ul>
     <div class="tab-content" style="margin-top:5px;">
-        <div class="tab-pane" role="tabpanel" style="margin-top:5px;" id="tab-1">
+        <div class="tab-pane active" role="tabpanel" style="margin-top:5px;" id="tab-1">
             <ul class="list-group" id="sub_list">
                 <!-- <li class="list-group-item"><i class="material-icons" style="height:30px;width:30px;float:right;">delete</i></li>-->
             </ul>
+            <div class="table-responsive" style="height:auto;font-size:20px;">
+                <table class="table table-bordered table-condensed">
+                    <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Class</th>
+                        <th>Department</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody id="subTable">
+                    <!--<tr>
+                        <td>Cell 1</td>
+                        <td>Cell 2</td>
+                        <td>Text</td>
+                        <td><i class="material-icons">delete</i></td>
+                    </tr>
+                    <tr>
+                        <td>Cell 3</td>
+                        <td>Cell 4</td>
+                        <td>Text</td>
+                        <td></td>
+                    </tr>-->
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="tab-pane active" role="tabpanel" id="tab-2" style="margin-top:5px;">
+        <!-- <div class="tab-pane active" role="tabpanel" id="tab-2" style="margin-top:5px;">
+             <div style="width:70%;margin-left:15%;margin-right:15%;">
+                 <form style="width:60%;margin-right:20%;margin-left:20%;"><input class="form-control"
+                                                                                  placeholder="Subject Name"
+                                                                                  id="subnametxt">
+                     <button class="btn btn-default" type="button"
+                             style="width:70%;margin-top:5%;margin-right:15%;margin-left:15%;" id="addsubbtn">Add Subject
+                     </button>
+                 </form>
+             </div>
+         </div>
+     </div>
+ </div>-->
+        <div class="tab-pane" role="tabpanel" id="tab-2" style="margin-top:5px;">
             <div style="width:70%;margin-left:15%;margin-right:15%;">
-                <form style="width:60%;margin-right:20%;margin-left:20%;"><input class="form-control"
-                                                                                 placeholder="Subject Name"
-                                                                                 id="subnametxt">
-                    <button class="btn btn-default" type="button"
-                            style="width:70%;margin-top:5%;margin-right:15%;margin-left:15%;" id="addsubbtn">Add Subject
-                    </button>
+                <!--<form style="width:60%;margin-right:20%;margin-left:20%;"><input class="form-control" type="text" placeholder="Subject Name"><button class="btn btn-default" type="button" style="width:70%;margin-top:5%;margin-right:15%;margin-left:15%;font-size:auto;">Add Subject</button></form>-->
+                <form>
+                    <div class="form-group">
+                        <label>Select Department</label>
+                        <select class="form-control" id="selectDept">
+                            <!--<option>Computer Science</option>
+                            <option>Information Technology</option>-->
+                        </select>
+                        <br>
+                        <label>Select Year</label>
+                        <select class="form-control" id="selectYear">
+                            <!--<option>SE</option>
+                            <option>TE</option>
+                            <option>BE</option>-->
+                        </select>
+                        <br>
+                        <label>Select Subject</label>
+                        <select class="form-control" id="selectName">
+                            <!--<option>ABC</option>-->
+                        </select>
+                    </div>
                 </form>
+                <button class="btn btn-default" type="button"
+                        style="width:40%;margin-top:5%;margin-right:30%;margin-left:30%;font-size:auto;"
+                        id="addSubjectBtn">Add
+                </button>
             </div>
         </div>
     </div>
