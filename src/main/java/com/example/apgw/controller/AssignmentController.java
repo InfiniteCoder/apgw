@@ -130,7 +130,6 @@ public class AssignmentController {
     @GetMapping("/api/submissions")
     public ResponseEntity<List<Submission>> submission(
             @RequestParam(name = "id") Long assignmentId) {
-
         List<Submission> list = service.getSubmissions(assignmentId);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
@@ -162,6 +161,6 @@ public class AssignmentController {
     @DeleteMapping(value = "/api/assignment")
     public ResponseEntity<String> deleteAssignment(Long id) {
         service.deleteAssignment(id);
-        return new ResponseEntity<>("deleted assigment", HttpStatus.OK);
+        return new ResponseEntity<>("deleted assignment", HttpStatus.OK);
     }
 }

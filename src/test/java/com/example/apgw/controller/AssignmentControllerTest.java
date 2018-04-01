@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 
+import java.io.IOException;
 import java.security.acl.NotOwnerException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,17 @@ class AssignmentControllerTest {
         subject = new AssignmentController(service);
     }
 
+    @Test
+    void addAssignmentShouldReturnNotModifiedOnIOException() throws Exception {
+        doThrow(new IOException()).when(service).addAssignment(any(), any(), any(), any(), any());
+        MockMultipartFile file = new MockMultipartFile("inputFile",
+                "input.txt",
+                "text/plain",
+                "some text".getBytes());
+        ResponseEntity<String> reply =
+                subject.addAssignment("Foo", "", file, file, file);
+        assertEquals(HttpStatus.NOT_MODIFIED, reply.getStatusCode());
+    }
     @Test
     void addAssignmentShouldReturnCreatedOnSuccess() throws Exception {
         doNothing().when(service).addAssignment(any(), any(), any(), any(), any());
@@ -79,12 +91,28 @@ class AssignmentControllerTest {
     }
 
     @Test
+    void getAssignmentsShouldReturnNotFound() throws NotOwnerException {
+        String name = "Foo";
+        doThrow(new NotOwnerException()).when(service).getAssignments(name);
+        ResponseEntity<List<Assignment>> reply = subject.getAssignments(name);
+        assertEquals(HttpStatus.NOT_FOUND, reply.getStatusCode());
+    }
+
+    @Test
     void getAssignmentsById() throws NotOwnerException {
         List<Assignment> list = new ArrayList<>();
         long id = 1;
         given(service.getAssignmentsById(id)).willReturn(list);
         ResponseEntity<List<Assignment>> reply = subject.getAssignmentsById(id);
         assertEquals(HttpStatus.OK, reply.getStatusCode());
+    }
+
+    @Test
+    void getassignmentsByIdShouldReturnNotFound() throws NotOwnerException {
+        long id = 1;
+        doThrow(new NotOwnerException()).when(service).getAssignmentsById(id);
+        ResponseEntity<List<Assignment>> reply = subject.getAssignmentsById(id);
+        assertEquals(HttpStatus.NOT_FOUND, reply.getStatusCode());
     }
 
     @Test

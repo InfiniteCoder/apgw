@@ -172,8 +172,6 @@ function showSubjects() {
     $.getJSON("/teacher/subjects", function (data) {
         var sublist = "";
         for (var i = 0; i < data.length; i++) {
-            console.log(data[i].id);
-            console.log(data[i].details.name);
             sublist += "<tr><td>" + data[i].details.name + "</td>" +
                 "<td>" + data[i].details.year + "</td><td>" + data[i].details.dept + "</td>" +
                 "<td><i class=\"material-icons\" onclick=\" deleteSubject(this)\" data-sub-id=" + data[i].id + ">delete</i></td>" +

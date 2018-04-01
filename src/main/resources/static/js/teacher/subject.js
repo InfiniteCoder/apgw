@@ -159,14 +159,15 @@ function displayAssignFunc() {
                 var assignid;
                 for (var i = 0; i < data.length; i++) {
                     assignid = data[i].id;
-                    result += "<li class=\"list-group-item\" onclick=\"showSubmission(this)\" data-assign-id=" + assignid + ">" + data[i].title + "</li>";
+                    //result += "<li class=\"list-group-item\" onclick=\"showSubmission(this)\" data-assign-id=" + assignid + ">" + data[i].title + "</li>";
                     //console.log(data[i].title);
                     //console.log(assignid);
+                    result += "<tr><td onclick=\"showSubmission(this)\" data-assign-id=" + assignid + ">" + data[i].title + "</td><td><i class=\"material-icons\" onclick=\" deleteAssign(this)\" data-assign-id=" + assignid + ">delete</i></td></tr>";
                 }
-                var listElement = $("#assignList");
+                var listElement = $("#displayAssignTable");
                 listElement.empty();
                 listElement.append(result);
-                document.getElementById("assignList").style.cursor = "pointer";
+                document.getElementById("displayAssignTable").style.cursor = "pointer";
 
             },
             error: function (jqXHR) {
@@ -175,6 +176,29 @@ function displayAssignFunc() {
 
         }
     );
+}
+
+function deleteAssign(e) {
+    console.log("In delete");
+    var assignId = e.getAttribute("data-assign-id");
+    console.log(assignId);
+    //var formData = new FormData();
+    //formData.append("id", assignId);
+    $.ajax({
+        url: "/api/assignment?id=" + assignId,
+        type: "DELETE",
+
+        success: function (data) {
+            console.log("Success delete");
+            var row = e.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            console.log("Success delete123");
+
+        },
+        error: function (jqXHR) {
+            console.log("Delete fail");
+        }
+    });
 }
 
 function showSubmission(e) {

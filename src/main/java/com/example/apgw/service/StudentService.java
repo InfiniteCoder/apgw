@@ -23,7 +23,7 @@ public class StudentService {
 
 
     /**
-     * Create new Student. Pass the userPrincipal object to constructor
+     * Create new Student.
      *
      * @return Student object
      */
