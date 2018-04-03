@@ -12,5 +12,5 @@ public interface SubjectDetailsRepository extends JpaRepository<SubjectDetails, 
 
     List<SubjectDetails> findAllByDeptOrderByYearAsc(String dept);
 
-    List<SubjectDetails> findAllByDeptAndYearOrderByNameAsc(String dept, String Year);
+    List<SubjectDetails> findAllByDeptAndYearOrderByNameAsc(String dept, String year);
 }

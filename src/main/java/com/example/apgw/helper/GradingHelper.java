@@ -42,7 +42,7 @@ public class GradingHelper {
         }
 
         //run docker
-        String dockerCommand = "";
+        String dockerCommand;
         String type = fileStorageHelper.getCodeType(submission);
         switch (type) {
             case "c":
@@ -51,10 +51,12 @@ public class GradingHelper {
                 break;
             case "cpp":
                 dockerCommand = "docker run -e CodeFileExt="
-                        + fileStorageHelper.getExtention(submission)
+                        + fileStorageHelper.getExtension(submission)
                         + " --rm -v "
                         + tempPath + "/:/home/files/ -w /home/files gcc:7.3 ./cpp-script.sh";
                 break;
+            default:
+                dockerCommand = "";
         }
         Process process = Runtime.getRuntime().exec(dockerCommand);
         process.waitFor();
