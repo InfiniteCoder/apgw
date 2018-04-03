@@ -32,10 +32,11 @@ public class GradingHelper {
                                Path tempPath)
             throws IOException, InterruptedException, URISyntaxException {
         FileStorageHelper fileStorageHelper = new FileStorageHelper(basedir);
+        FileCopyHelper fileCopyHelper = new FileCopyHelper(basedir);
 
         //copy files
         try {
-            fileStorageHelper.copyFiles(submission, assignment, tempPath);
+            fileCopyHelper.copyFiles(submission, assignment, tempPath);
         } catch (URISyntaxException e) {
             e.printStackTrace();
             throw e;
@@ -43,7 +44,7 @@ public class GradingHelper {
 
         //run docker
         String dockerCommand;
-        String type = fileStorageHelper.getCodeType(submission);
+        String type = fileCopyHelper.getCodeType(submission);
         switch (type) {
             case "c":
                 dockerCommand = "docker run --rm -v "
