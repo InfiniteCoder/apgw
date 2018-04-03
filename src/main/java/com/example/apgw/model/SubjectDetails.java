@@ -18,6 +18,13 @@ public class SubjectDetails {
     private String dept;
     private String year;
 
+    /**
+     * Constructor for SubjectDetails.
+     *
+     * @param name name of subject.
+     * @param dept name of dept.
+     * @param year year of subject.
+     */
     public SubjectDetails(String name, String dept, String year) {
         this.name = name;
         this.dept = dept;

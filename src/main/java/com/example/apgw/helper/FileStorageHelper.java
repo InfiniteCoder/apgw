@@ -21,6 +21,11 @@ public class FileStorageHelper {
 
     private String basedir;
 
+    /**
+     * Constructor for FileStorageHelper.
+     *
+     * @param basedir base directory where files are stored.
+     */
     public FileStorageHelper(String basedir) {
         this.basedir = basedir;
     }
@@ -94,13 +99,16 @@ public class FileStorageHelper {
 
         //check type and copy appropriate script
         String type = getCodeType(submission);
-        String scriptName = "";
+        String scriptName;
         switch (type) {
             case "c":
                 scriptName = "c-script.sh";
                 break;
             case "cpp":
                 scriptName = "cpp-script.sh";
+                break;
+            default:
+                scriptName = "";
                 break;
         }
 
@@ -113,6 +121,13 @@ public class FileStorageHelper {
         }
     }
 
+    /**
+     * Stores submission files to disk.
+     *
+     * @param submission submission to be stored.
+     * @param file       File to be stored.
+     * @throws IOException If error occurs on storage.
+     */
     public void storeSubmissionFiles(Submission submission, MultipartFile file)
             throws IOException {
         //set path
@@ -164,7 +179,13 @@ public class FileStorageHelper {
         FileUtils.cleanDirectory(tempPath.toFile());
     }
 
-    public String getExtention(Submission submission) {
+    /**
+     * Get extension of a submitted code.
+     *
+     * @param submission submission to be checked.
+     * @return Extension of a code.
+     */
+    public String getExtension(Submission submission) {
         File codeDir = new File(basedir + "/apgw/submission/" + submission.getId());
         File codeFile = Objects.requireNonNull(codeDir.listFiles())[0];
         return FilenameUtils.getExtension(codeFile.getName());
