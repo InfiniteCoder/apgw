@@ -19,6 +19,11 @@ public class FileCopyHelper {
 
     private String basedir;
 
+    /**
+     * Constructor for FileCopyHelper.
+     *
+     * @param basedir base directory where files are stored.
+     */
     public FileCopyHelper(String basedir) {
         this.basedir = basedir;
     }
@@ -51,7 +56,9 @@ public class FileCopyHelper {
      * @throws IOException        if I/O fails.
      * @throws URISyntaxException if URI is incorrect.
      */
-    private void copyScriptToTemp(Submission submission, Path path) throws IOException, URISyntaxException {
+    private void copyScriptToTemp(Submission submission,
+                                  Path path)
+            throws IOException, URISyntaxException {
         String type = getCodeType(submission);
         String scriptName;
         switch (type) {
@@ -83,7 +90,10 @@ public class FileCopyHelper {
      * @param path       path where files are stored.
      * @throws IOException If I/O fails.
      */
-    private void copyFilesToTemp(Submission submission, Assignment assignment, Path path) throws IOException {
+    private void copyFilesToTemp(Submission submission,
+                                 Assignment assignment,
+                                 Path path)
+            throws IOException {
         Path submissionDirectory = Paths.get(basedir + "/apgw/submission/" + submission.getId());
         Optional<Path> submissionPath = Files.list(submissionDirectory).findFirst();
         Path inputPath = Paths.get(basedir + "/apgw/assi/" + assignment.getId() + "/input");
