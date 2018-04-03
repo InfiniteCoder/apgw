@@ -4,7 +4,7 @@ function showSubjects() {
         var subid;
         for (var i = 0; i < data.length; i++) {
             subid = data[i].id;
-            sublist += "<li class=\"list-group-item\" onclick=\"showAssign(this)\" data-sub-id=" + subid + ">" + data[i].name + "</li>";
+            sublist += "<li class=\"list-group-item\" onclick=\"showAssign(this)\" data-sub-id=" + subid + ">" + data[i].details.name + "</li>";
             //console.log(data[i].name);
             //console.log(subid);
             //id[i] = data[i].id;

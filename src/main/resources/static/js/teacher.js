@@ -16,15 +16,15 @@ function getdept() {
 
     $.getJSON("/api/dept", function (data) {
         var deptlistarray = [];
-        for (var i = 0; i < data.length; i++) {
-            deptlistarray.push(data[i].dept);
+        for (var k = 0; k < data.length; k++) {
+            deptlistarray.push(data[k].dept);
         }
 
         Array.prototype.unique = function () {
             var arr = [];
-            for (var i = 0; i < this.length; i++) {
-                if (!arr.includes(this[i])) {
-                    arr.push(this[i]);
+            for (var j = 0; j < this.length; j++) {
+                if (!arr.includes(this[j])) {
+                    arr.push(this[j]);
                 }
             }
             return arr;
@@ -60,15 +60,15 @@ function getyear() {
             //dataType: "json",
             success: function (data) {
                 var yearlistarray = [];
-                for (var i = 0; i < data.length; i++) {
-                    yearlistarray.push(data[i].year);
+                for (var k = 0; k < data.length; k++) {
+                    yearlistarray.push(data[k].year);
                 }
 
                 Array.prototype.unique = function () {
                     var arr = [];
-                    for (var i = 0; i < this.length; i++) {
-                        if (!arr.includes(this[i])) {
-                            arr.push(this[i]);
+                    for (var j = 0; j < this.length; j++) {
+                        if (!arr.includes(this[j])) {
+                            arr.push(this[j]);
                         }
                     }
                     return arr;
@@ -78,7 +78,6 @@ function getyear() {
                 var yearlist = "<option>Select</option>";
                 for (var i = 0; i < uniqueyear.length; i++) {
                     var a = i + 1;
-                    //console.log(uniquedept[i]);
                     yearlist += "<option value=" + a + ">" + uniqueyear[i] + "</option>";
 
                 }
@@ -89,7 +88,6 @@ function getyear() {
 
             },
             error: function (jqXHR) {
-                //console.log(jqXHR);
             }
 
         }
@@ -172,8 +170,10 @@ function showSubjects() {
     $.getJSON("/teacher/subjects", function (data) {
         var sublist = "";
         for (var i = 0; i < data.length; i++) {
-            sublist += "<tr><td>" + data[i].details.name + "</td>" +
-                "<td>" + data[i].details.year + "</td><td>" + data[i].details.dept + "</td>" +
+            sublist += "<tr>" +
+                "<td onclick=\"nextPage(this)\" data-subj-id=" + data[i].id + ">" + data[i].details.name + "</td>" +
+                "<td>" + data[i].details.year + "</td>" +
+                "<td>" + data[i].details.dept + "</td>" +
                 "<td><i class=\"material-icons\" onclick=\" deleteSubject(this)\" data-sub-id=" + data[i].id + ">delete</i></td>" +
                 "</tr>";
         }
@@ -182,6 +182,14 @@ function showSubjects() {
         listElement.append(sublist);
         document.getElementById("subTable").style.cursor = "pointer";
     });
+}
+
+function nextPage(e) {
+    var subName = e.innerHTML;
+
+    var subId = e.getAttribute("data-subj-id");
+    console.log(subName, subId);
+    window.location = "Teacher/Subject.html" + "?id=" + subId + "&name=" + subName;
 }
 
 function deleteSubject(e) {

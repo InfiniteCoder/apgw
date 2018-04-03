@@ -40,7 +40,7 @@ function assignUpload() {
             success: function (data, textStatus, jqXHR) {
                 var responseMsg = jqXHR.status;
                 if (responseMsg === 201) {
-                    $("#assignModalMsg").text("Files Uploaded Successfully");
+                    $("#assignModalMsg").text("Assignments Uploaded Successfully");
                     $("#assignModal").modal("show");
 
                 }
@@ -136,7 +136,7 @@ function displayStudent() {
     );
 }
 
-function addTestCases() {
+/*function addTestCases() {
     //console.log("add test cases");
     var result = "<li class=\"list-group-item\" style=\"height:45px;\">" +
         "<div class=\"col-md-12\" style=\"width:50%;height:auto;\"><input type=\"file\" style=\"color:rgb(249,244,244);height:28px;\" id=\"assignInputFile\"></div>" +
@@ -144,7 +144,7 @@ function addTestCases() {
         "</li>";
     var elementId = $("#addTestCase");
     elementId.append(result);
-}
+}*/
 
 function displayAssignFunc() {
     $.ajax(
@@ -182,21 +182,15 @@ function deleteAssign(e) {
     console.log("In delete");
     var assignId = e.getAttribute("data-assign-id");
     console.log(assignId);
-    //var formData = new FormData();
-    //formData.append("id", assignId);
     $.ajax({
         url: "/api/assignment?id=" + assignId,
         type: "DELETE",
 
         success: function (data) {
-            console.log("Success delete");
             var row = e.parentNode.parentNode;
             row.parentNode.removeChild(row);
-            console.log("Success delete123");
-
         },
         error: function (jqXHR) {
-            console.log("Delete fail");
         }
     });
 }
@@ -205,15 +199,13 @@ function showSubmission(e) {
     var assignName = e.innerHTML;
     Cookies.set('assignName', assignName, {path: '/'});
     var assignId = e.getAttribute("data-assign-id");
-    //console.log(assignId);
-    //console.log(subName);
     var subId = getUrlParameter("id");
     window.location = "Submission.html" + "?id=" + assignId + "&sid=" + subId;
 
 }
 window.onload = function () {
-    hideLogin();
-    document.getElementById("addFiles").style.cursor = "pointer";
+    //hideLogin();
+    //document.getElementById("addFiles").style.cursor = "pointer";
     $("#subName").text(getUrlParameter("name"));
 
     var studentUploadBtn = document.getElementById("studentUploadBtn");
@@ -225,8 +217,8 @@ window.onload = function () {
     var assignmentUploadBtn = document.getElementById("assignUploadBtn");
     assignmentUploadBtn.addEventListener("click", assignUpload);
 
-    var addTestCasesBtn = document.getElementById("addFiles");
-    addTestCasesBtn.addEventListener("click", addTestCases);
+    //var addTestCasesBtn = document.getElementById("addFiles");
+    //addTestCasesBtn.addEventListener("click", addTestCases);
 
     var displayAssignBtn = document.getElementById("displayAssign");
     displayAssignBtn.addEventListener("click", displayAssignFunc)

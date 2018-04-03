@@ -24,34 +24,33 @@ function displaySubFunc() {
             //dataType: "json",
             success: function (data) {
                 var result = "";
+                var cnt = 0;
                 var sid = getUrlParameter("sid");
-                //console.log(sid);
                 for (var i = 0; i < data.length; i++) {
                     var subuid;
                     for (var j = 0; j < data[i].student.subjects.length; j++) {
                         var temp = data[i].student.subjects[j].subjectId;
-                        //console.log(temp);
 
                         if (temp == sid) {
                             subuid = data[i].student.subjects[j].uid;
+                            cnt++;
                         }
-                        //subuid = data[i].student.subjects[j].uid;
-                        //console.log(subuid);
                     }
-                    result += "<li class=\"list-group-item\"><span>" + subuid + "</span> - " + data[i].student.name + "</li>";
-                    //console.log(data[i].marks);
-                    //console.log(data[i].student.subjects[0].uid);
-                    //var sub = data[i].student;
-
+                    //result += "<li class=\"list-group-item\"><span>" + subuid + "</span> - " + data[i].student.name + "</li>";
+                    result += "<tr>" +
+                        "<td>" + subuid + "</td>" +
+                        "<td>" + data[i].student.name + "</td>" +
+                        "<td>" + data[i].marks + "</td>" +
+                        "</tr>";
                 }
-                var listElement = $("#subList");
+                var listElement = $("#submissionTable");
                 listElement.empty();
                 listElement.append(result);
-                //document.getElementById("assignList").style.cursor = "pointer";
+                $("#totalSubmissions").text(cnt);
+
 
             },
             error: function (jqXHR) {
-                //console.log(jqXHR);
             }
 
         }
@@ -66,25 +65,28 @@ function gradeAssign() {
             url: "/api/grade",
             type: "POST",
             data: {id: getUrlParameter("id")},
-            success: function (data) {
-                console.log("graded success");
+            success: function (data, textStatus, jqXHR) {
+                var responseMsg = jqXHR.status;
+                if (responseMsg === 201) {
+                    $("#modalMessage").text("Assignments Graded Successfully");
+                    $("#successModal").modal("show");
+
+                }
+                displaySubFunc();
             },
             error: function (jqXHR) {
-                console.log("error");
+                $("#modalMessage").text("Error");
+                $("#successModal").modal("show");
+
             }
         }
     );
-
 }
 
 window.onload = function () {
     hideLogin();
-    //$("#subName").text(getUrlParameter("name"));
     var assignName = Cookies.get('assignName');
     $("#assignName").text(assignName);
-    //var aid = getUrlParameter("id");
-    //console.log(aid);
-
     displaySubFunc();
 
     var gradingBtn = document.getElementById("gradeBtn");

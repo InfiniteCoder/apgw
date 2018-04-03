@@ -45,11 +45,49 @@
     <li class="list-group-item"><span>List Group Item 2</span></li>
     <li class="list-group-item"><span>List Group Item 3</span></li>-->
 </ul>
-<p style="height:30px;font-size:20px;margin-top:15px;">Total Submissions:-</p>
+<div class="table-responsive" style="height:auto;font-size:20px;">
+    <table class="table table-bordered table-hover table-condensed">
+        <thead>
+        <tr>
+            <th style="text-align: center; vertical-align: middle;">Id</th>
+            <th style="text-align: center; vertical-align: middle;">Student Name</th>
+            <th style="text-align: center; vertical-align: middle;">Marks</th>
+        </tr>
+        </thead>
+        <tbody id="submissionTable" style="text-align: center; vertical-align: middle;">
+        <!--<tr>
+            <td>Cell 1</td>
+            <td>Cell 2</td>
+            <td>Text</td>
+        </tr>
+        <tr>
+            <td>Cell 3</td>
+            <td>Cell 4</td>
+            <td>Text</td>
+        </tr>-->
+        </tbody>
+    </table>
+</div>
+<p style="height:30px;font-size:20px;margin-top:15px;">Total Submissions:- <var id="totalSubmissions"></var></p>
 <button class="btn btn-default" type="button"
         style="margin-top:15px;width:26%;font-size:20px;height:50px;margin-right:37%;margin-left:37%;" id="gradeBtn">
     Grade
 </button>
+
+<div class="modal fade" role="dialog" tabindex="-1" id="successModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p id="modalMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="footer-basic" style="margin-top:20%;">
     <footer>
         <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i
