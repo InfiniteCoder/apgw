@@ -49,7 +49,6 @@ function getyear() {
 
     var e1 = document.getElementById("selectDept");
     var str1 = e1.options[e1.selectedIndex].text;
-    console.log(str1);
     $.ajax(
         {
             url: "/api/year",
