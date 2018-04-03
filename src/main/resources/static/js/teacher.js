@@ -12,6 +12,16 @@ function addSubject() {
 
 }
 
+function getUnique() {
+    var arr = [];
+    for (var j = 0; j < this.length; j++) {
+        if (!arr.includes(this[j])) {
+            arr.push(this[j]);
+        }
+    }
+    return arr;
+}
+
 function getdept() {
 
     $.getJSON("/api/dept", function (data) {
@@ -20,15 +30,7 @@ function getdept() {
             deptlistarray.push(data[k].dept);
         }
 
-        Array.prototype.unique = function () {
-            var arr = [];
-            for (var j = 0; j < this.length; j++) {
-                if (!arr.includes(this[j])) {
-                    arr.push(this[j]);
-                }
-            }
-            return arr;
-        };
+        Array.prototype.unique = getUnique;
 
         var uniquedept = deptlistarray.unique();
         var deptlist = "<option>Select</option>";
@@ -45,6 +47,26 @@ function getdept() {
 
 }
 
+function updateYear(data) {
+    var yearlistarray = [];
+    for (var k = 0; k < data.length; k++) {
+        yearlistarray.push(data[k].year);
+    }
+
+    Array.prototype.unique = getUnique;
+
+    var uniqueyear = yearlistarray.unique();
+    var yearlist = "<option>Select</option>";
+    for (var i = 0; i < uniqueyear.length; i++) {
+        var a = i + 1;
+        yearlist += "<option value=" + a + ">" + uniqueyear[i] + "</option>";
+
+    }
+    var listElement = $("#selectYear");
+    listElement.empty();
+    listElement.append(yearlist);
+}
+
 function getyear() {
 
     var e1 = document.getElementById("selectDept");
@@ -55,33 +77,7 @@ function getyear() {
             type: "GET",
             data: {dept: str1},
             success: function (data) {
-                var yearlistarray = [];
-                for (var k = 0; k < data.length; k++) {
-                    yearlistarray.push(data[k].year);
-                }
-
-                Array.prototype.unique = function () {
-                    var arr = [];
-                    for (var j = 0; j < this.length; j++) {
-                        if (!arr.includes(this[j])) {
-                            arr.push(this[j]);
-                        }
-                    }
-                    return arr;
-                };
-
-                var uniqueyear = yearlistarray.unique();
-                var yearlist = "<option>Select</option>";
-                for (var i = 0; i < uniqueyear.length; i++) {
-                    var a = i + 1;
-                    yearlist += "<option value=" + a + ">" + uniqueyear[i] + "</option>";
-
-                }
-                var listElement = $("#selectYear");
-                listElement.empty();
-                listElement.append(yearlist);
-
-
+                updateYear(data);
             },
             error: function (jqXHR) {
             }
@@ -119,6 +115,24 @@ function getname() {
     );
 }
 
+function updateSubject(jqXHR) {
+    var responseMsg = jqXHR.status;
+    if (responseMsg === 201) {
+        $("#modalMessage").text("Subject added");
+        $("#successModal").modal("show");
+
+    }
+    else if (responseMsg === 304) {
+        $("#modalMessage").text("Subject Already exists");
+        $("#successModal").modal("show");
+
+    }
+    else if (responseMsg === 204) {
+        $("#modalMessage").text("Error");
+        $("#successModal").modal("show");
+    }
+}
+
 function addSub() {
 
     var e3 = document.getElementById("selectName");
@@ -131,21 +145,7 @@ function addSub() {
             type: "POST",
             data: {id: str3},
             success: function (data, textStatus, jqXHR) {
-                var responseMsg = jqXHR.status;
-                if (responseMsg === 201) {
-                    $("#modalMessage").text("Subject added");
-                    $("#successModal").modal("show");
-
-                }
-                else if (responseMsg === 304) {
-                    $("#modalMessage").text("Subject Already exists");
-                    $("#successModal").modal("show");
-
-                }
-                else if (responseMsg === 204) {
-                    $("#modalMessage").text("Error");
-                    $("#successModal").modal("show");
-                }
+                updateSubject(jqXHR);
             },
             error: function (jqXHR) {
                 $("#modalMessage").text("Error");
