@@ -79,7 +79,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>RELEASE</version>
+            <version>5.1.0</version>
         </dependency>
 
         <!-- hot swapping, disable cache for template, enable live reload -->
