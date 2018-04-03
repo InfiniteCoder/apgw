@@ -108,6 +108,7 @@ public class FileCopyHelper {
     }
 
     /**
+     * Create directories required for a path.
      * @param path path for which directories are to be created.
      * @throws FileSystemException If creating directory fails.
      */
