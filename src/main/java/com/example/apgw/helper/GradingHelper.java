@@ -43,6 +43,39 @@ public class GradingHelper {
         }
 
         //run docker
+        String line = runDocker(submission, tempPath, fileStorageHelper, fileCopyHelper);
+
+        //calculate marks
+        int marks = 0;
+        try {
+            marks = Integer.parseInt(line);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //update marks
+        submission.setMarks(marks);
+
+        //delete files from temp
+        fileStorageHelper.deleteTemp(tempPath);
+    }
+
+    /**
+     * Run docker containers to grade assignments.
+     *
+     * @param submission        Submission to grade.
+     * @param tempPath          Path where temporary files are stored.
+     * @param fileStorageHelper Instance of fileStorageHelper class.
+     * @param fileCopyHelper    Instance of fileCopyHelper class.
+     * @return marks scored.
+     * @throws IOException          If I/O fails.
+     * @throws InterruptedException If process is interrupted.
+     */
+    private String runDocker(Submission submission,
+                             Path tempPath,
+                             FileStorageHelper fileStorageHelper,
+                             FileCopyHelper fileCopyHelper)
+            throws IOException, InterruptedException {
         String dockerCommand;
         String type = fileCopyHelper.getCodeType(submission);
         switch (type) {
@@ -62,18 +95,6 @@ public class GradingHelper {
         Process process = Runtime.getRuntime().exec(dockerCommand);
         process.waitFor();
         InputStreamReader isReader = new InputStreamReader(process.getInputStream());
-        String line = new BufferedReader(isReader).readLine();
-        int marks = 0;
-        try {
-            marks = Integer.parseInt(line);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        //update marks
-        submission.setMarks(marks);
-
-        //delete files from temp
-        fileStorageHelper.deleteTemp(tempPath);
+        return new BufferedReader(isReader).readLine();
     }
 }
