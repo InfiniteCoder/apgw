@@ -1,19 +1,3 @@
-//function to get url parameter
-var getUrlParameter = function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split("&"),
-        sParameterName,
-        i;
-
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split("=");
-
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
-};
-
 function assignUpload() {
     var subName = getUrlParameter("name");
 
@@ -108,8 +92,6 @@ function studentUpload() {
 }
 
 function displayStudent() {
-    //var formdata = new FormData();
-    //formdata.append("subjectName",getUrlParameter("name"));
     $.ajax(
         {
             url: "/api/getStudents",
@@ -159,9 +141,6 @@ function displayAssignFunc() {
                 var assignid;
                 for (var i = 0; i < data.length; i++) {
                     assignid = data[i].id;
-                    //result += "<li class=\"list-group-item\" onclick=\"showSubmission(this)\" data-assign-id=" + assignid + ">" + data[i].title + "</li>";
-                    //console.log(data[i].title);
-                    //console.log(assignid);
                     result += "<tr><td onclick=\"showSubmission(this)\" data-assign-id=" + assignid + ">" + data[i].title + "</td><td><i class=\"material-icons\" onclick=\" deleteAssign(this)\" data-assign-id=" + assignid + ">delete</i></td></tr>";
                 }
                 var listElement = $("#displayAssignTable");
@@ -186,7 +165,7 @@ function deleteAssign(e) {
         url: "/api/assignment?id=" + assignId,
         type: "DELETE",
 
-        success: function (data) {
+        success: function () {
             var row = e.parentNode.parentNode;
             row.parentNode.removeChild(row);
         },
@@ -204,7 +183,6 @@ function showSubmission(e) {
 
 }
 window.onload = function () {
-    //hideLogin();
     //document.getElementById("addFiles").style.cursor = "pointer";
     $("#subName").text(getUrlParameter("name"));
 

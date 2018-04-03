@@ -1,18 +1,3 @@
-var getUrlParameter = function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split("&"),
-        sParameterName,
-        i;
-
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split("=");
-
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
-};
-
 function subUploadFunc() {
     var file = document.getElementById("subFile").files[0];
 
@@ -30,9 +15,6 @@ function subUploadFunc() {
         contentType: false,  // tell jQuery not to set contentType
         success: function (data, textStatus, jqXHR) {
             var responseMsg = jqXHR.status;
-            var msg = textStatus;
-            console.log(msg);
-            console.log(responseMsg);
             if (responseMsg === 201) {
                 $("#modalMessage").text("Assignment Submitted");
                 $("#successModal").modal("show");
@@ -58,18 +40,6 @@ function subUploadFunc() {
 }
 
 function displayQuestion() {
-    /*var file = new XMLHttpRequest();
-    file.open("GET", "/api/questionFile", true);
-    file.onreadystatechange = function() {
-        if (file.readyState === 4) {  // Makes sure the document is ready to parse
-            if (file.status === 200) {  // Makes sure it's found the file
-                text = file.responseText;
-
-
-                document.getElementById("questionFile").innerHTML = text;
-            }
-        }
-    }*/
     $(document).ready(function () {
         $.ajax({
             url: "/api/questionFile",
@@ -92,7 +62,5 @@ window.onload = function ()
 
     var submissionUploadBtn = document.getElementById("subUploadBtn");
     submissionUploadBtn.addEventListener("click", subUploadFunc);
-
-    // displayQuestion();
 
 };

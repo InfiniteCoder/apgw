@@ -34,7 +34,6 @@ function getdept() {
         var deptlist = "<option>Select</option>";
         for (var i = 0; i < uniquedept.length; i++) {
             var a = i + 1;
-            //console.log(uniquedept[i]);
             deptlist += "<option value=" + a + ">" + uniquedept[i] + "</option>";
 
         }
@@ -56,8 +55,6 @@ function getyear() {
             url: "/api/year",
             type: "GET",
             data: {dept: str1},
-            //contentType: "application/json;charset=utf-8",
-            //dataType: "json",
             success: function (data) {
                 var yearlistarray = [];
                 for (var k = 0; k < data.length; k++) {
@@ -107,8 +104,6 @@ function getname() {
             success: function (data) {
                 var namelist = "<option>Select</option>";
                 for (var i = 0; i < data.length; i++) {
-                    console.log("in name");
-                    console.log(data[i].id);
                     namelist += "<option value=" + data[i].id + ">" + data[i].name + "</option>";
 
                 }
@@ -119,7 +114,6 @@ function getname() {
 
             },
             error: function (jqXHR) {
-                console.log(jqXHR);
             }
 
         }
@@ -137,8 +131,6 @@ function addSub() {
             url: "/addSubject",
             type: "POST",
             data: {id: str3},
-            //processData: false,
-            //contentType: false,
             success: function (data, textStatus, jqXHR) {
                 var responseMsg = jqXHR.status;
                 if (responseMsg === 201) {
@@ -163,7 +155,7 @@ function addSub() {
             }
 
         }
-    )
+    );
 }
 
 function showSubjects() {
@@ -188,14 +180,11 @@ function nextPage(e) {
     var subName = e.innerHTML;
 
     var subId = e.getAttribute("data-subj-id");
-    console.log(subName, subId);
     window.location = "Teacher/Subject.html" + "?id=" + subId + "&name=" + subName;
 }
 
 function deleteSubject(e) {
-    console.log("In delete");
     var subId = e.getAttribute("data-sub-id");
-    console.log(subId);
     $.ajax({
         url: "/api/subject?id=" + subId,
         type: "DELETE",
@@ -205,7 +194,6 @@ function deleteSubject(e) {
 
         },
         error: function (jqXHR) {
-            console.log("Delete fail");
         }
     });
 

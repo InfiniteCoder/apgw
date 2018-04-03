@@ -1,27 +1,9 @@
-var getUrlParameter = function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split("&"),
-        sParameterName,
-        i;
-
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split("=");
-
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
-};
-
-
 function displaySubFunc() {
     $.ajax(
         {
             url: "/api/submissions",
             type: "GET",
             data: {id: getUrlParameter("id")},
-            //contentType: "application/json;charset=utf-8",
-            //dataType: "json",
             success: function (data) {
                 var result = "";
                 var cnt = 0;
@@ -36,7 +18,6 @@ function displaySubFunc() {
                             cnt++;
                         }
                     }
-                    //result += "<li class=\"list-group-item\"><span>" + subuid + "</span> - " + data[i].student.name + "</li>";
                     result += "<tr>" +
                         "<td>" + subuid + "</td>" +
                         "<td>" + data[i].student.name + "</td>" +
@@ -84,7 +65,6 @@ function gradeAssign() {
 }
 
 window.onload = function () {
-    hideLogin();
     var assignName = Cookies.get('assignName');
     $("#assignName").text(assignName);
     displaySubFunc();
