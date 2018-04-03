@@ -43,7 +43,8 @@ public class SubmissionController {
         } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity<>("I/O Error", HttpStatus.NOT_MODIFIED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_MODIFIED);
         }
-
     }
 }

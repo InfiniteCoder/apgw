@@ -46,7 +46,7 @@ public class SubmissionService {
      * @param file         submitted file.
      */
     public void addSubmission(Long assignmentId, MultipartFile file)
-            throws NotOwnerException, IOException {
+            throws Exception {
         //find Assignment
         Assignment assignment = assignmentRepository.findOne(assignmentId);
 
@@ -56,6 +56,13 @@ public class SubmissionService {
                 .findFirst()
                 .orElseThrow(NotOwnerException::new)
                 .getStudent();
+
+        //check if student has already uploaded
+        boolean firstUpload = assignment.getSubmissions().stream()
+                .noneMatch(submission -> submission.getStudent().equals(student));
+        if (!firstUpload) {
+            throw new Exception("already uploaded assignment");
+        }
 
         //Create submission
         Submission submissionTemp = new Submission(assignment, student);
