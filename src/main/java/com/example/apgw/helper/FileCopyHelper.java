@@ -36,13 +36,21 @@ public class FileCopyHelper {
     public void copyFiles(Submission submission, Assignment assignment, Path path)
             throws IOException, URISyntaxException {
         //create dir if does not exist
-        createDir(path);
+        createDirs(path);
         //copy files to temp
         copyFilesToTemp(submission, assignment, path);
         //check type and copy appropriate script
         copyScriptToTemp(submission, path);
     }
 
+    /**
+     * Copies script file to temp dir.
+     *
+     * @param submission submission whose files are to be copied.
+     * @param path       path where script is stored.
+     * @throws IOException        if I/O fails.
+     * @throws URISyntaxException if URI is incorrect.
+     */
     private void copyScriptToTemp(Submission submission, Path path) throws IOException, URISyntaxException {
         String type = getCodeType(submission);
         String scriptName;
@@ -67,6 +75,14 @@ public class FileCopyHelper {
         }
     }
 
+    /**
+     * copies submission files to temp dir.
+     *
+     * @param submission submission to be copied.
+     * @param assignment assignment to which submission is associated.
+     * @param path       path where files are stored.
+     * @throws IOException If I/O fails.
+     */
     private void copyFilesToTemp(Submission submission, Assignment assignment, Path path) throws IOException {
         Path submissionDirectory = Paths.get(basedir + "/apgw/submission/" + submission.getId());
         Optional<Path> submissionPath = Files.list(submissionDirectory).findFirst();
@@ -81,7 +97,11 @@ public class FileCopyHelper {
         Files.copy(outputPath, path.resolve("output"), REPLACE_EXISTING);
     }
 
-    private void createDir(Path path) throws FileSystemException {
+    /**
+     * @param path path for which directories are to be created.
+     * @throws FileSystemException If creating directory fails.
+     */
+    private void createDirs(Path path) throws FileSystemException {
         if (!path.toFile().exists()) {
             boolean mkdir = path.toFile().mkdirs();
             if (!mkdir) {
