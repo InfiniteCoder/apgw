@@ -198,6 +198,8 @@ function deleteSubject(e) {
 
 }
 window.onload = function () {
+
+    addSubject();
     var btn = document.getElementById("addsubtab");
     btn.addEventListener("click", function () {
         addSubject();

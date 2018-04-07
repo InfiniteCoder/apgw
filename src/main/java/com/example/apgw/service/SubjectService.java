@@ -46,16 +46,13 @@ public class SubjectService {
         Teacher teacher = teacherRepository.findOne(userService.getEmail());
         SubjectDetails subjectDetails = subjectDetailsService.findOne(id);
         Subject subject = new Subject(subjectDetails, teacher);
-        Subject subExist = subjectRepository.findByDetails_NameAndTeacher(
-                subjectDetails.getName(),
-                teacher);
-        if (subExist == null && !subjectDetails.getName().isEmpty()) {
+        Subject subExist = subjectRepository.findByDetails_IdAndTeacher(
+                id, teacher);
+        if (subExist == null) {
             subjectRepository.save(subject);
             return "Subject added";
-        } else if (subExist != null) {
-            return "Subject already exists";
         } else {
-            return "Name cannot be empty";
+            return "Subject already exists";
         }
     }
 
