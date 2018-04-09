@@ -1,56 +1,61 @@
 package com.example.apgw.controller;
 
-import com.example.apgw.model.Subject;
-import com.example.apgw.model.Teacher;
-import com.example.apgw.repository.SubjectRepository;
-import com.example.apgw.repository.TeacherRepository;
-import com.example.apgw.service.UserPrincipal;
+import com.example.apgw.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
+import java.security.acl.NotOwnerException;
 
 @RestController
 public class SubjectController {
 
-    private final SubjectRepository subjectRepository;
-    private final TeacherRepository teacherRepository;
+    private final SubjectService service;
 
     @Autowired
-    public SubjectController(SubjectRepository subjectRepository,
-                             TeacherRepository teacherRepository) {
-        this.subjectRepository = subjectRepository;
-        this.teacherRepository = teacherRepository;
+    public SubjectController(SubjectService service) {
+        this.service = service;
     }
 
     /**
      * add subject endpoint. Subject name must be unique for the teacher.
      *
-     * @param principal Provided by Spring
-     * @param name      name of subject
+     * @param id id of subjectdetails
      * @return String message showing status
      */
     @PostMapping("/addSubject")
     @ResponseBody
-    public ResponseEntity<String> addSubject(Principal principal,
-                                             @RequestParam(name = "name") String name) {
-        UserPrincipal userPrincipal = new UserPrincipal(principal);
-        Teacher teacher = teacherRepository.findOne(userPrincipal.getEmail());
-        Subject subject = new Subject(name, teacher);
-        Subject subExist = subjectRepository.findByNameAndTeacher(name, teacher);
-        if (subExist == null && !name.isEmpty()) {
-            subjectRepository.save(subject);
-            return new ResponseEntity<>("Subject added", HttpStatus.CREATED);
-        } else if (subExist != null) {
-            return new ResponseEntity<>("Subject already exists", HttpStatus.NOT_MODIFIED);
-        } else {
-            return new ResponseEntity<>("Name cannot be empty", HttpStatus.NOT_MODIFIED);
+    public ResponseEntity<String> addSubject(Long id) {
+        String reply = service.addSubject(id);
+        switch (reply) {
+            case "Subject added":
+                return new ResponseEntity<>(reply, HttpStatus.CREATED);
+            case "Subject already exists":
+                return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+            default:
+                return new ResponseEntity<>(reply, HttpStatus.NO_CONTENT);
 
+        }
+    }
+
+    /**
+     * delete a subject.
+     *
+     * @param id id of subject to be deleted.
+     * @return success status.
+     */
+    @DeleteMapping("/api/subject")
+    public ResponseEntity<String> deleteSubject(Long id) {
+        try {
+            service.deleteSubject(id);
+            return new ResponseEntity<>("subject deleted", HttpStatus.OK);
+        } catch (NotOwnerException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("not owner", HttpStatus.NOT_FOUND);
         }
     }
 }

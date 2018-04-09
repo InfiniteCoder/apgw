@@ -12,8 +12,6 @@
     <link rel="stylesheet" href="assets/css/Features-Boxed.css">
     <link rel="stylesheet" href="assets/css/Footer-Basic.css">
     <link rel="stylesheet" href="assets/css/Footer-Dark.css">
-    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
-    <link rel="stylesheet" href="assets/css/Login-Form-Dark.css">
     <link rel="stylesheet" href="assets/css/Navigation-with-Button1.css">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
@@ -50,7 +48,7 @@
             <div class="col-md-4 col-sm-6 item">
                 <div class="box"><i class="fa fa-github icon"></i>
                     <h3 class="name">Open Source</h3>
-                    <p class="description">APGW is llicensed under GNU GPL v3. Anyone can use and modify it.</p>
+                    <p class="description">APGW is licensed under GNU GPL v3. Anyone can use and modify it.</p>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6 item">
@@ -93,8 +91,9 @@
                 <h4 class="modal-title"> Select an option</h4>
             </div>
             <div class="modal-body">
-                <div class="radio"><label><input type="radio" value="teacher">Teacher</label></div>
-                <div class="radio"><label><input type="radio" value="student">Student (Default)</label></div>
+                <div class="radio"><label><input type="radio" name="userType" value="teacher">Teacher</label></div>
+                <div class="radio"><label><input type="radio" name="userType" value="student">Student (Default)</label>
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" type="button" data-dismiss="modal">Submit</button>

@@ -1,4 +1,4 @@
-package com.example.apgw.model;
+package com.example.apgw.helper;
 
 
 import lombok.Data;

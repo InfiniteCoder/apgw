@@ -1,29 +1,57 @@
 package com.example.apgw.service;
 
 import com.example.apgw.model.Student;
+import com.example.apgw.model.StudentSubject;
+import com.example.apgw.model.Subject;
+import com.example.apgw.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
 public class StudentService {
-    private UserPrincipal userPrincipal;
+    private final UserService userService;
+    private final StudentRepository studentRepository;
 
-    /**
-     * StudentService constructor. Used to create user from userPrincipal
-     *
-     * @param userPrincipal UserPrincipal object, created from Principal.
-     * @see java.security.Principal
-     */
-    public StudentService(UserPrincipal userPrincipal) {
-        this.userPrincipal = userPrincipal;
+    @Autowired
+    public StudentService(UserService userService, StudentRepository studentRepository) {
+        this.userService = userService;
+        this.studentRepository = studentRepository;
     }
 
+
     /**
-     * Create new Student. Pass the userPrincipal object to constructor
+     * Create new Student.
      *
      * @return Student object
-     * @see UserPrincipal
      */
     public Student createStudent() {
-        String email = userPrincipal.getEmail();
-        String name = userPrincipal.getName();
-        return new Student(email, name);
+        String email = userService.getEmail();
+        String name = userService.getName();
+        Student student = new Student(email, name);
+        studentRepository.save(student);
+        return student;
     }
+
+    /**
+     * endpoint to get list of subjects of students.
+     *
+     * @return List of Subject class
+     * @see StudentSubject
+     */
+    public List<Subject> getSubjects() {
+        String email = userService.getEmail();
+        Student student = studentRepository.findOne(email);
+        List<StudentSubject> list = student.getSubjects();
+
+        List<Subject> subjects = new ArrayList<>();
+        for (StudentSubject item : list) {
+            subjects.add(item.getSubject());
+        }
+
+        return subjects;
+    }
+
 }

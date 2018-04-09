@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APGW</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
+    <link rel="stylesheet" href="../assets/css/Features-Boxed.css">
+    <link rel="stylesheet" href="../assets/css/Footer-Basic.css">
+    <link rel="stylesheet" href="../assets/css/Footer-Dark.css">
+    <link rel="stylesheet" href="../assets/css/Navigation-with-Button1.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+
+<body>
+<div>
+    <nav class="navbar navbar-default navigation-clean-button">
+        <div class="container">
+            <div class="navbar-header"><a class="navbar-brand" href="#">APGW </a>
+                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span
+                        class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                        class="icon-bar"></span><span class="icon-bar"></span></button>
+            </div>
+            <div
+                    class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav">
+                    <li role="presentation"><a href="#">About </a></li>
+                    <li role="presentation"><a href="#">Source Code</a></li>
+                </ul>
+                <p class="navbar-text navbar-right actions"><a class="btn btn-default action-button" role="button"
+                                                               href="/logout">Logout </a></p>
+            </div>
+        </div>
+    </nav>
+</div>
+<p style="height:30px;font-size:20px;margin-top:15px;">Assignment Title:-<var id="assignName"></var></p>
+<ul class="list-group" style="margin-top:15px;" id="subList">
+    <!--<li class="list-group-item"><span>List Group Item 1</span></li>
+    <li class="list-group-item"><span>List Group Item 2</span></li>
+    <li class="list-group-item"><span>List Group Item 3</span></li>-->
+</ul>
+<div class="table-responsive" style="height:auto;font-size:20px;">
+    <table class="table table-bordered table-hover table-condensed">
+        <thead>
+        <tr>
+            <th style="text-align: center; vertical-align: middle;">Id</th>
+            <th style="text-align: center; vertical-align: middle;">Student Name</th>
+            <th style="text-align: center; vertical-align: middle;">Marks</th>
+        </tr>
+        </thead>
+        <tbody id="submissionTable" style="text-align: center; vertical-align: middle;">
+        <!--<tr>
+            <td>Cell 1</td>
+            <td>Cell 2</td>
+            <td>Text</td>
+        </tr>
+        <tr>
+            <td>Cell 3</td>
+            <td>Cell 4</td>
+            <td>Text</td>
+        </tr>-->
+        </tbody>
+    </table>
+</div>
+<p style="height:30px;font-size:20px;margin-top:15px;">Total Submissions:- <var id="totalSubmissions"></var></p>
+<button class="btn btn-default" type="button"
+        style="margin-top:15px;width:26%;font-size:20px;height:50px;margin-right:37%;margin-left:37%;" id="gradeBtn">
+    Grade
+</button>
+
+<div class="modal fade" role="dialog" tabindex="-1" id="successModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p id="modalMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="footer-basic" style="margin-top:20%;">
+    <footer>
+        <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i
+                class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a
+                href="#"><i class="icon ion-social-facebook"></i></a></div>
+        <ul class="list-inline">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+        </ul>
+        <p class="copyright">APGW © 2018</p>
+    </footer>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="../js/common/navigation.js"></script>
+<script src="../js/teacher/submission.js"></script>
+<script src="../js/teacher/Cookies.src.js"></script>
+</body>
+</html>

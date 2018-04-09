@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
     <link rel="stylesheet" href="../assets/css/Features-Boxed.css">
     <link rel="stylesheet" href="../assets/css/Footer-Basic.css">
     <link rel="stylesheet" href="../assets/css/Footer-Dark.css">
-    <link rel="stylesheet" href="../assets/css/Login-Form-Clean.css">
-    <link rel="stylesheet" href="../assets/css/Login-Form-Dark.css">
     <link rel="stylesheet" href="../assets/css/Navigation-with-Button1.css">
     <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
@@ -33,49 +33,125 @@
                     <li role="presentation"><a href="#">About </a></li>
                     <li role="presentation"><a href="https://github.com/InfiniteCoder/apgw">Source Code</a></li>
                 </ul>
-                <p class="navbar-text navbar-right actions"><a class="btn btn-default action-button"
-                                                               href="#" id="login_btn">Login </a></p>
+                <p class="navbar-text navbar-right actions"><a class="btn btn-default action-button" role="button"
+                                                               href="/logout">Logout </a></p>
             </div>
         </div>
     </nav>
 </div>
+<div style="height:40px;">
+    <h3 style="height:30px;width:800px;margin-left:25px;">Subject: <var id="subName"></var></h3>
+</div>
 <div>
     <ul class="nav nav-tabs">
-        <li><a href="#tab-1" role="tab" data-toggle="tab">Assignments </a></li>
-        <li><a href="#tab-2" role="tab" data-toggle="tab">Students </a></li>
-        <li class="active"><a href="#tab-3" role="tab" data-toggle="tab">Add Assignment</a></li>
+        <li><a href="#tab-1" role="tab" data-toggle="tab" id="displayAssign">Assignments </a></li>
+        <li><a href="#tab-2" role="tab" data-toggle="tab" id="displayStudents">Students </a></li>
+        <li class="active"><a href="#tab-3" role="tab" data-toggle="tab" id="addAssign">Add Assignment</a></li>
         <li><a href="#tab-4" role="tab" data-toggle="tab">Add Students</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="tab-1">
-            <ul class="list-group">
-                <li class="list-group-item"><span>List Group Item 1</span></li>
-                <li class="list-group-item"><span>List Group Item 2</span></li>
-                <li class="list-group-item"><span>List Group Item 3</span></li>
+            <ul class="list-group" id="assignList">
+                <!--<li class="list-group-item"><span>List Group Item 1</span></li>-->
             </ul>
+            <div class="table-responsive" style="font-size:20px">
+                <table class="table table-bordered table-condensed" id="assignTable">
+                    <thead>
+                    <tr>
+                        <th>Assignment Name</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody id="displayAssignTable">
+                    <!--<tr>
+                        <td>Cell 1</td>
+                        <td><i class="material-icons">delete</i></td>
+                    </tr>
+                    <tr>
+                        <td>Cell 3</td>
+                        <td>Cell 4</td>
+                    </tr>-->
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="tab-pane" role="tabpanel" id="tab-2">
-            <ul class="list-group">
-                <li class="list-group-item"><span>List Group Item 1</span></li>
-                <li class="list-group-item"><span>List Group Item 2</span></li>
-                <li class="list-group-item"><span>List Group Item 3</span></li>
+            <ul class="list-group" id="studentList">
+                <!--<li class="list-group-item"><span>List Group Item 1</span></li>-->
             </ul>
         </div>
-        <div class="tab-pane active" role="tabpanel" id="tab-3">
-            <p>Content for tab 3.</p>
-            <form></form>
+        <div class="tab-pane active" role="tabpanel" id="tab-3" style="margin-top:5px;">
+            <form style="margin-top:10px;width:60%;margin-left:20%;"><input class="form-control" type="text"
+                                                                            placeholder="Assignment Title"
+                                                                            id="assignTitle">
+                <div style="margin-top:15px;height:auto;background-color:#222222;color:rgb(252,252,252);width:auto;">
+                    <label style="margin-bottom:10px;font-size:20px;">Select Question File</label><input type="file"
+                                                                                                         multiple=""
+                                                                                                         style="color:rgb(244,239,239);margin-left:0;background-color:#222222;"
+                                                                                                         id="assignQuesFile">
+                    <div class="row" style="margin-top:15px;margin-right:0;margin-left:0;height:auto;width:auto;">
+                        <div class="col-md-6" style="width:50%;"><label style="font-size:20px;width:auto;height:30px;">Select
+                            Input Test Cases File</label></div>
+                        <div class="col-md-6" style="width:50%;"><label style="font-size:20px;width:auto;height:30px;">Select
+                            Expected Output File</label></div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <ul class="list-group" style="margin-top:5px;width:auto;height:auto;" id="addTestCase">
+                        <li class="list-group-item" style="height:45px;">
+                            <div class="col-md-12" style="width:50%;height:auto;"><input type="file"
+                                                                                         style="color:rgb(249,244,244);height:28px;"
+                                                                                         id="assignInputFile"></div>
+                            <div class="col-md-12" style="width:50%;height:auto;"><input type="file"
+                                                                                         style="color:rgb(244,235,235);height:28px;"
+                                                                                         id="assignOutputFile"></div>
+                        </li>
+                        <!--<li class="list-group-item"><span>List Group Item 2</span></li>
+                        <li class="list-group-item"><span>List Group Item 3</span></li>-->
+                    </ul>
+                    <!-- <i class="material-icons" style="width:auto;height:auto;" id="addFiles">add_circle_outline</i>-->
+                </div>
+            </form>
+            <button class="btn btn-default" type="button"
+                    style="width:20%;margin-left:35%;margin-top:25px;font-size:20px;margin-right:45%;"
+                    id="assignUploadBtn">Upload
+            </button>
+            <div class="modal fade" role="dialog" tabindex="-1" id="assignModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <p id="assignModalMsg"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="tab-pane" role="tabpanel" id="tab-4" style="margin-top:5px;">
-            <form style="margin-top:5px;"><input id="fileInput" type="file"
-                                                 style="font-size:20px;margin-top:5px;width:40%;margin-left:30%;color:rgb(242,235,235);">
+            <form style="margin-top:5px;"><input type="file"
+                                                 style="font-size:20px;margin-top:5px;width:40%;margin-left:30%;color:rgb(242,235,235);"
+                                                 id="fileInput">
                 <button class="btn btn-default" type="button"
                         style="font-size:20px;margin-top:10px;width:25%;margin-left:38%;" id="studentUploadBtn">Upload
                 </button>
             </form>
+            <div class="modal fade" role="dialog" tabindex="-1" id="studUploadModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <p id="studModalMessage"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<div style="height:300px;"></div>
+<div style="height:200px;background-color:#222222;"></div>
 <div class="footer-basic">
     <footer>
         <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i
@@ -95,6 +171,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="../js/common/navigation.js"></script>
 <script src="../js/teacher/subject.js"></script>
+<script src="../js/teacher/Cookies.src.js"></script>
 </body>
-
 </html>

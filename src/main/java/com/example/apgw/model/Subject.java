@@ -1,42 +1,40 @@
 package com.example.apgw.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Data;
-import org.hibernate.validator.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Subject {
 
     @Id
     @GeneratedValue
     private Long id;
-    @NotNull
-    @NotBlank
-    private String name;
+    @ManyToOne
+    private SubjectDetails details;
     @ManyToOne
     @JsonBackReference
     private Teacher teacher;
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "subject")
+    @JsonManagedReference
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private List<StudentSubject> students;
     @OneToMany(mappedBy = "subject")
+    @JsonManagedReference
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private List<Assignment> assignments;
 
-    /**
-     * Constructor for subject.
-     *
-     * @param name    Name of subject
-     * @param teacher Object of teacher to whom the subject belongs
-     */
-    public Subject(String name, Teacher teacher) {
-        this.name = name;
+    public Subject(SubjectDetails details, Teacher teacher) {
+        this.details = details;
         this.teacher = teacher;
-    }
-
-    private Subject() {
     }
 }

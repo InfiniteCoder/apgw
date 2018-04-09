@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APGW</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
+    <link rel="stylesheet" href="../assets/css/Features-Boxed.css">
+    <link rel="stylesheet" href="../assets/css/Footer-Basic.css">
+    <link rel="stylesheet" href="../assets/css/Footer-Dark.css">
+    <link rel="stylesheet" href="../assets/css/Navigation-with-Button1.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+
+<body>
+<div>
+    <nav class="navbar navbar-default navigation-clean-button">
+        <div class="container">
+            <div class="navbar-header"><a class="navbar-brand" href="#">APGW </a>
+                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span
+                        class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                        class="icon-bar"></span><span class="icon-bar"></span></button>
+            </div>
+            <div
+                    class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav">
+                    <li role="presentation"><a href="#">About </a></li>
+                    <li role="presentation"><a href="https://github.com/InfiniteCoder/apgw">Source Code</a></li>
+                </ul>
+                <p class="navbar-text navbar-right actions"><a class="btn btn-default action-button" role="button"
+                                                               href="/logout">Logout</a></p>
+            </div>
+        </div>
+    </nav>
+</div>
+<div style="width:800px;margin-top:5px;">
+    <div class="container" style="width:800px;">
+        <div class="row" style="height:40px;">
+            <div class="col-md-6" style="width:400px;height:50px;">
+                <p style="margin-bottom:0;height:40px;width:400px;margin-top:5px;font-size:20px;">Subject:- <var
+                        id="subName"></var></p>
+            </div>
+            <div class="col-md-6" style="width:400px;height:50px;">
+                <p style="margin-bottom:0;height:40px;width:400px;margin-top:5px;font-size:20px;">Teacher:- </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab-1" role="tab" data-toggle="tab" style="height:50px;width:120px;"
+                              id="displayAssign">Assignments </a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" role="tabpanel" id="tab-1" style="height:auto;">
+            <ul class="list-group" id="assignList">
+
+                <!--<li class="list-group-item" style="height:50px;"><span>List Group Item 1</span></li>-->
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div style="height:200px;"></div>
+<div class="footer-basic">
+    <footer>
+        <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i
+                class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a
+                href="#"><i class="icon ion-social-facebook"></i></a></div>
+        <ul class="list-inline">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+        </ul>
+        <p class="copyright">APGW © 2018</p>
+    </footer>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="../js/student/assign.js"></script>
+<script src="../js/common/navigation.js"></script>
+
+</body>
+
+</html>
